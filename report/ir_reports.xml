@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="action_report_student_id" model="ir.actions.report">
+            <field name="name">Generate Student ID</field>
+            <field name="model">sis.enrollment</field>
+            <field name="report_name">obbs_sis.student_id_report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="binding_model_id" ref="obbs_sis.model_sis_enrollment" />
+            <field name="groups_id"
+                eval="[(4, ref('obbs_sis.group_sis_admin')), (4, ref('obbs_sis.group_sis_registrar'))]" />
+            <field name="print_report_name">'Student ID - %s %s' % (object.first_name or '',
+                object.last_name or '')</field>
+            <field name="paperformat_id" ref="obbs_sis.paperformat_a4_landscape_custom" />
+        </record>
+
+        <record id="action_report_student_report_card" model="ir.actions.report">
+            <field name="name">Student Report Card</field>
+            <field name="model">sis.enrollment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">obbs_sis.report_card_template</field>
+            <field name="binding_model_id" ref="obbs_sis.model_sis_enrollment" />
+            <field name="paperformat_id" ref="obbs_sis.paperformat_a4_landscape_custom" />
+            <field name="print_report_name">'Report Card - %s' % (object.full_name or '')</field>
+        </record>
+
+    </data>
+</odoo>

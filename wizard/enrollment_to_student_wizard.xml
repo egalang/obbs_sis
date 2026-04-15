@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_sis_add_enrollees_wizard_form" model="ir.ui.view">
+            <field name="name">sis.add.enrollees.wizard.form</field>
+            <field name="model">sis.add.enrollees.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Add Students">
+                    <group>
+                        <!-- Readonly section and grade_level, prefilled by context -->
+                        <group>
+                            <field name="section_id" readonly="1" />
+                        </group>
+                        <group>
+                            <field name="grade_level_id" readonly="1" />
+                        </group>
+                        <field name="enrollment_ids"
+                            domain="[('enrollment_status', '=', 'accepted'),('section_id', '!=', section_id),('grade_level_id', '=', grade_level_id)]"
+                            options="{'no_label': True}" />
+                    </group>
+                    <footer>
+                        <button string="Assign" type="object" name="action_assign_enrollments"
+                            class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sis_add_enrollees_wizard" model="ir.actions.act_window">
+            <field name="name">Add Students</field>
+            <field name="res_model">sis.add.enrollees.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

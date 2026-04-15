@@ -1,0 +1,151 @@
+<odoo>
+    <data>
+        <record id="view_slide_channel_form_inherit_add_section" model="ir.ui.view">
+            <field name="name">slide.channel.form.inherit.add.section</field>
+            <field name="model">slide.channel</field>
+            <field name="inherit_id" ref="website_slides.view_slide_channel_form" />
+            <field name="arch" type="xml">
+
+                <!-- Rename Karma to Points -->
+                <xpath expr="//page[@name='karma_rules']" position="attributes">
+                    <attribute name="string">Merits</attribute>
+                </xpath>
+
+                <!-- Add subject informational fields after user_id -->
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="section_id" />
+                    <field name="school_year_id" readonly="1" />
+                    <field name="subject_code" required="1" />
+                    <field name="is_composite_component" />
+                    <field name="composite_subject_name" invisible="not is_composite_component" />
+                    <!-- Only SIS Admins can see this -->
+                    <field name="card_order" groups="obbs_sis.group_sis_admin" />
+                </xpath>
+                <!-- Sync Attendees button (visible only for admins anNd if section_id is set) -->
+                <xpath expr="//header" position="inside">
+                    <button name="action_sync_attendees_from_section" type="object"
+                        string="Sync Attendees" class="btn-primary"
+                        invisible="not section_id" />
+                </xpath>
+
+                <!-- Add group_sis_faculty to Finished stat button -->
+                <xpath expr="//button[@name='action_redirect_to_completed_members']"
+                    position="attributes">
+                    <attribute name="groups">
+                        website_slides.group_website_slides_officer,obbs_sis.group_sis_faculty</attribute>
+                </xpath>
+
+                <!-- Add group_sis_faculty to Members stat button -->
+                <xpath expr="//button[@name='action_redirect_to_members']" position="attributes">
+                    <attribute name="groups">
+                        website_slides.group_website_slides_officer,obbs_sis.group_sis_faculty</attribute>
+                </xpath>
+
+                <!-- Add group_sis_faculty to View Slides stat button -->
+                <xpath expr="//button[@name='action_view_slides']" position="attributes">
+                    <attribute name="groups">
+                        website_slides.group_website_slides_officer,obbs_sis.group_sis_faculty</attribute>
+                </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Activity Types">
+                        <field name="activity_type_ids" context="{'default_channel_id': id}">
+                            <list editable="bottom">
+                                <field name="name" />
+                                <field name="description" />
+                                <field name="weight" />
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//notebook/page[.//field[@name='activity_type_ids']]" position="after">
+                    <page string="Meeting Settings">
+                        <group>
+                            <!-- Alerts based on meeting time -->
+                            <group colspan="4">
+                                <!-- Blue info alert: Meeting is in the future -->
+                                <div class="alert alert-info" role="alert"
+                                    invisible="not is_meeting_in_future">
+                                    <strong><i class="fa fa-clock-o" /> Meeting Scheduled</strong>
+                                    <p>Your meeting is now scheduled, join at your designated time.</p>
+                                </div>
+
+                                <!-- Yellow warning alert: Meeting has ended -->
+                                <div class="alert alert-warning" role="alert"
+                                    invisible="not is_meeting_expired">
+                                    <strong><i class="fa fa-exclamation-triangle" /> Meeting Time
+                                        Passed</strong>
+                                    <p>Your schedule is out of date.</p>
+                                </div>
+                            </group>
+
+                            <!-- Existing fields -->
+                            <group colspan="4">
+                                <field name="jitsi_room_name" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="meeting_start_datetime" />
+                            </group>
+                            <group>
+                                <field name="meeting_end_datetime" />
+                            </group>
+                            <group>
+                                <button name="action_faculty_join_jitsi"
+                                    type="object"
+                                    string="Join Meeting"
+                                    class="btn btn-success"
+                                    icon="fa-video-camera"
+                                    groups="obbs_sis.group_sis_faculty" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+
+                <xpath expr="//button[@name='action_redirect_to_members']" position="after">
+                    <button name="action_open_activities"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-tasks"
+                        string="Activities" />
+                </xpath>
+
+
+            </field>
+        </record>
+    </data>
+
+    <data>
+        <record id="view_slide_channel_tree_inherit_add_card_order" model="ir.ui.view">
+            <field name="name">slide.channel.tree.inherit.add.card_order</field>
+            <field name="model">slide.channel</field>
+            <field name="inherit_id" ref="website_slides.slide_channel_view_tree" />
+            <field name="arch" type="xml">
+
+                <!-- Insert card_order right after is_published -->
+                <xpath expr="//field[@name='is_published']" position="after">
+                    <field name="school_year_id" optional="show" />
+                    <field name="card_order" optional="hide" />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+
+    <data>
+        <record id="view_slide_channel_search_inherit_school_year" model="ir.ui.view">
+            <field name="name">slide.channel.search.inherit.school.year</field>
+            <field name="model">slide.channel</field>
+            <field name="inherit_id" ref="website_slides.slide_channel_view_search" />
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="school_year_id" />
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_school_year" string="School Year" context="{'group_by': 'school_year_id'}" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

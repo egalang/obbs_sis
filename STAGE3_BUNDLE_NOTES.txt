@@ -1,0 +1,25 @@
+OBBServer SIS Phase 3 Bundle - Re-enrollment and Student History
+
+Version: 18.0.1.3
+
+Included changes
+- Enrollment history chain on sis.enrollment using previous_enrollment_id and root_enrollment_id
+- Re-enroll to active school year action for registrar/admin and portal users
+- Portal ownership expanded to support parent portal users and student portal users
+- Portal list/detail pages now expose re-enrollment action when allowed
+- Student record and enrollment views now show history access
+- Migration script backfills history chains using LRN first, then PSA number
+
+Important behavior notes
+- This phase keeps sis.enrollment as the working student transaction model for compatibility with your tested Phase 2 package.
+- Re-enrollment creates a new draft enrollment in the active school year and pre-fills values from the latest selected enrollment.
+- Tuition is re-matched in the target school year using grade level + payment plan. Section is matched by school year + grade level + section name when available.
+- Duplicate re-enrollment in the same school year is blocked per history chain.
+
+Recommended test cases
+1. Parent portal user can see own child records and re-enroll from a prior year
+2. Student portal user can also see own records when user_id is linked
+3. Re-enrollment creates a new draft in the active school year
+4. Updating the new draft keeps the new school year context
+5. History smart button shows yearly chain correctly
+6. Existing enrollments are grouped by migration using LRN / PSA

@@ -1,0 +1,21 @@
+<odoo>
+    <template id="jitsi_403" name="Jitsi Access Denied Page">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5 text-center">
+                <!-- Warning Icon -->
+                <div class="mb-4">
+                    <i class="fa fa-exclamation-triangle text-danger" style="font-size: 5rem;"></i>
+                </div>
+
+                <!-- Message -->
+                <h1 class="display-5 fw-bold text-danger">Access Denied</h1>
+                <p class="lead mt-3">
+                    <t t-esc="error_message or 'You do not have permission to access this meeting.'" />
+                </p>
+                <!-- Button -->
+                <a href="/slides" class="btn btn-outline-primary mt-4">
+                    <i class="fa fa-arrow-left me-2" /> Back to Courses </a>
+            </div>
+        </t>
+    </template>
+</odoo>

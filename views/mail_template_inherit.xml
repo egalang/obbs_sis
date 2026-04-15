@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_sis_email_template_search" model="ir.ui.view">
+        <field name="name">mail.template.sis.search</field>
+        <field name="model">mail.template</field>
+        <field name="arch" type="xml">
+            <search string="Search SIS Email Templates">
+                <field name="name" />
+                <field name="model_id" />
+                <field name="description" />
+
+                <!-- SIS filter (default) -->
+                <filter string="SIS Templates" name="sis_templates"
+                    domain="[('name', 'ilike', 'SIS')]"
+                    context="{'search_default_sis_templates': 1}" />
+
+            </search>
+        </field>
+    </record>
+</odoo>
+  

@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+        <!-- SIS Category -->
+        <record id="category_sis" model="ir.module.category">
+            <field name="name">SIS</field>
+            <field name="description">School Information System Roles</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Faculty (Base Role) -->
+        <record id="group_sis_faculty" model="res.groups">
+            <field name="name">Faculty</field>
+            <field name="category_id" ref="obbs_sis.category_sis" />
+        </record>
+
+        <!-- Registrar (Middle Role, Implies Faculty) -->
+        <record id="group_sis_registrar" model="res.groups">
+            <field name="name">Registrar</field>
+            <field name="category_id" ref="obbs_sis.category_sis" />
+            <field name="implied_ids" eval="[(4, ref('obbs_sis.group_sis_faculty'))]" />
+        </record>
+
+        <!-- Administrator (Top Role, Implies Registrar) -->
+        <record id="group_sis_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="obbs_sis.category_sis" />
+            <field name="implied_ids" eval="[(4, ref('obbs_sis.group_sis_registrar'))]" />
+        </record>
+
+    </data>
+</odoo>

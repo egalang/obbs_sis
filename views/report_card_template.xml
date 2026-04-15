@@ -1,0 +1,1301 @@
+<odoo>
+    <!-- Main Switch Template -->
+    <template id="report_card_template">
+        <t t-foreach="docs" t-as="enrollment">
+            <t t-set="data" t-value="get_report_data and get_report_data(enrollment) or {}" />
+            <t t-if="data.get('is_preschool')">
+                <t t-call="obbs_sis.report_card_template_preschool" />
+            </t>
+            <t t-if="not data.get('is_preschool')">
+                <t t-call="obbs_sis.report_card_template_regular" />
+            </t>
+        </t>
+    </template>
+
+    <!-- Preschool Template -->
+    <template id="report_card_template_preschool">
+        <t t-set="data" t-value="data" />
+        <t t-call="web.html_container">
+            <meta charset="UTF-8" />
+            <div class="page" style="font-size: 12px; height: 100%;">
+                <table style="width:100%; height:100%; min-height:100%;">
+                    <tbody style="height:100%;">
+                        <tr style="height:100%;">
+                            <!-- Left column -->
+                            <td style="width:49%; vertical-align:top; height:100%; min-height:100%;">
+                                <div style="height:100%; min-height:100%; ">
+                                    <!-- Teacher's Comment -->
+                                    <table
+                                        style="width:100%; height: 40%; font-size:80%; border-collapse:collapse; border: 1px solid black;">
+                                        <tbody>
+                                            <tr>
+                                                <td
+                                                    style="text-align:center; border:1px solid black;">Teacher's
+                                                    Comment</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">First Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(1, '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Second Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(2, '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Third Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(3, '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Fourth Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(4, '')" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Parent's Comment -->
+                                    <table
+                                        style="width:100%; height: 40%; font-size:80%; margin-top:20px; border-collapse:collapse; border: 1px solid black;">
+                                        <tbody>
+                                            <tr>
+                                                <td
+                                                    style="text-align:center; border:1px solid black;">Parent's
+                                                    Comment</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">First Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Second Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Third Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Fourth Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Eligibility -->
+                                    <table
+                                        style="width:100%; height: 15%; font-size:80%; margin-top:20px; border-collapse:collapse; border: 1px solid black;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="border:1px solid black; height:16px;">Eligible
+                                                    for transfer and admission to</td>
+                                                <td style="width:200px; border:1px solid black;">
+                                                    &#160;</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">&#160;</td>
+                                                <td colspan="2"
+                                                    style="text-align:center; height:20px; border:1px solid black;">
+                                                    EVANGELINE P. DIZON, Ed.D. </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">&#160;</td>
+                                                <td colspan="2"
+                                                    style="text-align:center; height:20px; border:1px solid black;">
+                                                    Administrator/Principal </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+
+                            <!-- Spacer -->
+                            <td style="width:2%; height:100%;">&#160;</td>
+
+                            <!-- Right column -->
+                            <td style="vertical-align:top; height:100%; min-height:100%;">
+                                <div style="height:100%; min-height:100%;">
+                                    <table
+                                        style="width:100%; height: 100%; font-size:80%; border-collapse:collapse; border:1px solid black;">
+                                        <tbody>
+                                            <!-- School Header -->
+                                            <tr>
+                                                <td colspan="6"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    <h4 style="font-size: 18px;">
+                                                        <t
+                                                            t-esc="data.get('school_name', 'School Name')" />
+                                                    </h4>
+                                                    <p style="font-size: 14px;">
+                                                        <t
+                                                            t-esc="data.get('school_address', 'School Address')" />
+                                                    </p>
+
+                                                    <h4 style="font-size: 17px;">PROGRESS REPORT
+                                                        CARD</h4>
+                                                    <p style="font-size: 14px;">
+                                                        <t t-esc="data.get('school_year', '')" />
+                                                    </p>
+
+                                                    <t t-if="data.get('school_logo')">
+                                                        <img
+                                                            t-att-src="'data:image/png;base64,%s' % data['school_logo']"
+                                                            width="200" />
+                                                    </t>
+
+                                                    <p style="font-size: 14px;">Pre-School Level</p>
+                                                    <p style="font-size: 14px;"> LRN: <t
+                                                            t-esc="data.get('lrn')" />
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+
+                                            <!-- Student Info -->
+                                            <tr>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    Name:</td>
+                                                <td colspan="3"
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('student_name')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">Grade
+                                                    &amp; Section:</td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('section')" />
+                                                </td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    Sex:</td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('sex')" />
+                                                </td>
+                                            </tr>
+
+                                            <!-- Parent Letter -->
+                                            <tr>
+                                                <td colspan="4"
+                                                    style="border:1px solid black; padding: 0 10px;">
+                                                    <br />
+                                                    <i>&#160;&#160;Dear Parent,</i>
+                                                    <br />
+                                                    <p align="justify">
+                                                        <i> &#160;&#160;&#160;&#160;&#160;&#160;This
+                                                            report card shows the ability and the
+                                                            progress your child has made based on
+                                                            the inside list of goals for achievement
+                                                            desired by the end of the year
+                                                            regarding his/her total personality.
+                                                            However, there is no way for this report
+                                                            to replace parent-teacher conferences to
+                                                            arrive at a more complete assessment of
+                                                            your child's progress. </i>
+                                                    </p>
+                                                    <br />
+                                                </td>
+                                            </tr>
+                                            <!-- Signatories -->
+                                            <tr>
+                                                <td colspan="2" width="50%"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    EVANGELINE P. DIZON, Ed.D. </td>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    <t t-esc="data.get('advisor', '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    Administrator/Principal</td>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    Teacher</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="page" style="height: 100%;">
+                <table style="width:100%; height:100%; min-height:100%;">
+                    <tbody style="height:100%;">
+                        <tr style="height:100%;">
+                            <!-- Left column -->
+                            <td style="width:49%; vertical-align:top; height:100%; min-height:100%;">
+                                <t t-set="period_ids" t-value="data['periods']" />
+                                <t t-set="grades" t-value="data['grades']" />
+                                <t t-set="subjects" t-value="data['subjects']" />
+                                <t t-set="char_map" t-value="data.get('character', {})" />
+
+                                <!-- Deduplicate all character rating entries -->
+                                <t t-set="all_rows" t-value="[]" />
+                                <t t-set="seen_keys" t-value="set()" />
+                                <t t-foreach="char_map.values()" t-as="entries">
+                                    <t t-foreach="entries" t-as="row">
+                                        <t
+                                            t-if="('%s::%s' % (row['group'], row['description'])) not in seen_keys">
+                                            <t t-set="all_rows" t-value="all_rows + [row]" />
+                                            <t t-set="seen_keys"
+                                                t-value="seen_keys.union({('%s::%s' % (row['group'], row['description']))})" />
+                                        </t>
+                                    </t>
+                                </t>
+
+                                <t t-set="visible_groups"
+                                    t-value="list(dict.fromkeys([r['group'] for r in all_rows]))[:2]" />
+                                <t t-set="roman_labels" t-value="['II.', 'III.']" />
+
+                                <div style="height:100%; min-height:100%;">
+                                    <!-- Academic Progress -->
+                                    <table
+                                        style="width: 100%; max-height: 25%; border-collapse: collapse; margin-bottom: 20px;">
+                                        <tr>
+                                            <td colspan="100%"
+                                                style="border: none; font-style: italic; font-weight: bold; font-size: 12px !important; padding: 2px 4px;">
+                                                I. Academic Progress
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th
+                                                style="text-align: left; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                Subjects</th>
+                                            <t t-foreach="period_ids" t-as="prd">
+                                                <th
+                                                    style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t t-esc="prd.code or prd.name" />
+                                                </th>
+                                            </t>
+                                            <!-- Final Rating column always visible -->
+                                            <th
+                                                style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                Final Rating
+                                            </th>
+                                        </tr>
+
+                                        <t t-foreach="subjects" t-as="subj">
+                                            <tr>
+                                                <td
+                                                    style="padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t t-esc="subj.subject_code or subj.name" />
+                                                </td>
+
+                                                <!-- Grades per period -->
+                                                <t t-foreach="period_ids" t-as="prd">
+                                                    <td
+                                                        style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                        <t
+                                                            t-if="grades[subj.id or subj.subject_code][prd.id] != '-'">
+                                                            <t
+                                                                t-esc="round(grades[subj.id or subj.subject_code][prd.id])" />
+                                                        </t>
+                                                    </td>
+                                                </t>
+
+                                                <!-- Final Rating -->
+                                                <td
+                                                    style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t t-set="final"
+                                                        t-value="grades[subj.id or subj.subject_code]['final']" />
+                                                    <t t-set="all_grades_present"
+                                                        t-value="final != '-' and all(grades[subj.id or subj.subject_code][prd.id] != '-' for prd in period_ids)" />
+
+                                                    <!-- Only show final if all periods filled -->
+                                                    <t t-if="all_grades_present">
+                                                        <t t-esc="'%.3f' % float(final)" />
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <!-- General Average Row -->
+                                        <tr>
+                                            <td
+                                                style="padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                General Average
+                                            </td>
+
+                                            <!-- Quarterly general averages -->
+                                            <t t-foreach="period_ids" t-as="prd">
+                                                <td
+                                                    style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t
+                                                        t-if="data['quarterly_general_averages'][prd.id] != '-'">
+                                                        <t
+                                                            t-esc="'%.3f' % float(data['quarterly_general_averages'][prd.id])" />
+                                                    </t>
+                                                </td>
+                                            </t>
+
+                                            <!-- Final general average -->
+                                            <td
+                                                style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                <t t-set="all_quarters_present"
+                                                    t-value="all(data['quarterly_general_averages'][prd.id] != '-' for prd in period_ids)" />
+
+                                                <t
+                                                    t-if="all_quarters_present and data['general_average'] != '-'">
+                                                    <t
+                                                        t-esc="'%.3f' % float(data['general_average'])" />
+                                                </t>
+                                                <t t-else="">
+                                                    <!-- leave blank -->
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                    <!-- Character Ratings -->
+                                    <t t-foreach="enumerate(visible_groups)" t-as="group_info">
+                                        <t t-set="group" t-value="group_info[1]" />
+                                        <t t-set="roman" t-value="roman_labels[group_info[0]]" />
+                                        <t t-set="group_rows"
+                                            t-value="[r for r in all_rows if r['group'] == group]" />
+
+                                        <table
+                                            style="width: 100%; max-height: 25%;  border-collapse: collapse; margin-bottom: 20px;">
+                                            <tr>
+                                                <td colspan="100%"
+                                                    style="border: none; font-weight: bold; font-style: italic; padding: 2px 4px; font-size: 12px;">
+                                                    <t t-esc="roman" />
+                                                    <t t-esc="group" />
+                                                </td>
+                                            </tr>
+                                            <t t-foreach="group_rows" t-as="row">
+                                                <tr>
+                                                    <td
+                                                        style="border: 1px solid black; padding: 4px; width: 60%; font-size: 10px;">
+                                                        <t t-esc="row['description']" />
+                                                    </td>
+                                                    <t t-foreach="period_ids" t-as="prd">
+                                                        <td
+                                                            style="border: 1px solid black; text-align: center; padding: 4px; width: 8%; font-size: 10px;">
+                                                            <t t-set="match" t-value="''" />
+                                                            <t t-foreach="char_map.get(prd.id, [])"
+                                                                t-as="chk">
+                                                                <t
+                                                                    t-if="chk['group'] == row['group'] and chk['description'] == row['description']">
+                                                                    <t t-set="match"
+                                                                        t-value="chk['rating']" />
+                                                                </t>
+                                                            </t>
+                                                            <t t-esc="match" />
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </t>
+                                        </table>
+                                    </t>
+
+                                    <!-- Legend -->
+                                    <table
+                                        style="width: 100%; max-height: 25%; border-collapse: collapse; margin-top: 20px;">
+                                        <tr>
+                                            <td colspan="6"
+                                                style="border: 1px solid black; font-weight: bold; font-style: italic; padding: 2px; font-size: 12px;">
+                                                LEGEND </td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                O</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-style: italic;">
+                                                Outstanding</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                93&#8211;100</td>
+                                            <td
+                                                style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                MS</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-style: italic;">Moderately
+                                                Satisfactory</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                75&#8211;80</td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                VS</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-style: italic;">Very
+                                                Satisfactory</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                87&#8211;92</td>
+                                            <td
+                                                style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                NI</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-style: italic;">Needs
+                                                Improvement</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">Below
+                                                75</td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="border: 1px solid black; text-align: center; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                S</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-style: italic;">
+                                                Satisfactory</td>
+                                            <td
+                                                style="border: 1px solid black; padding: 2px; font-size: 10px; font-weight: bold; font-style: italic;">
+                                                81&#8211;86</td>
+                                            <td style="border: 1px solid black; padding: 2px;"></td>
+                                            <td style="border: 1px solid black; padding: 2px;"></td>
+                                            <td style="border: 1px solid black; padding: 2px;"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+
+                            <!-- Spacer -->
+                            <td style="width:2%; height:100%;">&#160;</td>
+
+                            <!-- Right column -->
+                            <td style="vertical-align:top; height:100%; min-height:100%;">
+                                <t t-set="all_groups"
+                                    t-value="list(dict.fromkeys([r['group'] for r in all_rows]))" />
+                                <t t-set="remaining_groups" t-value="all_groups[2:]" />
+                                <t t-set="roman_labels_right"
+                                    t-value="['IV.', 'V.', 'VI.', 'VII.', 'VIII.', 'IX.', 'X.']" />
+
+                                <!-- Character traits (Groups IV and onward) -->
+                                <t t-foreach="enumerate(remaining_groups)" t-as="group_info">
+                                    <t t-set="group" t-value="group_info[1]" />
+                                    <t t-set="roman" t-value="roman_labels_right[group_info[0]]" />
+                                    <t t-set="group_rows"
+                                        t-value="[r for r in all_rows if r['group'] == group]" />
+
+                                    <table
+                                        style="width: 100%; max-height: 25%; border-collapse: collapse; margin-bottom: 20px;">
+                                        <tr>
+                                            <td colspan="100%"
+                                                style="border: none; font-weight: bold; font-style: italic; padding: 2px 4px; font-size: 12px;">
+                                                <t t-esc="roman" />
+                                                <t t-esc="group" />
+                                            </td>
+                                        </tr>
+                                        <t t-foreach="group_rows" t-as="row">
+                                            <tr>
+                                                <td
+                                                    style="border: 1px solid black; padding: 4px; width: 60%; font-size: 10px;">
+                                                    <t t-esc="row['description']" />
+                                                </td>
+                                                <t t-foreach="period_ids" t-as="prd">
+                                                    <td
+                                                        style="border: 1px solid black; text-align: center; padding: 4px; width: 8%; font-size: 10px;">
+                                                        <t t-set="match" t-value="''" />
+                                                        <t t-foreach="char_map.get(prd.id, [])"
+                                                            t-as="chk">
+                                                            <t
+                                                                t-if="chk['group'] == row['group'] and chk['description'] == row['description']">
+                                                                <t t-set="match"
+                                                                    t-value="chk['rating']" />
+                                                            </t>
+                                                        </t>
+                                                        <t t-esc="match" />
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                </t>
+
+                                <!-- Attendance Record Table -->
+                                <t t-set="attendance_data" t-value="data['attendance']" />
+                                <t t-set="monthly" t-value="attendance_data['monthly']" />
+                                <t t-set="totals" t-value="attendance_data['totals']" />
+                                <t t-set="months" t-value="[m['month'] for m in monthly]" />
+
+                                <table class="attendance-table"
+                                    style="width: 100%; font-size: 10px; border-collapse: collapse; margin-top: 10px;">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="12"
+                                                style="text-align: center; font-size: 12px; padding: 4px 6px; border: 1px solid #000;">ATTENDANCE
+                                                RECORD</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding: 4px 6px; border: 1px solid #000;">
+                                                Month</th>
+                                            <t t-foreach="months" t-as="month">
+                                                <th
+                                                    style="padding: 4px 6px; border: 1px solid #000;">
+                                                    <t t-esc="month" />
+                                                </th>
+                                            </t>
+                                            <th style="padding: 4px 6px; border: 1px solid #000;">
+                                                TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;">Days
+                                                of School</td>
+                                            <t t-foreach="monthly" t-as="m">
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="m['expected']" />
+                                            </t>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;"
+                                                t-esc="totals['expected']" />
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;">Days
+                                                Present</td>
+                                            <t t-foreach="monthly" t-as="m">
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="m['present']" />
+                                            </t>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;"
+                                                t-esc="totals['present']" />
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;">Days
+                                                Absent</td>
+                                            <t t-foreach="monthly" t-as="m">
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="m['absent']" />
+                                            </t>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;"
+                                                t-esc="totals['absent']" />
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;">Times
+                                                Tardy</td>
+                                            <t t-foreach="monthly" t-as="m">
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="m['tardy']" />
+                                            </t>
+                                            <td style="padding: 4px 6px; border: 1px solid #000;"
+                                                t-esc="totals['tardy']" />
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </t>
+    </template>
+
+    <!-- Elementary-Highschool Template -->
+    <template id="report_card_template_regular">
+        <t t-set="data" t-value="data" />
+        <t t-call="web.html_container">
+            <meta charset="UTF-8" />
+            <div class="page" style="font-size: 12px; height: 100%;">
+                <table style="width:100%; height:100%; min-height:100%;">
+                    <tbody style="height:100%;">
+                        <tr style="height:100%;">
+                            <!-- Left column -->
+                            <td style="width:49%; vertical-align:top; height:100%; min-height:100%;">
+                                <div style="height:100%; min-height:100%; ">
+                                    <!-- Narrative Report -->
+                                    <table
+                                        style="width:100%; height: 45%; font-size:80%; border-collapse:collapse; border: 1px solid black;">
+                                        <tbody>
+                                            <tr>
+                                                <td
+                                                    style="text-align:center; border:1px solid black;">Narrative
+                                                    Report</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">First Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(1, '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Second Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(2, '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Third Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(3, '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border:1px solid black;">Fourth Grading:</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height:40px; border:1px solid black;">
+                                                    <t t-esc="data.get('comments', {}).get(4, '')" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- Certificate of Transfer -->
+                                    <table
+                                        style="width:100%; height: 25%; font-size:80%; margin-top:20px; border-collapse:collapse; border:1px solid black;">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    CERTIFICATE OF TRANSFER </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"
+                                                    style="text-align:right; border:1px solid black;">
+                                                    Date:</td>
+                                                <td style="width:100px; border:1px solid black;">
+                                                    &#160;</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="border:1px solid black;">Eligible
+                                                    for admission to</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2"
+                                                    style="width:300px; border:1px solid black;">
+                                                    &#160;</td>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    <br />DR. EVANGELINE P. DIZON </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    Principal</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Cancellation of Transfer Eligibility -->
+                                    <table
+                                        style="width:100%; height: 25%; font-size:80%; margin-top:20px; border-collapse:collapse; border:1px solid black;">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    CANCELLATION OF TRANSFER ELIGIBILITY </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"
+                                                    style="text-align:right; border:1px solid black;">
+                                                    Date:</td>
+                                                <td style="width:100px; border:1px solid black;">
+                                                    &#160;</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="border:1px solid black;">Has
+                                                    been admitted to</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2"
+                                                    style="width:300px; border:1px solid black;">
+                                                    &#160;</td>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    &#160;</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    Principal</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+
+                            <!-- Spacer -->
+                            <td style="width:2%; height:100%;">&#160;</td>
+
+                            <!-- Right column -->
+                            <td style="vertical-align:top; height:100%; min-height:100%;">
+                                <div style="height:100%; min-height:100%;">
+                                    <table
+                                        style="width:100%; height: 100%; font-size:80%; border-collapse:collapse; border:1px solid black;">
+                                        <tbody>
+                                            <!-- School Header -->
+                                            <tr>
+                                                <td colspan="6"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    <h4 style="font-size: 18px;">
+                                                        <t
+                                                            t-esc="data.get('school_name', 'School Name')" />
+                                                    </h4>
+                                                    <p style="font-size: 14px;">
+                                                        <t
+                                                            t-esc="data.get('school_address', 'School Address')" />
+                                                    </p>
+
+                                                    <h4 style="font-size: 17px;">REPORT CARD</h4>
+                                                    <p style="font-size: 14px;">
+                                                        <t t-esc="data.get('school_year', '')" />
+                                                    </p>
+
+                                                    <t t-if="data.get('school_logo')">
+                                                        <img
+                                                            t-att-src="'data:image/png;base64,%s' % data['school_logo']"
+                                                            width="200" />
+                                                    </t>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Student Info -->
+                                            <tr>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    Name:</td>
+                                                <td colspan="3"
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('student_name')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">Grade
+                                                    &amp; Section:</td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('section')" />
+                                                </td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    Sex:</td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('sex')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    LRN:</td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('lrn')" />
+                                                </td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    Age:</td>
+                                                <td
+                                                    style="border:1px solid black; padding-left:8px;">
+                                                    <t t-esc="data.get('age')" />
+                                                </td>
+                                            </tr>
+
+                                            <!-- Parent Letter -->
+                                            <tr>
+                                                <td colspan="4"
+                                                    style="border:1px solid black; padding: 0 10px;">
+                                                    <br />
+                                                    <i>&#160;&#160;Dear Parent,</i>
+                                                    <br />
+                                                    <p align="justify">
+                                                        <i>&#160;&#160;&#160;&#160;&#160;&#160;This
+                                                            report card shows the ability and the
+                                                            progress your child has made in the
+                                                            different learning areas as well as
+                                                            his/her progress in character
+                                                            development. Your cooperation is desired
+                                                            in our effort to develop his/her
+                                                            potentials and form him/her into a
+                                                            committed Christian. We would appreciate
+                                                            very much your coming to this school to
+                                                            talk things over with us regarding
+                                                            his/her progress in school.</i>
+                                                    </p>
+                                                    <br />
+                                                </td>
+                                            </tr>
+
+                                            <!-- Signatories -->
+                                            <tr>
+                                                <td colspan="2" width="50%"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    DR. EVANGELINE P. DIZON </td>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    <t t-esc="data.get('advisor', '')" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    School Principal </td>
+                                                <td colspan="2"
+                                                    style="text-align:center; border:1px solid black;">
+                                                    Adviser </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="page" style="height: 100%;">
+                <table style="width:100%; height:100%; min-height:100%;">
+                    <tbody style="height:100%;">
+                        <tr style="height:100%;">
+                            <!-- Left column -->
+                            <td style="width:49%; vertical-align:top; height:100%; min-height:100%;">
+                                <t t-set="period_ids" t-value="data['periods']" />
+                                <t t-set="grades" t-value="data['grades']" />
+                                <t t-set="subjects" t-value="data['subjects']" />
+                                <div style="height:100%; min-height:100%;">
+                                    <!-- Periodic Rating -->
+                                    <table
+                                        style="width: 100%; height: 50%; border-collapse: collapse;">
+                                        <!-- Section Title -->
+                                        <tr>
+                                            <td colspan="100%"
+                                                style="text-align:center; font-weight:bold; font-size:14px; padding:4px; border:1px solid black;">
+                                                Periodic Rating </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th
+                                                style="text-align: left; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                Subjects</th>
+                                            <t t-foreach="period_ids" t-as="prd">
+                                                <th
+                                                    style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t t-esc="prd.code or prd.name" />
+                                                </th>
+                                            </t>
+                                            <th
+                                                style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">Final
+                                                Rating</th>
+                                            <th
+                                                style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                Remarks</th>
+                                        </tr>
+                                        <t t-foreach="subjects" t-as="subj">
+                                            <tr>
+                                                <td
+                                                    style="padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t t-esc="subj.subject_code or subj.name" />
+                                                </td>
+                                                <!-- Grades per quarter -->
+                                                <t t-foreach="period_ids" t-as="prd">
+                                                    <td
+                                                        style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                        <t
+                                                            t-if="grades[subj.id or subj.subject_code][prd.id] != '-'">
+                                                            <!-- <t t-esc="grades[subj.id or
+                                                            subj.subject_code][prd.id]" /> -->
+                                                            <!-- <t t-esc="'%d' % grades[subj.id or
+                                                            subj.subject_code][prd.id]" /> -->
+                                                            <t
+                                                                t-esc="round(grades[subj.id or subj.subject_code][prd.id])" />
+                                                        </t>
+                                                    </td>
+                                                </t>
+
+                                                <!-- Final grade -->
+                                                <td
+                                                    style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t
+                                                        t-if="grades[subj.id or subj.subject_code]['final'] != '-'">
+                                                        <t t-set="final"
+                                                            t-value="grades[subj.id or subj.subject_code]['final']" />
+                                                        <t t-set="all_grades_present"
+                                                            t-value="final != '-' and all(grades[subj.id or subj.subject_code][prd.id] != '-' for prd in period_ids)" />
+                                                        <t t-if="all_grades_present">
+                                                            <t t-esc="'%.3f' % float(final)" />
+                                                        </t>
+                                                    </t>
+                                                </td>
+
+                                                <!-- Remarks with logic: show only if ALL grades
+                                                present -->
+                                                <td
+                                                    style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t t-set="final"
+                                                        t-value="grades[subj.id or subj.subject_code]['final']" />
+                                                    <t t-set="all_grades_present"
+                                                        t-value="final != '-' and all(grades[subj.id or subj.subject_code][prd.id] != '-' for prd in period_ids)" />
+                                                    <t t-if="all_grades_present">
+                                                        <t t-if="float(final) &gt;= 75.0">PASSED</t>
+                                                        <t t-else="">FAILED</t>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+
+                                        <tr>
+                                            <td
+                                                style="padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                General Average
+                                            </td>
+                                            <t t-set="all_quarters_present"
+                                                t-value="all(data['quarterly_general_averages'][prd.id] != '-' for prd in period_ids)" />
+                                            <t t-foreach="period_ids" t-as="prd">
+                                                <td
+                                                    style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                    <t
+                                                        t-if="data['quarterly_general_averages'][prd.id] != '-'">
+                                                        <t
+                                                            t-esc="'%.3f' % float(data['quarterly_general_averages'][prd.id])" />
+                                                    </t>
+                                                </td>
+                                            </t>
+                                            <td
+                                                style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                <t t-if="data['general_average'] != '-'">
+                                                    <t
+                                                        t-if="all_quarters_present and data['general_average'] != '-'">
+                                                        <t
+                                                            t-esc="'%.3f' % float(data['general_average'])" />
+                                                    </t>
+                                                </t>
+                                            </td>
+                                            <td
+                                                style="text-align: center; padding: 4px; border: 1px solid black; font-size: 10px;">
+                                                <t
+                                                    t-if="all_quarters_present and data['general_average'] != '-'">
+                                                    <t
+                                                        t-if="float(data['general_average']) &gt;= 75.0">
+                                                        PASSED
+                                                    </t>
+                                                    <t t-else="">FAILED</t>
+                                                </t>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+
+                                    <!-- Attendance Record Table -->
+                                    <t t-set="attendance_data" t-value="data['attendance']" />
+                                    <t t-set="monthly" t-value="attendance_data['monthly']" />
+                                    <t t-set="totals" t-value="attendance_data['totals']" />
+                                    <t t-set="months" t-value="[m['month'] for m in monthly]" />
+
+                                    <table
+                                        style="width: 100%; hieght: 25%; font-size: 10px; border-collapse: collapse; margin-top: 20px;">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="12"
+                                                    style="text-align: center; font-size:14px; padding: 4px; border: 1px solid #000;">ATTENDANCE
+                                                    RECORD</th>
+                                            </tr>
+                                            <tr>
+                                                <th
+                                                    style="padding: 4px 6px; border: 1px solid #000;">
+                                                    Month</th>
+                                                <t t-foreach="months" t-as="month">
+                                                    <th
+                                                        style="padding: 4px 6px; border: 1px solid #000;">
+                                                        <t t-esc="month" />
+                                                    </th>
+                                                </t>
+                                                <th
+                                                    style="padding: 4px 6px; border: 1px solid #000;">
+                                                    TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;">Days
+                                                    of School</td>
+                                                <t t-foreach="monthly" t-as="m">
+                                                    <td
+                                                        style="padding: 4px 6px; border: 1px solid #000;"
+                                                        t-esc="m['expected']" />
+                                                </t>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="totals['expected']" />
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;">Days
+                                                    Present</td>
+                                                <t t-foreach="monthly" t-as="m">
+                                                    <td
+                                                        style="padding: 4px 6px; border: 1px solid #000;"
+                                                        t-esc="m['present']" />
+                                                </t>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="totals['present']" />
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;">Days
+                                                    Absent</td>
+                                                <t t-foreach="monthly" t-as="m">
+                                                    <td
+                                                        style="padding: 4px 6px; border: 1px solid #000;"
+                                                        t-esc="m['absent']" />
+                                                </t>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="totals['absent']" />
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;">Times
+                                                    Tardy</td>
+                                                <t t-foreach="monthly" t-as="m">
+                                                    <td
+                                                        style="padding: 4px 6px; border: 1px solid #000;"
+                                                        t-esc="m['tardy']" />
+                                                </t>
+                                                <td
+                                                    style="padding: 4px 6px; border: 1px solid #000;"
+                                                    t-esc="totals['tardy']" />
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+
+                            <!-- Spacer -->
+                            <td style="width:2%; height:100%;">&#160;</td>
+
+                            <!-- Right column -->
+                            <td style="vertical-align:top; height:100%; min-height:100%;">
+                                <!-- Prepare values -->
+                                <t t-set="char_map" t-value="data.get('character', {})" />
+                                <t t-set="all_rows" t-value="[]" />
+                                <t t-set="seen_keys" t-value="set()" />
+                                <t t-foreach="char_map.values()" t-as="entries">
+                                    <t t-foreach="entries" t-as="row">
+                                        <t
+                                            t-if="('%s::%s' % (row['group'], row['description'])) not in seen_keys">
+                                            <t t-set="all_rows" t-value="all_rows + [row]" />
+                                            <t t-set="seen_keys"
+                                                t-value="seen_keys.union({('%s::%s' % (row['group'], row['description']))})" />
+                                        </t>
+                                    </t>
+                                </t>
+
+                                <!-- Group by core value -->
+                                <t t-set="grouped" t-value="{}" />
+                                <t t-foreach="all_rows" t-as="r">
+                                    <t t-set="key" t-value="r['group']" />
+                                    <t t-if="grouped.get(key)">
+                                        <t t-set="grouped"
+                                            t-value="dict(grouped, **{key: grouped[key] + [r]})" />
+                                    </t>
+                                    <t t-if="not grouped.get(key)">
+                                        <t t-set="grouped" t-value="dict(grouped, **{key: [r]})" />
+                                    </t>
+                                </t>
+
+                                <!-- Character Builgin layout -->
+                                <table
+                                    style="width:100%; height: 30%; border-collapse: collapse; font-size: 11px; ">
+                                    <tr>
+                                        <td colspan="100%"
+                                            style="text-align: center;  font-size:14px; font-weight: bold; border: 1px solid black; padding: 4px;">
+                                            CHARACTER BUILDING </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="width:20%; border: 1px solid black; padding: 4px; font-weight: bold;">Core
+                                            Values</td>
+                                        <td
+                                            style="width:44%; border: 1px solid black; padding: 4px; font-weight: bold;">Behavior
+                                            Statement</td>
+                                        <t t-foreach="period_ids" t-as="prd">
+                                            <td
+                                                style="width:9%; border: 1px solid black; text-align:center; padding: 4px; font-weight: bold;">
+                                                <t t-esc="prd.code or prd.name" />
+                                            </td>
+                                        </t>
+                                    </tr>
+
+                                    <t t-set="group_keys" t-value="list(grouped.keys())" />
+                                    <t t-foreach="group_keys" t-as="grp">
+                                        <t t-set="grp_rows" t-value="grouped[grp]" />
+                                        <t t-set="row_count" t-value="len(grp_rows)" />
+
+                                        <t t-foreach="enumerate(grp_rows)" t-as="row_info">
+                                            <t t-set="row" t-value="row_info[1]" />
+                                            <tr>
+                                                <t t-if="row_info[0] == 0">
+                                                    <td t-att-rowspan="row_count"
+                                                        style="border: 1px solid black; padding: 4px; vertical-align: top;">
+                                                        <t t-esc="grp" />
+                                                    </td>
+                                                </t>
+                                                <td style="border: 1px solid black; padding: 4px;">
+                                                    <t t-esc="row['description']" />
+                                                </td>
+                                                <t t-foreach="period_ids" t-as="prd">
+                                                    <td
+                                                        style="border: 1px solid black; text-align: center; padding: 4px;">
+                                                        <t t-set="match" t-value="''" />
+                                                        <t t-foreach="char_map.get(prd.id, [])"
+                                                            t-as="chk">
+                                                            <t
+                                                                t-if="chk['group'] == row['group'] and chk['description'] == row['description']">
+                                                                <t t-set="match"
+                                                                    t-value="chk['rating']" />
+                                                            </t>
+                                                        </t>
+                                                        <t t-esc="match" />
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </table>
+
+                                <!-- Legends Layout -->
+                                <table
+                                    style="width: 100%; height: 25%; border-collapse: collapse; font-size: 11px; margin-top: 20px;">
+                                    <tr>
+                                        <td colspan="5"
+                                            style="text-align: center; border: 1px solid black; font-weight: bold; padding: 4px;">
+                                            GUIDELINES FOR RATING </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="border: 1px solid black; font-weight: bold; padding: 4px;">
+                                            Descriptors</td>
+                                        <td
+                                            style="border: 1px solid black; font-weight: bold; padding: 4px;">Grading
+                                            Scale</td>
+                                        <td
+                                            style="border: 1px solid black; font-weight: bold; padding: 4px;">
+                                            Remarks</td>
+                                        <td
+                                            style="border: 1px solid black; font-weight: bold; padding: 4px; text-align: center;">
+                                            Marking</td>
+                                        <td
+                                            style="border: 1px solid black; font-weight: bold; padding: 4px; text-align: center;">Non-Numerical
+                                            Rating</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 4px;">
+                                            Outstanding</td>
+                                        <td style="border: 1px solid black; padding: 4px;">90–100</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Passed</td>
+                                        <td
+                                            style="border: 1px solid black; padding: 4px; text-align: center;">
+                                            AO</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Always
+                                            Observed</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 4px;">Very
+                                            Satisfactory</td>
+                                        <td style="border: 1px solid black; padding: 4px;">85–89</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Passed</td>
+                                        <td
+                                            style="border: 1px solid black; padding: 4px; text-align: center;">
+                                            SO</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Sometimes
+                                            Observed</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 4px;">
+                                            Satisfactory</td>
+                                        <td style="border: 1px solid black; padding: 4px;">80–84</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Passed</td>
+                                        <td
+                                            style="border: 1px solid black; padding: 4px; text-align: center;">
+                                            RO</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Rarely
+                                            Observed</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 4px;">Fairly
+                                            Satisfactory</td>
+                                        <td style="border: 1px solid black; padding: 4px;">75–79</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Passed</td>
+                                        <td
+                                            style="border: 1px solid black; padding: 4px; text-align: center;">
+                                            NO</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Not
+                                            Observed</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 4px;">Do Not
+                                            Meet Expectations</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Below 75</td>
+                                        <td style="border: 1px solid black; padding: 4px;">Failed</td>
+                                        <td style="border: 1px solid black; padding: 4px;"></td>
+                                        <td style="border: 1px solid black; padding: 4px;"></td>
+                                    </tr>
+                                </table>
+
+                                <table
+                                    style="width: 100%; height: 5%; border-collapse: collapse; font-size: 11px; margin-top: 20px;">
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 4px;">Reading
+                                            Level:</td>
+                                        <td style="border: 1px solid black; padding: 4px;">English</td>
+                                        <td style="border: 1px solid black; padding: 4px;"></td>
+                                        <td style="border: 1px solid black; padding: 4px;">Filipino</td>
+                                        <td style="border: 1px solid black; padding: 4px;"></td>
+                                    </tr>
+                                </table>
+
+
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,113 @@
+<odoo>
+    <template id="student_id_report">
+        <t t-call="web.html_container">
+            <meta charset="UTF-8" />
+            <t t-foreach="docs" t-as="doc">
+
+                <!-- Safe variables -->
+                <t t-set="first_name" t-value="doc.first_name or ''" />
+                <t t-set="middle_name" t-value="doc.middle_name or ''" />
+                <t t-set="last_name" t-value="doc.last_name or ''" />
+                <t t-set="middle_init"
+                    t-value="middle_name[0].upper() + '. ' if middle_name else ''" />
+                <t t-set="full_name" t-value="(first_name + ' ' + middle_init + last_name).strip()" />
+                <t t-set="grade" t-value="doc.grade_level_id.name or ''" />
+                <t t-set="section" t-value="doc.section_id.name or ''" />
+                <t t-set="grade_section" t-value="(grade + ' - ' + section).strip(' -')" />
+                <t t-set="lrn" t-value="doc.lrn_no or ''" />
+                <t t-set="partner_name" t-value="(doc.partner_id.name or '').upper()" />
+                <t t-set="house_street" t-value="doc.house_street or ''" />
+                <t t-set="barangay" t-value="doc.barangay or ''" />
+                <t t-set="city_province" t-value="doc.city_province or ''" />
+                <t t-set="zip_code" t-value="doc.zip_code or ''" />
+
+                <!-- Truncated address -->
+                <t t-set="full_address_1_raw" t-value="(house_street + ', ' + barangay).strip(', ')" />
+                <t t-set="full_address_2_raw" t-value="(city_province + ' ' + zip_code).strip()" />
+                <t t-set="full_address_1"
+                    t-value="full_address_1_raw[:20] + '...' if len(full_address_1_raw) > 20 else full_address_1_raw" />
+                <t t-set="full_address_2"
+                    t-value="full_address_2_raw[:20] + '...' if len(full_address_2_raw) > 20 else full_address_2_raw" />
+
+                <div
+                    style="width: 190mm; page-break-inside: avoid; break-inside: avoid; white-space: nowrap;">
+
+                    <!-- FRONT SIDE -->
+                    <div
+                        style="display: inline-block; vertical-align: top; width: 89mm; height: 127mm; border: 1px solid #000; position: relative; margin-right: 10mm;">
+                        <img
+                            t-att-src="'data:image/png;base64,%s' % (get_front_img(doc.grade_level_id.id_type) or '')"
+                            style="width: 100%; height: 100%;" />
+
+                        <!-- Student photo wrapper -->
+                        <div
+                            style="position: absolute; top: 35mm; left: 6mm; width: 38.1mm; height: 38.1mm; border: 2px solid #000; border-radius: 12%;">
+                            <img t-if="get_photo(doc)"
+                                t-att-src="'data:image/png;base64,%s' % (get_photo(doc))"
+                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 10%; display: block;" />
+                        </div>
+
+                        <!-- QR Code -->
+                        <img t-att-src="'data:image/png;base64,%s' % (get_qr(doc) or '')"
+                            style="position: absolute; bottom: 6mm; left: 8mm; width: 30mm; height: 30mm; object-fit: contain; display: block; border: 1px solid #000;" />
+
+                        <!-- Full Name + Grade & Section -->
+                        <div
+                            style="position: absolute; top: 78mm; left: 0; right: 0; color: black; font-size: 10pt; line-height: 1.4; text-align: center;">
+                            <div>
+                                <t t-esc="full_name" />
+                                <br />
+                                <t t-esc="grade_section" />
+                            </div>
+                        </div>
+
+                        <!-- LRN (conditionally visible) -->
+                        <t t-if="doc.lrn_no">
+                            <div
+                                style="position: absolute; bottom: 25mm; right: 10mm; color: black; font-size: 10pt; text-align: right;">
+                                <strong>LRN No:</strong>
+                                <t t-esc="lrn" />
+                            </div>
+                        </t>
+
+                        <!-- ESC Logo -->
+                        <t t-if="'(ESC)' in (doc.tuition_id.name or '')">
+                            <img t-att-src="'data:image/png;base64,%s' % (esc_logo or '')"
+                                style="position: absolute; bottom: 12mm; right: 20mm; width: 12mm; height: 12mm;" />
+                        </t>
+                    </div>
+
+                    <!-- BACK SIDE -->
+                    <div
+                        style="display: inline-block; vertical-align: top; width: 89mm; height: 127mm; border: 1px solid #000; position: relative;">
+                        <img t-att-src="'data:image/png;base64,%s' % (back_img or '')"
+                            style="width: 100%; height: 100%;" />
+
+                        <!-- Contact Info -->
+                        <div
+                            style="position: absolute; top: 12mm; left: 10mm; right: 10mm; color: black; font-size: 10pt; line-height: 1.3; text-align: center;">
+                            <div>
+                                <t t-esc="partner_name" />
+                                <br />
+                                <t t-esc="full_address_1" />
+                                <br />
+                                <t t-esc="full_address_2" />
+                                <br />
+                                <t t-if="doc.user_mobile">
+                                    <t t-esc="doc.user_mobile" />
+                                </t>
+                                <t t-elif="doc.office_phone">
+                                    <t t-esc="doc.office_phone" />
+                                </t>
+                                <t t-elif="doc.home_phone">
+                                    <t t-esc="doc.home_phone" />
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

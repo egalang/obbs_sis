@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+
+        <!-- list view -->
+        <record id="sis_transmutation_table_list" model="ir.ui.view">
+            <field name="name">Transmutation Table List</field>
+            <field name="model">sis.transmutation.table</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="grade_range" />
+                    <field name="transmuted_grade" />
+                </list>
+            </field>
+        </record>
+
+        <!-- form view -->
+        <record id="sis_transmutation_table_form" model="ir.ui.view">
+            <field name="name">Transmutation Table Form</field>
+            <field name="model">sis.transmutation.table</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="grade_range" />
+                            <field name="transmuted_grade" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

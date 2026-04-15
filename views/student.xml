@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sis_student_kanban" model="ir.ui.view">
+            <field name="name">Student Record Kanban</field>
+            <field name="model">sis.enrollment</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_dashboard">
+                    <field name="image_1920" />
+                    <field name="full_name" />
+                    <field name="school_year_id" />
+                    <field name="grade_level_id" />
+                    <field name="section_id" />
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <aside class="o_kanban_aside_full">
+                                <div class="o_kanban_image_fill position-relative w-100">
+                                    <field name="image_1920" widget="image" alt="Student photo"
+                                        class="h-100" options="{'img_class': 'object-fit-cover'}" />
+                                </div>
+                            </aside>
+                            <main class="ps-2 ps-md-0">
+                                <div class="mb-1">
+                                    <field name="full_name" class="mb-0 fw-bold fs-5" />
+                                    <div class="text-muted small">
+                                        <div><strong>School Year:</strong> <span style="margin-left: 6px;"
+                                                t-esc="record.school_year_id.value or ''" /></div>
+                                        <div><strong>Grade Level:</strong> <span style="margin-left: 6px;"
+                                                t-esc="record.grade_level_id.value or ''" /></div>
+                                        <div><strong>Section:</strong> <span style="margin-left: 6px;"
+                                                t-esc="record.section_id.value or ''" /></div>
+                                    </div>
+                                </div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="sis_student_list" model="ir.ui.view">
+            <field name="name">Student Record List</field>
+            <field name="model">sis.enrollment</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="image_1920" widget="image" class="oe_avatar" />
+                    <field name="full_name" />
+                    <field name="school_year_id" />
+                    <field name="grade_level_id" />
+                    <field name="section_id" />
+                    <field name="birth_date" optional="hide" />
+                    <field name="age" optional="hide" />
+                    <field name="lrn_no" optional="hide" />
+                    <field name="father_full_name" optional="hide" />
+                    <field name="mother_full_name" optional="hide" />
+                    <field name="guardian_full_name" optional="hide" />
+                    <field name="home_phone" optional="hide" />
+                    <field name="office_phone" optional="hide" />
+                    <field name="user_mobile" optional="hide" />
+                </list>
+            </field>
+        </record>
+
+        <record id="sis_student_form" model="ir.ui.view">
+            <field name="name">Student Record Form</field>
+            <field name="model">sis.enrollment</field>
+            <field name="arch" type="xml">
+                <form string="Student">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" name="action_open_history" icon="fa-history">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">History</span>
+                                    <span class="o_stat_value"><field name="history_count" readonly="1" /></span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_reenroll_to_active_school_year" icon="fa-repeat" invisible="not can_reenroll">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Re-enroll</span>
+                                </div>
+                            </button>
+                        </div>
+                        <field name="image_1920" widget="image" class="oe_avatar" />
+                        <div class="oe_title mb48">
+                            <h1>
+                                <field name="full_name" readonly="1" />
+                            </h1>
+                        </div>
+                        <group colspan="4">
+                            <group>
+                                <field name="lrn_no" readonly="1" />
+                                <field name="previous_enrollment_id" readonly="1" options="{'no_open': True}" />
+                            </group>
+                            <group>
+                                <field name="school_year_id" options="{'no_open': True}" />
+                            </group>
+                        </group>
+                        <group colspan="4">
+                            <group>
+                                <field name="grade_level_id" readonly="1" options="{'no_open': True}" />
+                            </group>
+                            <group>
+                                <field name="section_id"
+                                    domain="[('grade_level_id', '=', grade_level_id), ('school_year_id', '=', school_year_id)]" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Personal Information">
+                                <group colspan="4">
+                                    <group>
+                                        <field name="first_name" />
+                                        <field name="middle_name" />
+                                    </group>
+                                    <group>
+                                        <field name="last_name" />
+                                        <field name="ext_name" />
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="birth_date" />
+                                    </group>
+                                    <group>
+                                        <field name="age" readonly="1" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Enrollment History">
+                                <field name="history_enrollment_ids" readonly="1">
+                                    <list>
+                                        <field name="school_year_id" />
+                                        <field name="enrollment_status" />
+                                        <field name="grade_level_id" />
+                                        <field name="section_id" />
+                                        <field name="previous_enrollment_id" optional="hide" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Parents / Guardian Information">
+                                <group>
+                                    <field name="partner_id" />
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="father_full_name" placeholder="(Last Name, Given Name, Middle Name)" />
+                                        <field name="mother_full_name" placeholder="(Last Name, Given Name, Middle Name)" />
+                                        <field name="guardian_full_name" placeholder="(Last Name, Given Name, Middle Name)" />
+                                    </group>
+                                    <group>
+                                        <field name="home_phone" widget="phone" />
+                                        <field name="office_phone" widget="phone" />
+                                        <field name="user_mobile" widget="phone" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Monthly Attendance">
+                                <field name="attendance_summary_ids">
+                                    <list editable="bottom">
+                                        <field name="month" />
+                                        <field name="year" />
+                                        <field name="present_days" />
+                                        <field name="expected_days" />
+                                        <field name="absent_days" />
+                                        <field name="tardy_days" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Advisor Comments">
+                                <group>
+                                    <button name="action_generate_advisor_comments" string="Generate/Refresh Comments"
+                                        type="object" class="btn btn-secondary" icon="fa-refresh" />
+                                </group>
+                                <field name="rating_comment_ids">
+                                    <list editable="bottom">
+                                        <field name="period_id" />
+                                        <field name="comment" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Character Building">
+                                <group>
+                                    <button name="action_generate_character_ratings" string="Generate/Refresh Behaviors"
+                                        type="object" class="btn btn-secondary" icon="fa-refresh" />
+                                </group>
+                                <field name="character_rating_ids">
+                                    <list editable="bottom">
+                                        <field name="period_id" readonly="1" />
+                                        <field name="group_name" readonly="1" />
+                                        <field name="description" readonly="1" />
+                                        <field name="rating" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+
+        <record id="sis_student_search" model="ir.ui.view">
+            <field name="name">Student Record Search</field>
+            <field name="model">sis.enrollment</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="full_name" />
+                    <field name="lrn_no" />
+                    <field name="school_year_id" />
+                    <field name="grade_level_id" />
+                    <field name="section_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="School Year" name="group_school_year" context="{'group_by': 'school_year_id'}" />
+                        <filter string="Grade Level" name="group_grade_level" context="{'group_by': 'grade_level_id'}" />
+                        <filter string="Section" name="group_section" context="{'group_by': 'section_id'}" />
+                    </group>
+                    <searchpanel>
+                        <field name="school_year_id" enable_counters="1" />
+                        <field name="grade_level_id" enable_counters="1" />
+                        <field name="section_id" />
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

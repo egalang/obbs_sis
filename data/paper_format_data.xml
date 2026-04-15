@@ -1,0 +1,13 @@
+<odoo>
+    <record id="paperformat_a4_landscape_custom" model="report.paperformat">
+        <field name="name">A4 Landscape Half-Inch Margins</field>
+        <field name="default" eval="False" />
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">12.7</field>
+        <field name="margin_bottom">12.7</field>
+        <field name="margin_left">12.7</field>
+        <field name="margin_right">12.7</field>
+    </record>
+</odoo>
+  

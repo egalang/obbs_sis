@@ -1,0 +1,76 @@
+<odoo>
+    <template id="course_main_meeting_tab" inherit_id="website_slides.course_main">
+
+        <!-- STEP 1: Add "Meeting Room" tab header -->
+        <xpath expr="//ul[contains(@class, 'o_wslides_nav_tabs')]" position="inside">
+            <li t-if="channel.is_website_user_allowed"
+                class="nav-item"
+                role="presentation">
+                <a class="nav-link"
+                    id="meeting-tab"
+                    data-bs-toggle="pill"
+                    href="#meeting"
+                    role="tab"
+                    aria-controls="meeting"
+                    aria-selected="false">
+                    <i class="fa fa-video-camera" /> Meeting Room </a>
+            </li>
+        </xpath>
+
+        <!-- STEP 2: Add the "Meeting Room" tab content -->
+        <xpath expr="//div[contains(@class, 'tab-content')]" position="inside">
+            <div
+                class="tab-pane fade o_wslides_tab_pane pt-3 px-2"
+                id="meeting" role="tabpanel" aria-labelledby="meeting-tab">
+
+                <t t-if="channel.is_website_user_allowed">
+                    <div class="alert alert-info" role="alert">
+                        You're enrolled in this course. Join the live session when it starts.
+                    </div>
+
+                    <!-- Display meeting schedule -->
+                    <div class="mb-3">
+                        <p>
+                            <strong>Meeting Start:</strong>
+                            <t t-if="channel.meeting_start_datetime">
+                                <span t-field="channel.meeting_start_datetime"
+                                    t-options="{'format': 'MMMM d, yyyy h:mm a'}" />
+                            </t>
+                            <t t-else="">
+                                <span>Not set</span>
+                            </t>
+                        </p>
+                        <p>
+                            <strong>Meeting End:</strong>
+                            <t t-if="channel.meeting_end_datetime">
+                                <span t-field="channel.meeting_end_datetime"
+                                    t-options="{'format': 'MMMM d, yyyy h:mm a'}" />
+                            </t>
+                            <t t-else="">
+                                <span>Not set</span>
+                            </t>
+                        </p>
+                    </div>
+
+
+                    <t t-if="channel.jitsi_room_name">
+                        <a t-att-href="'/jitsi/join_web/%s' % channel.id"
+                            class="btn btn-primary">
+                            <i class="fa fa-video-camera me-1" /> Join Meeting </a>
+                    </t>
+                    <t t-else="">
+                        <p class="text-muted">Live meeting room not yet initialized.</p>
+                    </t>
+                </t>
+
+                <t t-else="">
+                    <div class="alert alert-warning" role="alert">
+                        You must be enrolled in this course to access the meeting room.
+                    </div>
+                </t>
+            </div>
+        </xpath>
+
+
+    </template>
+</odoo>

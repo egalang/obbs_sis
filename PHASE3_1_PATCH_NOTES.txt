@@ -1,0 +1,24 @@
+OBBServer SIS - Phase 3.1 Patch
+
+Purpose
+- Hardens the Phase 3 upgrade path so re-enrollment/history columns are created safely during module upgrade.
+- Removes the need for manual SQL when upgrading from a partially applied Phase 3 state.
+
+Included
+- Module version bump to 18.0.1.4
+- Pre-migration script that ensures:
+  - sis_enrollment.previous_enrollment_id exists
+  - sis_enrollment.root_enrollment_id exists
+  - supporting indexes exist
+  - self-referential foreign keys exist
+- Defensive post-migration script that backfills history only after confirming both columns are available
+
+Recommended upgrade
+1. Replace the current addon with this patched addon
+2. Restart Odoo
+3. Upgrade module obbs_sis
+4. Re-open student records and re-test re-enrollment/history
+
+Notes
+- This patch is intentionally minimal: it does not change Phase 3 business behavior, only the upgrade safety path.
+- Existing duplicate-protection and history logic remain unchanged.

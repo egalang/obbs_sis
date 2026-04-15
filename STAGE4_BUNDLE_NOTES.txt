@@ -1,0 +1,60 @@
+OBBServer SIS - Phase 4 Bundle Notes
+====================================
+
+Bundle purpose
+--------------
+This bundle applies Phase 4 alignment for:
+- reports
+- attendance
+- gradebook
+- billing
+
+Version
+-------
+- Module version updated to 18.0.1.5
+
+Main changes
+------------
+1. Attendance alignment
+   - Added school_year_id and section_id on sis.student.attendance.log as stored related fields.
+   - Added school_year_id to sis.attendance.school_days.
+   - Updated school-days uniqueness to (month, year, school_year_id).
+   - Added validation that school-days references fall within the selected school year.
+   - Added closed-school-year write protection to attendance school-days reference records.
+   - Updated sis.attendance.monthly_summary to use school-year-specific school-day references.
+   - Updated monthly-summary cron to process enrollments/logs per school year.
+
+2. Gradebook alignment
+   - Added stored related fields on sis.gradebook:
+     school_year_id, section_id, channel_id, period_id.
+   - Added validation to ensure gradebook enrollment and activity belong to the same school year and section.
+   - Updated enrollment domain helper to support school_year_id context filtering.
+   - Expanded gradebook list/form/search views to expose school year, section, subject, and grading period.
+
+3. Activity alignment
+   - Added school_year_id on sis.activity as related to period_id.school_year_id.
+   - Added validation to ensure the selected course section belongs to the same school year as the grading period.
+   - Updated default period selection to prefer the active school year.
+   - Updated auto-population of gradebook lines to filter enrollments by the activity school year.
+
+4. Billing alignment
+   - Added school_year_id on account.move and account.payment as related fields from enrollment_id.
+   - Updated invoice/payment views to show school year beside the linked student enrollment.
+
+5. Report alignment
+   - Tightened report-card attendance lookup to the enrollment's school year.
+
+Recommended test coverage
+-------------------------
+1. Upgrade module on a copy of the database.
+2. Open School Days Reference and confirm records are now school-year-specific.
+3. Create attendance logs in different school years and verify monthly summary values do not cross years.
+4. Open gradebook and confirm School Year / Section / Period / Course fields appear and group correctly.
+5. Try mismatching an enrollment and an activity from different school years; validation should block save.
+6. Open invoices and payments generated from enrollment and verify School Year appears correctly.
+7. Generate progress report, rating sheet, and report card from records in multiple school years.
+
+Notes
+-----
+- This bundle is prepared as a best-effort Phase 4 patch set against the provided tested Phase 3 codebase.
+- Because the live Odoo database structure was not inspected directly in this turn, please upgrade and test first in a staging copy before production.

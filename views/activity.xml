@@ -1,0 +1,95 @@
+<odoo>
+    <!-- List View -->
+    <record id="sis_activity_list" model="ir.ui.view">
+        <field name="name">Subject Activity List</field>
+        <field name="model">sis.activity</field>
+        <field name="arch" type="xml">
+            <list string="Activities">
+                <field name="name" />
+                <field name="period_id" />
+                <field name="activity_type_id" />
+                <field name="school_year_id" optional="show" />
+                <field name="channel_id" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="sis_acitvity_form" model="ir.ui.view">
+        <field name="name">Subject Activity Form</field>
+        <field name="model">sis.activity</field>
+        <field name="arch" type="xml">
+            <form string="Activity">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <label for="name" />
+                            <field name="name" placeholder="e.g. Written Works 1" required="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_id" string="Grading Period" />
+                            <field name="activity_type_id" string="Activity Type"
+                                domain="[('channel_id', '=', channel_id)]" />
+                        </group>
+                        <group>
+                            <field name="channel_id" string="Channel" readonly="1"
+                                options="{'no_open': True}" />
+                            <field name="max_score" string="Max Score" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Grades">
+                            <field name="gradebook_ids">
+                                <list string="Grades" editable="bottom">
+                                    <field name="enrollment_id"
+                                        domain="[('section_id', '=', parent.section_id), ('school_year_id', '=', parent.school_year_id)]"
+                                        string="Students" />
+                                    <field name="gender" readonly="1"/>
+                                    <field name="score" />
+                                    <field name="remarks" />
+                                    <field name="weight" optional="hide" />
+                                    <field name="percentage_score" />
+                                    <field name="weighted_score" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sis_activity_search" model="ir.ui.view">
+        <field name="name">Subject Activity Search</field>
+        <field name="model">sis.activity</field>
+        <field name="arch" type="xml">
+            <search string="Activities Search">
+                <field name="school_year_id"/>
+
+                <filter string="1st Quarter" name="filter_q1"
+                    domain="[('period_id.code', '=', 'Q1')]" />
+                <filter string="2nd Quarter" name="filter_q2"
+                    domain="[('period_id.code', '=', 'Q2')]" />
+                <filter string="3rd Quarter" name="filter_q3"
+                    domain="[('period_id.code', '=', 'Q3')]" />
+                <filter string="4th Quarter" name="filter_q4"
+                    domain="[('period_id.code', '=', 'Q4')]" />
+
+                <group expand="0" string="Group By">
+                    <filter name="group_by_school_year" string="School Year"
+                        context="{'group_by': 'school_year_id'}" />
+                    <filter name="group_by_activity_type" string="Activity Type"
+                        context="{'group_by': 'activity_type_id'}" />
+                    <!-- other group_by filters if needed -->
+                </group>
+                <searchpanel>
+                    <!-- Use activity_type_id field for the searchpanel -->
+                    <field name="activity_type_id" icon="fa-tasks" />
+                    <field name="period_id" icon="fa-bookmark" />
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+</odoo>

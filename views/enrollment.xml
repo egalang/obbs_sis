@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record id="sis_enrollment_list" model="ir.ui.view">
+            <field name="name">Enrollment List</field>
+            <field name="model">sis.enrollment</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="full_name" />
+                    <field name="school_year_id" />
+                    <field name="previous_enrollment_id" optional="hide" />
+                    <field name="grade_level_id" />
+                    <field name="section_id" />
+                    <field name="enrollment_status" />
+                    <field name="gender" />
+                    <field name="birth_date" />
+                    <field name="age" />
+                    <field name="lrn_no" optional="hide" />
+                    <field name="psa_no" optional="hide" />
+                    <field name="is_vaccinated" optional="hide" />
+                    <field name="first_shot_date" optional="hide" />
+                    <field name="full_vaccination_date" optional="hide" />
+                    <field name="mother_tongue" optional="hide" />
+                    <field name="is_indigenous" optional="hide" />
+                    <field name="indigenous_group" optional="hide" />
+                    <field name="father_full_name" optional="hide" />
+                    <field name="mother_full_name" optional="hide" />
+                    <field name="guardian_full_name" optional="hide" />
+                    <field name="user_mobile" optional="hide" />
+                </list>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="sis_enrollment_form" model="ir.ui.view">
+            <field name="name">Enrollment Form</field>
+            <field name="model">sis.enrollment</field>
+            <field name="arch" type="xml">
+
+                <form string="Enrollment Form">
+                    <header>
+                        <field name="enrollment_status" widget="statusbar" readonly="1" />
+
+                        <button name="action_mark_reviewed"
+                            string="Mark as Reviewed"
+                            type="object"
+                            class="btn-primary"
+                            invisible="enrollment_status != 'pending'"
+                            groups="obbs_sis.group_sis_registrar,obbs_sis.group_sis_admin" />
+
+                        <button name="action_accept_application"
+                            string="Accept Application"
+                            type="object"
+                            class="btn-success"
+                            invisible="enrollment_status != 'reviewed'"
+                            groups="obbs_sis.group_sis_registrar,obbs_sis.group_sis_admin" />
+
+                        <!-- <button name="action_reenroll_to_active_school_year"
+                            type="object"
+                            string="Re-Enroll"
+                            class="btn-primary"
+                            invisible="not can_reenroll"/> -->
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button"
+                                type="object"
+                                icon="fa-history"
+                                name="action_open_history">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">History</span>
+                                    <span class="o_stat_value">
+                                        <field name="history_count" readonly="1" />
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button"
+                                type="object"
+                                icon="fa-repeat"
+                                name="action_reenroll_to_active_school_year"
+                                invisible="not can_reenroll">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Re-enroll</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button"
+                                type="object"
+                                icon="fa-book"
+                                name="action_view_related_invoices"
+                                invisible="enrollment_status != 'accepted'">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Invoices</span>
+                                    <span class="o_stat_value">
+                                        <field name="posted_invoice_count" readonly="1" /> / <field
+                                            name="invoice_count" readonly="1" />
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <group string="Student Information">
+                            <group colspan="4">
+                                <group>
+
+                                    <field name="lrn_no" placeholder="Enter student's LRN" />
+                                </group>
+                            </group>
+                            <group colspan="4">
+                                <group>
+                                    <field name="first_name" placeholder="Enter First Name" />
+                                    <field name="middle_name" placeholder="Enter Middle Name" />
+                                </group>
+                                <group>
+                                    <field name="last_name" placeholder="Enter Last Name" />
+                                    <field name="ext_name" placeholder="Enter Ext Name" />
+                                </group>
+                            </group>
+                            <group colspan="4">
+                                <group>
+                                    <field name="birth_date" placeholder="Select birthdate" />
+                                    <field name="psa_no" placeholder="Enter student's PSA Number" />
+                                </group>
+                                <group>
+                                    <field name="age" />
+                                    <field name="gender" widget="radio"
+                                        options="{'horizontal': true}" />
+                                </group>
+                            </group>
+                            <group colspan="4">
+                                <group>
+                                    <field name="enrollment_type" widget="radio"
+                                        options="{'horizontal': true}" />
+                                </group>
+                            </group>
+                            <group colspan="4">
+                                <group>
+                                    <field name="is_indigenous" widget="radio"
+                                        options="{'horizontal': true}" />
+                                    <field name="indigenous_group" readonly="is_indigenous != 'yes'" />
+                                </group>
+                                <group>
+                                    <field name="mother_tongue" placeholder="e.g. Tagalog" />
+                                </group>
+
+                            </group>
+                        </group>
+                        <group string="Class Information">
+                            <group>
+                                <field name="company_id" invisible="1" />
+                                <field name="root_enrollment_id" invisible="1" />
+                                <field name="previous_enrollment_id" options="{'no_open': True}" readonly="1" />
+                                <field name="school_year_id" placeholder="Select school year." />
+                            </group>
+                            <group>
+                                <field name="grade_level_id" placeholder="Select grade level" />
+                                <field name="section_id" domain="[('grade_level_id', '=', grade_level_id), ('school_year_id', '=', school_year_id)]" />
+                            </group>
+                        </group>
+
+                        <group string="Vaccination Information">
+                            <group>
+                                <field name="is_vaccinated" widget="radio"
+                                    options="{'horizontal': true}" />
+                            </group>
+
+                            <group>
+                                <field name="first_shot_date" readonly="is_vaccinated != 'yes'" />
+                                <field name="full_vaccination_date"
+                                    readonly="is_vaccinated != 'yes'" />
+                            </group>
+                        </group>
+
+                        <group string="Address Information">
+                            <group>
+                                <field name="house_street" />
+                                <field name="barangay" />
+                            </group>
+                            <group>
+                                <field name="city_province" />
+                                <field name="zip_code" />
+                            </group>
+                        </group>
+
+                        <group string="Parent/Guardian Information">
+                            <group>
+                                <field name="father_full_name"
+                                    placeholder="(Last Name, Given Name, Middle Name)" />
+                                <field name="mother_full_name"
+                                    placeholder="(Last Name, Given Name, Middle Name)" />
+                                <field name="guardian_full_name"
+                                    placeholder="(Last Name, Given Name, Middle Name)" />
+                            </group>
+                            <group>
+                                <field name="home_phone" widget="phone" />
+                                <field name="office_phone" widget="phone" />
+                                <field name="user_mobile" widget="phone" />
+                            </group>
+                            <group>
+                                <field name="partner_id" />
+                            </group>
+                        </group>
+
+                        <group string="Returning Learners / Transferees">
+                            <group>
+                                <field name="last_school_name" />
+                                <field name="last_school_id" />
+                                <field name="last_school_address" />
+                            </group>
+                            <group>
+                                <field name="last_grade_level_id" />
+                                <field name="last_school_year_id" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Payment Information">
+                                <field name="tuition_id" placeholder="e.g. Nursery 1 - Plan A" domain="[('grade_level_id', '=', grade_level_id), ('school_year_id', '=', school_year_id)]" />
+                            </group>
+                            <group string="Confirmation">
+                                <field name="agreed" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+
+        <record id="sis_enrollment_search" model="ir.ui.view">
+            <field name="name">Enrollment Search</field>
+            <field name="model">sis.enrollment</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="full_name" />
+                    <field name="school_year_id" />
+                    <field name="previous_enrollment_id" optional="hide" />
+                    <field name="grade_level_id" />
+                    <field name="section_id" />
+                    <field name="lrn_no" />
+                    <filter name="status_pending" string="Pending"
+                        domain="[('enrollment_status', '=', 'pending')]" />
+                    <filter name="status_reviewed" string="Reviewed"
+                        domain="[('enrollment_status', '=', 'reviewed')]" />
+                    <filter name="status_accepted" string="Accepted"
+                        domain="[('enrollment_status', '=', 'accepted')]" />
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_grade_level" string="Grade Level"
+                            context="{'group_by': 'grade_level_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

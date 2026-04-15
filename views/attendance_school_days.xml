@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="sis_student_attendance_school_days_list" model="ir.ui.view">
+            <field name="name">Student Attendance School Days List</field>
+            <field name="model">sis.attendance.school_days</field>
+            <field name="arch" type="xml">
+                <list string="School Days Reference">
+                    <field name="school_year_id" />
+                    <field name="month" />
+                    <field name="year" />
+                    <field name="school_days" />
+                </list>
+            </field>
+        </record>
+
+        <record id="sis_student_attendance_school_days_form" model="ir.ui.view">
+            <field name="name">Student Attendance School Days Form</field>
+            <field name="model">sis.attendance.school_days</field>
+            <field name="arch" type="xml">
+                <form string="School Days Reference">
+                    <sheet>
+                        <group>
+                            <field name="school_year_id" />
+                            <field name="month" />
+                            <field name="year" />
+                            <field name="school_days" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sis_student_attendance_school_days_search" model="ir.ui.view">
+            <field name="name">Student Attendance School Days Search</field>
+            <field name="model">sis.attendance.school_days</field>
+            <field name="arch" type="xml">
+                <search string="Search School Days Reference">
+                    <field name="school_year_id" />
+                    <field name="month" />
+                    <field name="year" />
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_school_year" string="School Year" context="{'group_by': 'school_year_id'}" />
+                        <filter name="group_by_year" string="Year" context="{'group_by': 'year'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

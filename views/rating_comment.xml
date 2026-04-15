@@ -1,0 +1,33 @@
+<odoo>
+    <record id="sis_rating_comment_list" model="ir.ui.view">
+        <field name="name">Advisor Comment List</field>
+        <field name="model">sis.rating.comment</field>
+        <field name="arch" type="xml">
+            <list string="Advisor Comments">
+                <field name="enrollment_id" />
+                <field name="period_id" />
+                <field name="comment" />
+            </list>
+        </field>
+    </record>
+
+    <record id="sis_rating_comment_form" model="ir.ui.view">
+        <field name="name">Advisor Comment Form</field>
+        <field name="model">sis.rating.comment</field>
+        <field name="arch" type="xml">
+            <form string="Advisor Comment">
+                <sheet>
+                    <group colspan="4">
+                        <group>
+                            <field name="enrollment_id" />
+                            <field name="period_id" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="comment" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

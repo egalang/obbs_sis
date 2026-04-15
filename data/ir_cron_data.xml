@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="ir_cron_update_monthly_attendance" model="ir.cron">
+            <field name="name">SIS: Update Monthly Attendance Summary</field>
+            <field name="model_id" ref="model_sis_attendance_monthly_summary" />
+            <field name="state">code</field>
+            <field name="code">model.cron_update_attendance_summary()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall"
+                eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 01:00:00')" />
+            <field name="priority">3</field>
+        </record>
+
+    </data>
+</odoo>

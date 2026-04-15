@@ -1,0 +1,253 @@
+<odoo>
+    <data noupdate="0">
+
+        <!-- ───────────────────────────── -->
+        <!-- ELEMENTARY / HIGH‑SCHOOL     -->
+        <!-- ───────────────────────────── -->
+
+        <!-- Maka‑Diyos (group_order = 1) -->
+        <record id="cb_elem_md_1" model="sis.character.behavior">
+            <field name="behavior_type">elementary</field>
+            <field name="group_name">Maka‑Diyos</field>
+            <field name="description">Expresses one's spiritual beliefs while respecting the spiritual beliefs of others.</field>
+            <field name="sequence">1</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_elem_md_2" model="sis.character.behavior">
+            <field name="behavior_type">elementary</field>
+            <field name="group_name">Maka‑Diyos</field>
+            <field name="description">Shows adherence to ethical principles by upholding truth.</field>
+            <field name="sequence">2</field>
+            <field name="group_order">1</field>
+        </record>
+
+        <!-- Makatao (group_order = 2) -->
+        <record id="cb_elem_mt_1" model="sis.character.behavior">
+            <field name="behavior_type">elementary</field>
+            <field name="group_name">Makatao</field>
+            <field name="description">Is sensitive to individual, social, and cultural differences.</field>
+            <field name="sequence">1</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_elem_mt_2" model="sis.character.behavior">
+            <field name="behavior_type">elementary</field>
+            <field name="group_name">Makatao</field>
+            <field name="description">Demonstrates contributions toward solidarity.</field>
+            <field name="sequence">2</field>
+            <field name="group_order">2</field>
+        </record>
+
+        <!-- Makakalikasan (group_order = 3) -->
+        <record id="cb_elem_mk_1" model="sis.character.behavior">
+            <field name="behavior_type">elementary</field>
+            <field name="group_name">Makakalikasan</field>
+            <field name="description">Cares for the environment and utilizes resources wisely, judiciously, and economically.</field>
+            <field name="sequence">1</field>
+            <field name="group_order">3</field>
+        </record>
+
+        <!-- Makabansa (group_order = 4) -->
+        <record id="cb_elem_mb_1" model="sis.character.behavior">
+            <field name="behavior_type">elementary</field>
+            <field name="group_name">Makabansa</field>
+            <field name="description">Demonstrates pride in being a Filipino; exercises the rights and responsibilities of a Filipino citizen.</field>
+            <field name="sequence">1</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_elem_mb_2" model="sis.character.behavior">
+            <field name="behavior_type">elementary</field>
+            <field name="group_name">Makabansa</field>
+            <field name="description">Demonstrates appropriate behavior in carrying out activities in the school, community, and country.</field>
+            <field name="sequence">2</field>
+            <field name="group_order">4</field>
+        </record>
+
+        <!-- ───────────────────────────── -->
+        <!-- PRESCHOOL                     -->
+        <!-- ───────────────────────────── -->
+
+        <!-- Work and Study Habits (group_order = 1) -->
+        <record id="cb_pre_wsh_1" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Follows direction carefully</field>
+            <field name="sequence">1</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_pre_wsh_2" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Completes assigned task accurately and independently</field>
+            <field name="sequence">2</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_pre_wsh_3" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Works well alone</field>
+            <field name="sequence">3</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_pre_wsh_4" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Demonstrates proper attitude towards work</field>
+            <field name="sequence">4</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_pre_wsh_5" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">5</field>
+            <field name="group_order">1</field>
+        </record>
+
+        <!-- Social Skills (group_order = 2) -->
+        <record id="cb_pre_ss_1" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Shows respect for property and rights of others</field>
+            <field name="sequence">1</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_pre_ss_2" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Shares talent and resources generously with others</field>
+            <field name="sequence">2</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_pre_ss_3" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Practices honesty</field>
+            <field name="sequence">3</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_pre_ss_4" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Demonstrates responsible obidience and courtesy</field>
+            <field name="sequence">4</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_pre_ss_5" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Works and plays well with others</field>
+            <field name="sequence">5</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_pre_ss_6" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">6</field>
+            <field name="group_order">2</field>
+        </record>
+
+        <!-- Motor Skills (group_order = 3) -->
+        <record id="cb_pre_ms_1" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description"> Writes letters of the alphabet in manuscript form</field>
+            <field name="sequence">1</field>
+            <field name="group_order">3</field>
+        </record>
+        <!-- Repeat similarly for cb_pre_ms_2 to cb_pre_ms_8 -->
+        <record id="cb_pre_ms_2" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Copies simple words, phrases and sentences</field>
+            <field name="sequence">2</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_pre_ms_3" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Colors within the lines</field>
+            <field name="sequence">3</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_pre_ms_4" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Handles art materials correctly and properly</field>
+            <field name="sequence">4</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_pre_ms_5" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Handles scissors well</field>
+            <field name="sequence">5</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_pre_ms_6" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Claps and marches in time with music</field>
+            <field name="sequence">6</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_pre_ms_7" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Able to run, jump, hop and skip</field>
+            <field name="sequence">7</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_pre_ms_8" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description"> Able to throw and catch a ball</field>
+            <field name="sequence">8</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_pre_ms_9" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">9</field>
+            <field name="group_order">3</field>
+        </record>
+
+        <!-- Spiritual Performance (group_order = 4) -->
+        <record id="cb_pre_sp_1" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Able to sing praises to God</field>
+            <field name="sequence">1</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_pre_sp_2" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Says simple prayers</field>
+            <field name="sequence">2</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_pre_sp_3" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Recalls and understands some bible stories</field>
+            <field name="sequence">3</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_pre_sp_4" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Recites memory verses</field>
+            <field name="sequence">4</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_pre_sp_5" model="sis.character.behavior">
+            <field name="behavior_type">preschool</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">5</field>
+            <field name="group_order">4</field>
+        </record>
+    </data>
+</odoo>

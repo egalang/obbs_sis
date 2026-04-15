@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sis_student_attendance_log_list" model="ir.ui.view">
+            <field name="name">Student Attendance Log List</field>
+            <field name="model">sis.student.attendance.log</field>
+            <field name="arch" type="xml">
+                <list string="Student Attendance Logs" default_order="attendance_datetime desc">
+                    <field name="school_year_id" optional="show"/>
+                    <field name="enrollment_id" />
+                    <field name="section_id" optional="show"/>
+                    <field name="log_type" />
+                    <field name="attendance_datetime" />
+                    <field name="is_notified" />
+                </list>
+            </field>
+        </record>
+
+        <record id="sis_student_attendance_log_form" model="ir.ui.view">
+            <field name="name">Student Attendance Log Form</field>
+            <field name="model">sis.student.attendance.log</field>
+            <field name="arch" type="xml">
+                <form string="Student Attendance Log">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="school_year_id" readonly="1"/>
+                                <field name="enrollment_id" />
+                                <field name="section_id" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="attendance_datetime" />
+                                <field name="log_type" />
+                                <field name="is_notified" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sis_student_attendance_log_search" model="ir.ui.view">
+            <field name="name">Student Attendance Log Search</field>
+            <field name="model">sis.student.attendance.log</field>
+            <field name="arch" type="xml">
+                <search string="Search Attendance Logs">
+                    <field name="school_year_id" />
+                    <field name="enrollment_id" />
+                    <field name="section_id" />
+                    <field name="attendance_datetime" />
+
+                    <filter string="School In" name="filter_school_in" domain="[('log_type', '=', 'school_in')]" />
+                    <filter string="School Out" name="filter_school_out" domain="[('log_type', '=', 'school_out')]" />
+                    <filter string="Class In" name="filter_class_in" domain="[('log_type', '=', 'class_in')]" />
+                    <filter string="Class Out" name="filter_class_out" domain="[('log_type', '=', 'class_out')]" />
+
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_school_year" string="School Year" context="{'group_by': 'school_year_id'}" />
+                        <filter name="group_by_section" string="Section" context="{'group_by': 'section_id'}" />
+                        <filter name="group_by_log_type" string="Log Type" context="{'group_by': 'log_type'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

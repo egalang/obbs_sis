@@ -1,0 +1,78 @@
+<odoo>
+    <record id="view_sis_gradebook_tree" model="ir.ui.view">
+        <field name="name">sis.gradebook.list</field>
+        <field name="model">sis.gradebook</field>
+        <field name="arch" type="xml">
+            <list string="Gradebook Entries">
+                <field name="school_year_id" optional="show"/>
+                <field name="section_id" optional="show"/>
+                <field name="period_id" optional="show"/>
+                <field name="channel_id" optional="show"/>
+                <field name="activity_id"/>
+                <field name="enrollment_id"/>
+                <field name="score"/>
+                <field name="percentage_score" optional="hide"/>
+                <field name="weighted_score" optional="hide"/>
+                <field name="remarks"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sis_gradebook_form" model="ir.ui.view">
+        <field name="name">sis.gradebook.form</field>
+        <field name="model">sis.gradebook</field>
+        <field name="arch" type="xml">
+            <form string="Gradebook Entry">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="school_year_id" readonly="1"/>
+                            <field name="section_id" readonly="1"/>
+                            <field name="period_id" readonly="1"/>
+                            <field name="channel_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="activity_id"/>
+                            <field name="enrollment_id"/>
+                            <field name="score"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="weight" readonly="1"/>
+                            <field name="total_max" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="percentage_score" readonly="1"/>
+                            <field name="weighted_score" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="remarks"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sis_gradebook_search" model="ir.ui.view">
+        <field name="name">sis.gradebook.search</field>
+        <field name="model">sis.gradebook</field>
+        <field name="arch" type="xml">
+            <search string="Gradebook Entries">
+                <field name="school_year_id"/>
+                <field name="section_id"/>
+                <field name="period_id"/>
+                <field name="channel_id"/>
+                <field name="activity_id"/>
+                <field name="enrollment_id"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_by_school_year" string="School Year" context="{'group_by': 'school_year_id'}"/>
+                    <filter name="group_by_section" string="Section" context="{'group_by': 'section_id'}"/>
+                    <filter name="group_by_period" string="Grading Period" context="{'group_by': 'period_id'}"/>
+                    <filter name="group_by_channel" string="Course" context="{'group_by': 'channel_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

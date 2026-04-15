@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sis_sections_list" model="ir.ui.view">
+            <field name="name">Sections List</field>
+            <field name="model">sis.sections</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="grade_level_id" />
+                    <field name="school_year_id" />
+                    <field name="advisor_id" />
+                </list>
+            </field>
+        </record>
+
+        <record id="sis_sections_formm" model="ir.ui.view">
+            <field name="name">Sections Form</field>
+            <field name="model">sis.sections</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_open_add_enrollees_wizard" string="Add Enrollees"
+                            type="object" class="btn-primary" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label for="name" />
+                                <field name="name" placeholder="e.g. Section 1" required="1" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="grade_level_id" />
+                                <field name="school_year_id" />
+                            </group>
+                            <group>
+                                <field name="advisor_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Students">
+                                <field name="enrollment_ids"
+                                    domain="[('grade_level_id', '=', grade_level_id), ('school_year_id', '=', school_year_id)]"
+                                    readonly="1"
+                                    context="{'form_view_ref': 'obbs_sis.sis_student_form'}">
+                                    <list>
+                                        <field name="full_name" />
+                                        <field name="school_year_id" />
+                                        <field name="grade_level_id" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+
+        <record id="sis_sections_search" model="ir.ui.view">
+            <field name="name">Sections Search</field>
+            <field name="model">sis.sections</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="grade_level_id" />
+                    <field name="school_year_id" />
+                    <field name="advisor_id" />
+                    <group expand="0" string="Group By">
+                        <filter string="School Year" name="group_school_year" context="{'group_by': 'school_year_id'}" />
+                        <filter string="Grade Level" name="group_grade_level" context="{'group_by': 'grade_level_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

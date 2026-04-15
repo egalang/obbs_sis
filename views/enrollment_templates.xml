@@ -1,0 +1,611 @@
+<odoo>
+    <data>
+        <template id="portal_my_home_enrollments" name="My Enrollments"
+            inherit_id="portal.portal_my_home" customize_show="True"
+            priority="40">
+            <!-- Optional flag setup (like Sales/Invoices modules) -->
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+                <t t-set="portal_enrollment_category_enable" t-value="True" />
+            </xpath>
+            <!-- Actual portal entry -->
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <div id="portal_enrollment_category">
+                    <t t-call="portal.portal_docs_entry">
+                        <t t-set="icon"
+                            t-value="'/obbs_sis/static/src/img/enrollment_application.svg'" />
+                        <t t-set="title">Enrollment Applications</t>
+                        <t t-set="url" t-value="'/my/enrollments'" />
+                        <t t-set="text">View your submitted enrollment applications</t>
+                        <t t-set="placeholder_count" t-value="'enrollment_count'" />
+                    </t>
+                </div>
+            </xpath>
+        </template>
+
+
+        <template id="portal_breadcrumbs_enrollments" inherit_id="portal.portal_breadcrumbs">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+
+                <!-- List View -->
+                <li t-if="page_name == 'enrollment'" class="breadcrumb-item active">
+                    <span>My Enrollments</span>
+                </li>
+
+                <!-- Detail View -->
+                <li t-if="page_name == 'student_enrollment'" class="breadcrumb-item">
+                    <a href="/my/enrollments">My Enrollments</a>
+                </li>
+                <li t-if="page_name == 'student_enrollment'" class="breadcrumb-item active">
+                    <span t-esc="enrollment.full_name" />
+                </li>
+            </xpath>
+        </template>
+
+        <template id="portal_enrollment_list" name="My Enrollments">
+            <t t-call="portal.portal_layout">
+                <t t-if="enrollments">
+                    <t t-call="portal.portal_table">
+                        <thead>
+                            <tr class="active">
+                                <th>Full Name</th>
+                                <th>Status</th>
+                                <th>School Year</th>
+                                <th>Grade Level</th>
+                                <th>Application Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <t t-foreach="enrollments" t-as="enrollment">
+                            <tr>
+                                <td>
+                                    <t t-esc="enrollment.full_name" />
+                                </td>
+                                <td>
+                                    <t t-set="status_class"
+                                        t-value="'secondary' if enrollment.enrollment_status == 'pending' else ('primary' if enrollment.enrollment_status == 'reviewed' else 'success')" />
+                                    <span t-att-class="'badge bg-' + status_class">
+                                        <t t-esc="enrollment.enrollment_status.capitalize()" />
+                                    </span>
+                                </td>
+                                <td>
+                                    <t t-esc="enrollment.school_year_id.name" />
+                                </td>
+                                <td>
+                                    <t t-esc="enrollment.grade_level_id.name" />
+                                </td>
+                                <td>
+                                    <t t-esc="enrollment.create_date.strftime('%B %d, %Y')" />
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group"
+                                        aria-label="Enrollment Actions">
+                                        <a t-attf-href="/my/enrollments/{{ enrollment.id }}"
+                                            class="btn btn-primary"
+                                            title="Check Communication History">
+                                            <i class="fa fa-comments" aria-hidden="true"></i>
+                                        </a>
+                                        <a t-attf-href="/my/enrollments/{{ enrollment.id }}/update"
+                                            class="btn btn-secondary" title="Update Information">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </a>
+                                        <form t-if="enrollment.can_reenroll"
+                                            t-att-action="'/my/enrollments/%s/re-enroll' % enrollment.id"
+                                            method="post" class="d-inline-block">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                            <button type="submit" class="btn btn-success" title="Re-enroll to active school year">
+                                                <i class="fa fa-repeat" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </t>
+                <t t-if="not enrollments">
+                    <div class="alert alert-warning my-4">
+                        You haven't submitted any enrollment application yet.
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="portal_enrollment_page" name="Enrollment Details">
+            <t t-call="portal.portal_layout">
+                <div class="container">
+                    <h2 class="mb-4">
+                        <t t-esc="enrollment.full_name" />
+                        <a t-attf-href="/my/enrollments/{{ enrollment.id }}/update"
+                            class="btn btn-secondary"
+                            title="Update Information">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        <form t-if="enrollment.can_reenroll"
+                            t-att-action="'/my/enrollments/%s/re-enroll' % enrollment.id"
+                            method="post" class="d-inline-block ms-2">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <button type="submit" class="btn btn-success" title="Create re-enrollment">
+                                <i class="fa fa-repeat" aria-hidden="true"></i> Re-enroll
+                            </button>
+                        </form>
+                    </h2>
+
+                    <!-- Basic Information Card -->
+                    <div class="card shadow-sm mb-5">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Basic Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Status:</strong>
+                                    <t t-set="status_class"
+                                        t-value="'secondary' if enrollment.enrollment_status == 'pending' else ('primary' if enrollment.enrollment_status == 'reviewed' else 'success')" />
+                                    <span t-att-class="'badge bg-' + status_class">
+                                        <t t-esc="enrollment.enrollment_status.capitalize()" />
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Birth Date:</strong>
+                                    <span class="ms-2">
+                                        <t t-esc="enrollment.birth_date" />
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>School Year:</strong>
+                                    <span class="ms-2">
+                                        <t t-esc="enrollment.school_year_id.name" />
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Grade Level:</strong>
+                                    <span class="ms-2">
+                                        <t t-esc="enrollment.grade_level_id.name" />
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Application Date:</strong>
+                                    <span class="ms-2">
+                                        <t t-esc="enrollment.create_date.strftime('%B %d, %Y')" />
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-5">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Student History</h5>
+                        </div>
+                        <div class="card-body">
+                            <t t-set="history_records" t-value="enrollment.history_enrollment_ids" />
+                            <t t-if="history_records">
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>School Year</th>
+                                                <th>Status</th>
+                                                <th>Grade Level</th>
+                                                <th>Section</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="history_records" t-as="history_line">
+                                                <td><t t-esc="history_line.school_year_id.name" /></td>
+                                                <td><t t-esc="history_line.enrollment_status.capitalize()" /></td>
+                                                <td><t t-esc="history_line.grade_level_id.name" /></td>
+                                                <td><t t-esc="history_line.section_id.name or '-'" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- Communication History Section -->
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Communication History</h5>
+                        </div>
+                        <div class="card-body">
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="enrollment" />
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <!-- Update Enrollment Information Form -->
+        <template id="portal_update_enrollment_page" name="Update Enrollment">
+            <t t-call="website.layout">
+                <div class="container my-5">
+                    <h1 class="mb-4">Update Enrollment Application <a
+                            t-attf-href="/my/enrollments/{{ enrollment.id }}"
+                            class="btn btn-primary" title="Check Communication History">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </a>
+                    </h1>
+                    <t t-if="error">
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong>
+                            <t t-esc="error" />
+                        </div>
+                    </t>
+                    <form t-att-action="'/my/enrollments/%s/update/submit' % enrollment.id"
+                        method="post" class="o_portal_form" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+
+                        <!-- STUDENT INFO -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Student Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>School Year</label>
+                                        <input type="text" class="form-control"
+                                            t-att-value="enrollment.school_year_id.name"
+                                            readonly="True" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>LRN</label>
+                                        <input type="text" name="lrn_no" class="form-control"
+                                            required="True" t-att-value="enrollment.lrn_no" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>First Name</label>
+                                        <input type="text" name="first_name" class="form-control"
+                                            required="True" t-att-value="enrollment.first_name" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Middle Name</label>
+                                        <input type="text" name="middle_name" class="form-control"
+                                            t-att-value="enrollment.middle_name" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Last Name</label>
+                                        <input type="text" name="last_name" class="form-control"
+                                            required="True" t-att-value="enrollment.last_name" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Extension Name</label>
+                                        <input type="text" name="ext_name" class="form-control"
+                                            t-att-value="enrollment.ext_name" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Birth Date</label>
+                                        <input type="date" name="birth_date" class="form-control"
+                                            required="True" t-att-value="enrollment.birth_date" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>PSA No</label>
+                                        <input type="text" name="psa_no" class="form-control"
+                                            t-att-value="enrollment.psa_no" />
+                                    </div>
+                                    <div
+                                        class="form-group col-md-6 d-flex flex-column flex-lg-row mb-3 align-items-lg-center">
+                                        <label>Gender:</label>
+                                        <div class="d-flex flex-column flex-lg-row"
+                                            style="margin-left: 15px;">
+                                            <label class="radio-inline me-lg-3 mb-2 mb-lg-0">
+                                                <input type="radio" name="gender" value="male"
+                                                    t-att-checked="enrollment.gender == 'male'" />
+                                                Male </label>
+                                            <label class="radio-inline me-lg-3 mb-2 mb-lg-0">
+                                                <input type="radio" name="gender" value="female"
+                                                    t-att-checked="enrollment.gender == 'female'" />
+                                                Female </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>Grade Level</label>
+                                        <select name="grade_level_id" class="form-control"
+                                            required="True">
+                                            <t t-foreach="grade_levels" t-as="level">
+                                                <option t-att-value="level.id"
+                                                    t-att-selected="enrollment.grade_level_id.id == level.id">
+                                                    <t t-esc="level.name" />
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div
+                                        class="form-group col-md-6 d-flex flex-column flex-lg-row align-items-lg-center">
+                                        <label>Enrollment Type:</label>
+                                        <div class="d-flex flex-column flex-lg-row"
+                                            style="margin-left: 15px;">
+                                            <label class="radio-inline me-lg-3 mb-2 mb-lg-0">
+                                                <input type="radio" name="enrollment_type"
+                                                    value="no_lrn"
+                                                    t-att-checked="enrollment.enrollment_type == 'no_lrn'" />
+                                                No LRN </label>
+                                            <label class="radio-inline me-lg-3 mb-2 mb-lg-0">
+                                                <input type="radio" name="enrollment_type"
+                                                    value="with_lrn"
+                                                    t-att-checked="enrollment.enrollment_type == 'with_lrn'" />
+                                                With LRN </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="enrollment_type"
+                                                    value="balik_aral"
+                                                    t-att-checked="enrollment.enrollment_type == 'balik_aral'" />
+                                                Returning (Balik-Aral) </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Mother Tongue</label>
+                                        <input type="text" name="mother_tongue" class="form-control"
+                                            required="True" t-att-value="enrollment.mother_tongue" />
+                                    </div>
+                                    <div
+                                        class="form-group col-md-4 d-flex flex-column flex-lg-row align-items-lg-center">
+                                        <label>Belonging to any Indigenous Peoples (IP) Community?</label>
+                                        <div class="d-flex flex-column flex-lg-row"
+                                            style="margin-left: 15px;">
+                                            <label class="radio-inline me-lg-3 mb-2 mb-lg-0">
+                                                <input type="radio" name="is_indigenous" value="no"
+                                                    t-att-checked="enrollment.is_indigenous == 'no'" />
+                                                No </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="is_indigenous" value="yes"
+                                                    t-att-checked="enrollment.is_indigenous == 'yes'" />
+                                                Yes </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-8">
+                                        <label>If yes, specify</label>
+                                        <input type="text" name="indigenous_group"
+                                            class="form-control"
+                                            t-att-value="enrollment.indigenous_group" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- VACCINATION -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Vaccination Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div
+                                        class="form-group col-md-4 d-flex flex-column flex-lg-row align-items-lg-center">
+                                        <label>Is Vaccinated?</label>
+                                        <div class="d-flex flex-column flex-lg-row"
+                                            style="margin-left: 15px;">
+                                            <label class="radio-inline me-lg-3 mb-2 mb-lg-0">
+                                                <input type="radio" name="is_vaccinated" value="no"
+                                                    t-att-checked="enrollment.is_vaccinated == 'no'" />
+                                                No </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="is_vaccinated" value="yes"
+                                                    t-att-checked="enrollment.is_vaccinated == 'yes'" />
+                                                Yes </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>First Shot Date</label>
+                                        <input type="date" name="first_shot_date"
+                                            class="form-control"
+                                            t-att-value="enrollment.first_shot_date" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Full Vaccination Date</label>
+                                        <input type="date" name="full_vaccination_date"
+                                            class="form-control"
+                                            t-att-value="enrollment.full_vaccination_date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ADDRESS -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Address Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>House and Street</label>
+                                        <input type="text" name="house_street" class="form-control"
+                                            required="True" t-att-value="enrollment.house_street" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Barangay</label>
+                                        <input type="text" name="barangay" class="form-control"
+                                            required="True" t-att-value="enrollment.barangay" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>City / Municipality</label>
+                                        <input type="text" name="city_province" class="form-control"
+                                            required="True" t-att-value="enrollment.city_province" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Zip Code</label>
+                                        <input type="text" name="zip_code" class="form-control"
+                                            required="True" t-att-value="enrollment.zip_code" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PARENT/GUARDIAN -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Parent / Guardian Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label>Father's Name</label>
+                                        <input type="text" name="father_full_name"
+                                            class="form-control"
+                                            required="True"
+                                            t-att-value="enrollment.father_full_name" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Mother's Name</label>
+                                        <input type="text" name="mother_full_name"
+                                            class="form-control"
+                                            required="True"
+                                            t-att-value="enrollment.mother_full_name" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Guardian's Full Name</label>
+                                        <input type="text" name="guardian_full_name"
+                                            class="form-control"
+                                            t-att-value="enrollment.guardian_full_name" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Home Phone</label>
+                                        <input type="text" name="home_phone" class="form-control"
+                                            t-att-value="enrollment.home_phone" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Office Phone</label>
+                                        <input type="text" name="office_phone" class="form-control"
+                                            t-att-value="enrollment.office_phone" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Mobile Phone</label>
+                                        <input type="text" name="user_mobile" class="form-control"
+                                            t-att-value="enrollment.user_mobile" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- RETURNING LEARNERS -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Returning Learners / Transferees</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Previous School Name</label>
+                                        <input type="text" name="last_school_name"
+                                            class="form-control"
+                                            t-att-value="enrollment.last_school_name" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>School ID</label>
+                                        <input type="text" name="last_school_id"
+                                            class="form-control"
+                                            t-att-value="enrollment.last_school_id" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>School Address</label>
+                                        <input type="text" name="last_school_address"
+                                            class="form-control"
+                                            t-att-value="enrollment.last_school_address" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Last Grade Level</label>
+                                        <select name="last_grade_level_id" class="form-control">
+                                            <option value="">--</option>
+                                            <t t-foreach="grade_levels" t-as="lvl">
+                                                <option t-att-value="lvl.id"
+                                                    t-att-selected="enrollment.last_grade_level_id.id == lvl.id">
+                                                    <t t-esc="lvl.name" />
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Last School Year</label>
+                                        <select name="last_school_year_id" class="form-control">
+                                            <option value="">--</option>
+                                            <t t-foreach="school_years" t-as="sy">
+                                                <option t-att-value="sy.id"
+                                                    t-att-selected="enrollment.last_school_year_id.id == sy.id">
+                                                    <t t-esc="sy.name" />
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PAYMENT AND CONSENT -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Payment and Consent</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Current Payment Plan</label>
+                                        <input type="text" class="form-control"
+                                            t-att-value="enrollment.tuition_id.name" readonly="True" />
+                                        <label>Payment Term</label>
+                                        <select name="tuition_id" class="form-control"
+                                            required="True">
+                                            <t t-foreach="payment_plans" t-as="term">
+                                                <option t-att-value="term.id"
+                                                    t-att-selected="enrollment.tuition_id.payment_plan_id.id == term.id">
+                                                    <t t-esc="term.name" />
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6 d-flex align-items-end">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input"
+                                                name="agreed"
+                                                required="True" checked="checked" />
+                                            <label class="form-check-label">
+                                                I hereby certify that the above information is true
+                                                and
+                                                correct to the best of my knowledge and I allow the
+                                                Department of Education to use my child’s details to
+                                                create/update his/her learner profile. Information
+                                                shall be
+                                                kept confidential in compliance with the Data
+                                                Privacy Act of
+                                                2012.
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- SUBMIT -->
+                        <div class="text-end">
+                            <a href="/my/enrollments" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary btn-lg">Update Enrollment</button>
+                        </div>
+                    </form>
+                </div>
+            </t>
+        </template>
+
+        <template id="website_enroll_update_thanks" name="Enrollment Update Thanks Page">
+            <t t-call="website.layout">
+                <div class="container my-5">
+                    <div class="text-center">
+                        <h2 class="mb-4 text-success">Information Updated Successfully</h2>
+                        <p class="lead">Your enrollment information has been updated. Thank you!</p>
+                        <a href="/my/enrollments" class="btn btn-success mt-3">Back to Home</a>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

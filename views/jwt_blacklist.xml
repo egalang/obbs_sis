@@ -1,0 +1,32 @@
+<!--Deprecated may be used in the future, keep temporarily for now -->
+
+<odoo>
+    <record id="view_sis_jwt_blacklist_list" model="ir.ui.view">
+        <field name="name">sis.jwt.blacklist.list</field>
+        <field name="model">sis.jwt.blacklist</field>
+        <field name="arch" type="xml">
+            <list string="JWT Blacklist">
+                <field name="jti" />
+                <field name="user_id" />
+                <field name="blacklisted_on" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sis_jwt_blacklist_form" model="ir.ui.view">
+        <field name="name">sis.jwt.blacklist.form</field>
+        <field name="model">sis.jwt.blacklist</field>
+        <field name="arch" type="xml">
+            <form string="Blacklisted Token" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <field name="jti" readonly="1" />
+                        <field name="user_id" readonly="1" />
+                        <field name="blacklisted_on" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

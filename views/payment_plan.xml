@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sis_payment_plan_list" model="ir.ui.view">
+            <field name="name">Payment Plan List</field>
+            <field name="model">sis.payment.plan</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="name" />
+                </list>
+            </field>
+        </record>
+
+        <record id="sis_payment_plan_form" model="ir.ui.view">
+            <field name="name">Payment Plan Form</field>
+            <field name="model">sis.payment.plan</field>
+            <field name="arch" type="xml">
+                <form string="Terms">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

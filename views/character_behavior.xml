@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree / List View -->
+    <record id="view_character_behavior_list" model="ir.ui.view">
+        <field name="name">Character Behavior List</field>
+        <field name="model">sis.character.behavior</field>
+        <field name="arch" type="xml">
+            <list string="Character Behaviors">
+                <field name="behavior_type" />
+                <field name="group_name" />
+                <field name="description" />
+                <field name="sequence" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_character_behavior_form" model="ir.ui.view">
+        <field name="name">Character Behavior Form</field>
+        <field name="model">sis.character.behavior</field>
+        <field name="arch" type="xml">
+            <form string="Character Behavior">
+                <sheet>
+                    <group>
+                        <field name="behavior_type" />
+                        <field name="group_name" />
+                        <field name="description" class="oe_inline" />
+                        <field name="sequence" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

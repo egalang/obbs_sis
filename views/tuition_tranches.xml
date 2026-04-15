@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <!-- Tuition Tranche list View -->
+        <record id="sis_tuition_tranche_list" model="ir.ui.view">
+            <field name="name">Tuition Tranche List</field>
+            <field name="model">sis.tuition.tranche</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="tuition_id" optional="hide" />
+                    <field name="tranche_number" optional="hide" />
+                    <field name="amount" widget="monetary" />
+                    <field name="currency_id" invisible="1" optional="hide" />
+                    <field name="due_date" />
+                </list>
+            </field>
+        </record>
+        <!-- Tuition Tranche Form View -->
+        <record id="sis_tuition_tranche_form" model="ir.ui.view">
+            <field name="name">Tuition Tranche Form</field>
+            <field name="model">sis.tuition.tranche</field>
+            <field name="arch" type="xml">
+                <form string="Tuition Tranche">
+                    <sheet>
+                        <group>
+                            <field name="tuition_id"/>
+                            <field name="tranche_number" />
+                            <field name="amount" widget="monetary" />
+                            <field name="currency_id" invisible="1" optional="hide" />
+                            <field name="due_date" />
+                        </group>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

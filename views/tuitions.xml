@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+        <record id="sis_tuition_list" model="ir.ui.view">
+            <field name="name">Tuition List</field>
+            <field name="model">sis.tuition</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="school_year_id" />
+                    <field name="grade_level_id" />
+                    <field name="payment_plan_id" />
+                    <field name="total_amount" widget="monetary" readonly="1" />
+                    <field name="currency_id" invisible="1" optional="hide" />
+                </list>
+            </field>
+        </record>
+        <record id="sis_tuition_form" model="ir.ui.view">
+            <field name="name">Tuition Form</field>
+            <field name="model">sis.tuition</field>
+            <field name="arch" type="xml">
+                <form string="Tuition">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="school_year_id" />
+                                <field name="grade_level_id" placeholder="Select grade level" />
+                                <field name="payment_plan_id" placeholder="Select payment plan" />
+                            </group>
+                            <group>
+                                <field name="total_amount" readonly="1" />
+                                <field name="currency_id" invisible="1" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Tranches">
+                                <field name="tranche_ids">
+                                    <list editable="bottom">
+                                        <field name="tranche_number" />
+                                        <field name="school_year_id" optional="hide" />
+                                        <field name="amount" widget="monetary" />
+                                        <field name="currency_id" invisible="1" optional="hide" />
+                                        <field name="due_date" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+
+        <record id="sis_tuition_search" model="ir.ui.view">
+            <field name="name">Tuition Search</field>
+            <field name="model">sis.tuition</field>
+            <field name="arch" type="xml">
+                <search string="Search Tuition">
+                    <field name="name" string="Name" />
+                    <field name="school_year_id" />
+                    <field name="grade_level_id" />
+                    <field name="payment_plan_id" />
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_school_year" string="School Year" context="{'group_by': 'school_year_id'}" />
+                        <filter name="group_by_grade_level" string="Grade Level" context="{'group_by': 'grade_level_id'}" />
+                        <filter name="group_by_payment_plan" string="Payment Plan" context="{'group_by': 'payment_plan_id'}" />
+                    </group>
+                    <searchpanel>
+                        <field name="school_year_id" />
+                        <field name="grade_level_id" />
+                        <field name="payment_plan_id" icon="fa-money" color="green" select="multi" />
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

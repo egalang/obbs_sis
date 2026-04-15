@@ -1,0 +1,433 @@
+<odoo>
+  <data>
+    <!-- Actions -->
+    <record id="action_sis_enrollment" model="ir.actions.act_window">
+      <field name="name">Enrollment</field>
+      <field name="res_model">sis.enrollment</field>
+      <field name="view_mode">list,form</field>
+      <field name="search_view_id" ref="sis_enrollment_search" />
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create an Enrollment
+        </p>
+        <p>
+          Create a student's enrollment application.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_tuition_fees" model="ir.actions.act_window">
+      <field name="name">Tuition Fees</field>
+      <field name="res_model">sis.tuition</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Define Tuition Fees
+        </p>
+        <p>
+          Manage and assign tuition fees for different grade levels and payment plans.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_school_year" model="ir.actions.act_window">
+      <field name="name">School Years</field>
+      <field name="res_model">sis.school.year</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Define School Years
+        </p>
+        <p>
+          Configure academic school years for use in student enrollment and reporting.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_period" model="ir.actions.act_window">
+      <field name="name">Grading Periods</field>
+      <field name="res_model">sis.period</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Define Grading Periods
+        </p>
+        <p>
+          Configure gradig periods that will be used throughout the school year.
+        </p>
+      </field>
+    </record>
+
+
+    <record id="action_sis_grade_level" model="ir.actions.act_window">
+      <field name="name">Grade Levels</field>
+      <field name="res_model">sis.grade.level</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create a Grade Level
+        </p>
+        <p>
+          Define the different academic grade levels available in your institution.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_sections" model="ir.actions.act_window">
+      <field name="name">Sections</field>
+      <field name="res_model">sis.sections</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create Sections
+        </p>
+        <p>
+          Define the sections per grade level of your institution.
+        </p>
+      </field>
+    </record>
+
+
+    <record id="action_sis_payment_plan" model="ir.actions.act_window">
+      <field name="name">Payment Plans</field>
+      <field name="res_model">sis.payment.plan</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Set Payment Plans
+        </p>
+        <p>
+          Define available payment plans to allow flexible tuition billing options.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_tuition_tranche" model="ir.actions.act_window">
+      <field name="name">Tuition Tranches</field>
+      <field name="res_model">sis.tuition.tranche</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Configure Tuition Tranches
+        </p>
+        <p>
+          Set up tranche breakdowns for tuition payment schedules.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_email_template" model="ir.actions.act_window">
+      <field name="name">SIS Email Templates</field>
+      <field name="res_model">mail.template</field>
+      <field name="view_mode">list,form</field>
+      <field name="domain">[]</field> <!-- Ensures all templates are visible -->
+      <field name="search_view_id" ref="obbs_sis.view_sis_email_template_search" />
+      <field name="context">{'search_default_sis_templates': 1}</field>
+    </record>
+
+    <record id="action_sis_students" model="ir.actions.act_window">
+      <field name="name">Students</field>
+      <field name="res_model">sis.enrollment</field>
+      <field name="view_mode">kanban,list,form</field>
+      <field name="context">{'search_default_filter_active_school_year': 1}</field>
+      <field name="search_view_id" ref="sis_student_search" />
+      <field name="domain">[('enrollment_status', '=', 'accepted')]</field>
+      <field name="view_ids"
+        eval="[
+          (5, 0, 0),
+          (0, 0, {'view_mode': 'kanban', 'view_id': ref('sis_student_kanban')}),
+          (0, 0, {'view_mode': 'list', 'view_id': ref('sis_student_list')}),
+          (0, 0, {'view_mode': 'form', 'view_id': ref('sis_student_form')})
+        ]" />
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Manage Student Enrollments
+        </p>
+        <p>
+          View and manage student-specific enrollment data.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_faculty" model="ir.actions.act_window">
+      <field name="name">Faculty</field>
+      <field name="res_model">res.users</field>
+      <field name="view_mode">kanban,list,form</field>
+      <!-- <field name="view_ids"
+        eval="[
+          (0, 0, {'view_mode': 'kanban', 'view_id': ref('base.view_res_users_kanban')}),
+          (0, 0, {'view_mode': 'list', 'view_id': ref('base.view_users_tree')}),
+          (0, 0, {'view_mode': 'form', 'view_id': ref('base.view_users_form')})
+        ]" /> -->
+      <field name="domain" eval="[( 'groups_id', 'in', [ref('obbs_sis.group_sis_faculty')] )]" />
+      <field name="context"
+        eval="{
+        'default_groups_id': [
+            (4, ref('obbs_sis.group_sis_faculty')),
+            (4, ref('base.group_user'))
+        ]
+    }" />
+    </record>
+
+    <!-- Action to open slide.channel views -->
+    <record id="action_sis_subjects" model="ir.actions.act_window">
+      <field name="name">Subjects</field>
+      <field name="res_model">slide.channel</field>
+      <field name="view_mode">kanban,list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Add a Subject/Course
+        </p>
+        <p>
+          Create and manage subjects here.
+        </p>
+      </field>
+    </record>
+
+    <record id="action_sis_subjects_server" model="ir.actions.server">
+      <field name="name">Subjects</field>
+      <field name="model_id" ref="website_slides.model_slide_channel"/>
+      <field name="state">code</field>
+      <field name="code">action = env['slide.channel'].action_open_subjects_active_school_year()</field>
+    </record>
+
+    <record id="action_sis_activity" model="ir.actions.act_window">
+      <field name="name">Activities</field>
+      <field name="res_model">sis.activity</field>
+      <field name="view_mode">list,form</field>
+      <field name="context">{'search_default_group_by_activity_type': 1, 'search_default_filter_active_school_year': 1}</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Record subject activities
+        </p>
+        <p>
+          Record your student's performance on different activities.
+        </p>
+      </field>
+    </record>
+
+    <!-- Attendance Logs Action -->
+    <record id="action_sis_student_attendance_log" model="ir.actions.act_window">
+      <field name="name">Attendance Logs</field>
+      <field name="res_model">sis.student.attendance.log</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Log Student Attendance
+        </p>
+        <p>
+          Manage and view attendance logs based on enrollment.
+        </p>
+      </field>
+    </record>
+
+
+    <record id="action_sis_generate_progress_report" model="ir.actions.act_window">
+      <field name="name">Generate Progress Report</field>
+      <field name="res_model">sis.progress.report.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <record id="action_sis_generate_rating_sheet" model="ir.actions.act_window">
+      <field name="name">Generate Rating Sheet</field>
+      <field name="res_model">sis.rating.sheet.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <record id="action_sis_transmutation_table" model="ir.actions.act_window">
+      <field name="name">Transmutation Table</field>
+      <field name="res_model">sis.transmutation.table</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Define grade transmutation rules.
+        </p>
+        <p>
+          Set minimum and maximum grade ranges with corresponding transmuted values.
+        </p>
+      </field>
+    </record>
+
+    <!--Deprecated
+    may be used in the future, keep temporarily for now -->
+    <!-- <record id="action_sis_jwt_blacklist" model="ir.actions.act_window">
+      <field name="name">JWT Blacklist</field>
+      <field name="res_model">sis.jwt.blacklist</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          No blacklisted tokens found.
+        </p>
+        <p>Blacklisted JWTs are created automatically on logout and are not editable.</p>
+      </field>
+    </record> -->
+
+    <!-- Action -->
+    <record id="action_sis_rating_comment" model="ir.actions.act_window">
+      <field name="name">Advisor Comments</field>
+      <field name="res_model">sis.rating.comment</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_sis_character_behavior" model="ir.actions.act_window">
+      <field name="name">Character Behaviors</field>
+      <field name="res_model">sis.character.behavior</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_sis_school_days" model="ir.actions.act_window">
+      <field name="name">School Days</field>
+      <field name="res_model">sis.attendance.school_days</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_sis_character_behavior" model="ir.actions.act_window">
+      <field name="name">Character Behaviors</field>
+      <field name="res_model">sis.character.behavior</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="SIS" id="sis_menu_root" web_icon="obbs_sis,static/description/icon.png" />
+
+    <!-- Main Menus -->
+    <menuitem name="Enrollment" id="sis_menu_0" parent="sis_menu_root"
+      action="action_sis_enrollment" sequence="10" />
+    <menuitem
+      id="sis_menu_students"
+      name="Students"
+      parent="sis_menu_root"
+      action="action_sis_students"
+      sequence="30"
+    />
+
+    <menuitem
+      id="sis_menu_faculty"
+      name="Faculty"
+      parent="sis_menu_root"
+      action="action_sis_faculty"
+      sequence="40"
+    />
+
+    <!-- Subjects menu -->
+    <menuitem
+      id="sis_menu_subjects"
+      name="Subjects"
+      parent="sis_menu_root"
+      sequence="50"
+      action="action_sis_subjects_server"
+    />
+
+    <!-- Reports Main Menu -->
+    <menuitem name="Reports"
+      id="sis_menu_reports"
+      parent="sis_menu_root"
+      sequence="60"
+      groups="obbs_sis.group_sis_faculty,obbs_sis.group_sis_admin" />
+
+    <!-- Progress Report Submenu -->
+    <menuitem name="Progress Report"
+      id="sis_menu_progress_report"
+      parent="sis_menu_reports"
+      action="action_sis_generate_progress_report"
+      sequence="10"
+      groups="obbs_sis.group_sis_faculty,obbs_sis.group_sis_admin" />
+
+    <menuitem name="Rating Sheet"
+      id="sis_menu_rating_sheet"
+      parent="sis_menu_reports"
+      action="action_sis_generate_rating_sheet"
+      sequence="20"
+      groups="obbs_sis.group_sis_faculty,obbs_sis.group_sis_admin" />
+
+    <!-- Attendance Logs Menu -->
+    <menuitem
+      id="sis_menu_attendance_log"
+      name="Attendance Logs"
+      parent="sis_menu_reports"
+      sequence="65"
+      action="action_sis_student_attendance_log"
+    />
+
+    <!-- Configuration Menu -->
+    <menuitem name="Configurations" id="sis_menu_configurations" parent="sis_menu_root"
+      sequence="70" groups="obbs_sis.group_sis_registrar,obbs_sis.group_sis_admin" />
+    <!-- === Category: School Structure === -->
+    <menuitem name="School Structure" id="sis_menu_config_structure"
+      parent="sis_menu_configurations" sequence="5" />
+
+    <menuitem name="School Years" id="sis_menu_school_year"
+      parent="sis_menu_config_structure"
+      action="action_sis_school_year"
+      sequence="10" />
+
+    <menuitem name="Grading Periods" id="sis_menu_periods"
+      parent="sis_menu_config_structure"
+      action="action_sis_period"
+      sequence="15" />
+
+    <menuitem name="Grade Levels" id="sis_menu_grade_levels"
+      parent="sis_menu_config_structure"
+      action="action_sis_grade_level"
+      sequence="20" />
+
+    <menuitem name="Sections" id="sis_menu_sections"
+      parent="sis_menu_config_structure"
+      action="action_sis_sections"
+      sequence="30" />
+
+    <menuitem name="Transmutation Table" id="sis_menu_transmutation_table"
+      parent="sis_menu_config_structure"
+      action="action_sis_transmutation_table"
+      sequence="40"
+    />
+    <menuitem name="School Days Reference" id="sis_menu_school_days"
+      parent="sis_menu_config_structure"
+      action="action_sis_school_days"
+      sequence="50" />
+
+    <!-- === Category: Financial Settings === -->
+    <menuitem name="Financial Settings" id="sis_menu_config_financial"
+      parent="sis_menu_configurations" sequence="10" />
+
+    <menuitem name="Payment Plans" id="sis_menu_payment_plan"
+      parent="sis_menu_config_financial"
+      action="action_sis_payment_plan"
+      sequence="10" />
+
+    <menuitem name="Tuition Tranches" id="sis_menu_tuition_tranches"
+      parent="sis_menu_config_financial"
+      action="action_sis_tuition_tranche"
+      sequence="20" />
+
+    <menuitem name="Tuition Fees" id="sis_menu_tuition_fees"
+      parent="sis_menu_config_financial"
+      action="action_sis_tuition_fees"
+      sequence="30" />
+
+    <!-- === Category: Report Card Settings === -->
+    <menuitem name="Report Card"
+      id="sis_menu_config_report_card"
+      parent="sis_menu_configurations"
+      sequence="15" />
+
+    <menuitem name="Character Behaviors"
+      id="sis_menu_character_behavior"
+      parent="sis_menu_config_report_card"
+      action="action_sis_character_behavior"
+      sequence="10" />
+
+    <!-- === Category: Communication === -->
+    <menuitem name="Communication" id="sis_menu_config_communication"
+      parent="sis_menu_configurations" sequence="20" />
+
+    <menuitem name="Email Templates" id="sis_menu_email_templates"
+      parent="sis_menu_config_communication"
+      action="action_sis_email_template"
+      sequence="10" />
+  </data>
+</odoo>

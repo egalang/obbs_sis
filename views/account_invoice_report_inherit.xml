@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+
+        <!-- Insert after the Source block -->
+        <xpath expr="//div[@name='origin']" position="after">
+            <div class="col" t-if="o.enrollment_id">
+                <strong>Student</strong>
+                <div t-esc="o.enrollment_id.full_name" />
+            </div>
+        </xpath>
+
+    </template>
+</odoo>

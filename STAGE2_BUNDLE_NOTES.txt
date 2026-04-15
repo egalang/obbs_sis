@@ -1,0 +1,45 @@
+OBBServer SIS - Phase 2 Bundle Notes
+
+Scope delivered in this bundle
+- Registrar rollover wizard to initialize a new school year from a previous one
+- Copy logic for school-year-aware setup records:
+  - Sections
+  - Grading periods
+  - Tuition plans and tranches
+- School Year form enhancements:
+  - Initialize from Previous Year button
+  - Set Active / Close School Year / Set Draft actions
+  - Smart buttons for enrollments, sections, periods, and tuition plans
+- Closed school year safeguards for setup models:
+  - sis.sections
+  - sis.period
+  - sis.tuition
+  - sis.tuition.tranche
+
+Files added
+- wizard/initialize_school_year_wizard.py
+- wizard/initialize_school_year_wizard.xml
+- STAGE2_BUNDLE_NOTES.txt
+
+Files updated
+- __manifest__.py
+- models/school_year.py
+- models/sections.py
+- models/period.py
+- models/tuitions.py
+- wizard/__init__.py
+- views/school_year.xml
+- security/ir.model.access.csv
+
+Suggested manual test flow
+1. Upgrade the module in Odoo.
+2. Create a new Draft school year.
+3. Set Previous School Year if desired.
+4. Open the new school year and click Initialize from Previous Year.
+5. Copy sections, periods, and tuition plans.
+6. Review copied setup records using the smart buttons.
+7. Activate the new school year.
+8. Verify closed-year edit restrictions using a registrar user.
+
+Important implementation note
+- Payment plans remain shared/global in the current addon structure. This bundle copies school-year-specific tuition records that reference those payment plans, rather than duplicating payment plan masters.
