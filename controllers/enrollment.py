@@ -225,3 +225,35 @@ class EnrollmentPortal(CustomerPortal):
     @http.route("/enroll/update/thanks", type="http", auth="user", website=True)
     def enroll_update_thanks(self, **kw):
         return request.render("obbs_sis.website_enroll_update_thanks")
+
+    @http.route(
+        ["/my/enrollments/<int:enrollment_id>/delete"],
+        type="http",
+        auth="user",
+        website=True,
+        csrf=True,
+    )
+    def portal_delete_enrollment(self, enrollment_id, **post):
+        enrollment = request.env["sis.enrollment"].sudo().browse(enrollment_id)
+
+        if not enrollment.exists():
+            return request.redirect("/my/enrollments")
+
+        partner = request.env.user.partner_id
+        if (
+            enrollment.partner_id != partner
+            and enrollment.user_id != request.env.user
+            and not request.env.user.has_group("base.group_system")
+        ):
+            raise AccessError("You don't have access to this enrollment record.")
+
+        # ✅ Only allow delete if still pending
+        if enrollment.enrollment_status != "pending":
+            return request.redirect(f"/my/enrollments/{enrollment.id}?error=not_allowed")
+
+        try:
+            enrollment.unlink()
+            return request.redirect("/my/enrollments")
+        except Exception as e:
+            _logger.error(f"Error deleting enrollment: {str(e)}")
+            return request.redirect(f"/my/enrollments/{enrollment.id}?error=delete")

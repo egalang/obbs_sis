@@ -55,11 +55,13 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+
                         <t t-foreach="enrollments" t-as="enrollment">
                             <tr>
                                 <td>
                                     <t t-esc="enrollment.full_name" />
                                 </td>
+
                                 <td>
                                     <t t-set="status_class"
                                         t-value="'secondary' if enrollment.enrollment_status == 'pending' else ('primary' if enrollment.enrollment_status == 'reviewed' else 'success')" />
@@ -67,41 +69,75 @@
                                         <t t-esc="enrollment.enrollment_status.capitalize()" />
                                     </span>
                                 </td>
+
                                 <td>
                                     <t t-esc="enrollment.school_year_id.name" />
                                 </td>
+
                                 <td>
                                     <t t-esc="enrollment.grade_level_id.name" />
                                 </td>
+
                                 <td>
                                     <t t-esc="enrollment.create_date.strftime('%B %d, %Y')" />
                                 </td>
+
                                 <td>
                                     <div class="btn-group" role="group"
                                         aria-label="Enrollment Actions">
+
+                                        <!-- View -->
                                         <a t-attf-href="/my/enrollments/{{ enrollment.id }}"
                                             class="btn btn-primary"
                                             title="Check Communication History">
                                             <i class="fa fa-comments" aria-hidden="true"></i>
                                         </a>
+
+                                        <!-- Update -->
                                         <a t-attf-href="/my/enrollments/{{ enrollment.id }}/update"
-                                            class="btn btn-secondary" title="Update Information">
+                                            class="btn btn-secondary"
+                                            title="Update Information">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
+
+                                        <!-- Re-enroll -->
                                         <form t-if="enrollment.can_reenroll"
                                             t-att-action="'/my/enrollments/%s/re-enroll' % enrollment.id"
-                                            method="post" class="d-inline-block">
-                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                                            <button type="submit" class="btn btn-success" title="Re-enroll to active school year">
+                                            method="post"
+                                            class="d-inline-block">
+                                            <input type="hidden" name="csrf_token"
+                                                t-att-value="request.csrf_token()" />
+                                            <button type="submit"
+                                                class="btn btn-success"
+                                                style="border-top-left-radius:0; border-bottom-left-radius:0;"
+                                                title="Re-enroll to active school year">
                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
                                             </button>
                                         </form>
+
+                                        <!-- ✅ DELETE (ONLY IF PENDING) -->
+                                        <form t-if="enrollment.enrollment_status == 'pending'"
+                                            t-att-action="'/my/enrollments/%s/delete' % enrollment.id"
+                                            method="post"
+                                            class="d-inline-block">
+                                            <input type="hidden" name="csrf_token"
+                                                t-att-value="request.csrf_token()" />
+                                            <button type="submit"
+                                                class="btn btn-danger"
+                                                style="border-top-left-radius:0; border-bottom-left-radius:0;"
+                                                title="Delete Enrollment"
+                                                onclick="return confirm('Are you sure you want to delete this enrollment?');">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+
                                     </div>
                                 </td>
                             </tr>
                         </t>
                     </t>
                 </t>
+
                 <t t-if="not enrollments">
                     <div class="alert alert-warning my-4">
                         You haven't submitted any enrollment application yet.
@@ -124,10 +160,11 @@
                         <form t-if="enrollment.can_reenroll"
                             t-att-action="'/my/enrollments/%s/re-enroll' % enrollment.id"
                             method="post" class="d-inline-block ms-2">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
-                            <button type="submit" class="btn btn-success" title="Create re-enrollment">
-                                <i class="fa fa-repeat" aria-hidden="true"></i> Re-enroll
-                            </button>
+                            <input type="hidden" name="csrf_token"
+                                t-att-value="request.csrf_token()" />
+                            <button type="submit" class="btn btn-success"
+                                title="Create re-enrollment">
+                                <i class="fa fa-repeat" aria-hidden="true"></i> Re-enroll </button>
                         </form>
                     </h2>
 
@@ -193,10 +230,19 @@
                                         </thead>
                                         <tbody>
                                             <tr t-foreach="history_records" t-as="history_line">
-                                                <td><t t-esc="history_line.school_year_id.name" /></td>
-                                                <td><t t-esc="history_line.enrollment_status.capitalize()" /></td>
-                                                <td><t t-esc="history_line.grade_level_id.name" /></td>
-                                                <td><t t-esc="history_line.section_id.name or '-'" /></td>
+                                                <td>
+                                                    <t t-esc="history_line.school_year_id.name" />
+                                                </td>
+                                                <td>
+                                                    <t
+                                                        t-esc="history_line.enrollment_status.capitalize()" />
+                                                </td>
+                                                <td>
+                                                    <t t-esc="history_line.grade_level_id.name" />
+                                                </td>
+                                                <td>
+                                                    <t t-esc="history_line.section_id.name or '-'" />
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

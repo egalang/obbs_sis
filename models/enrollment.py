@@ -851,6 +851,10 @@ class SisEnrollment(models.Model):
 
     def unlink(self):
         for enrollment in self:
+            # ✅ Prevent deletion unless pending
+            if enrollment.enrollment_status != "pending":
+                raise UserError("You can only delete enrollments that are still pending.")
+            
             user = enrollment.user_id
             partner = user.partner_id if user else None
 
