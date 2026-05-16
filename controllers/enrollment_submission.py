@@ -76,7 +76,9 @@ class EnrollmentForm(http.Controller):
                     [
                         ("grade_level_id", "=", grade_level_id),
                         ("payment_plan_id", "=", payment_plan_id),
-                    ]
+                        ("school_year_id", "=", active_school_year.id),
+                    ],
+                    limit=1,
                 )
             )
 

@@ -134,7 +134,7 @@ class EnrollmentPortal(CustomerPortal):
                     [
                         ("grade_level_id", "=", grade_level_id),
                         ("payment_plan_id", "=", payment_plan_id),
-                        ("school_year_id", "=", enrollment.school_year_id.id if hasattr(enrollment, "school_year_id") else active_school_year.id),
+                        ("school_year_id", "=", enrollment.school_year_id.id),
                     ],
                     limit=1,
                 )
