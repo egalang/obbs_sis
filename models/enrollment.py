@@ -863,10 +863,10 @@ class SisEnrollment(models.Model):
                 user.sudo().unlink()
 
             # Delete partner if still exists and not linked to another user
-            if partner and not self.env["res.users"].sudo().search(
-                [("partner_id", "=", partner.id)], limit=1
-            ):
-                partner.sudo().unlink()
+            # if partner and not self.env["res.users"].sudo().search(
+            #     [("partner_id", "=", partner.id)], limit=1
+            # ):
+            #     partner.sudo().unlink()
 
         return super().unlink()
 
