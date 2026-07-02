@@ -8,7 +8,7 @@ class ActivityType(models.Model):
     SELECTIONS = [
         ("written_works", "Written Works"),
         ("performance_tasks", "Performance Tasks"),
-        ("quarterly_exam", "Quarterly Exam"),
+        ("quarterly_exam", "Summative Tests and Term Examination"),
     ]
 
     name = fields.Selection(

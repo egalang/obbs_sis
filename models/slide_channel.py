@@ -15,12 +15,28 @@ class SlideChannel(models.Model):
     JWT_SECRET = "6F6262735F736973"
     JITSI_DOMAIN = "jitsi.obbserver.com"
 
+    # section_id = fields.Many2one(
+    #     "sis.sections",
+    #     string="Section",
+    #     tracking=True,
+    #     help="Select the section to enroll for this subject",
+    # )
     section_id = fields.Many2one(
         "sis.sections",
         string="Section",
         tracking=True,
         help="Select the section to enroll for this subject",
+        domain=lambda self: [
+            (
+                "school_year_id",
+                "=",
+                self.env.company.active_school_year_id.id
+                if self.env.company.active_school_year_id
+                else False,
+            )
+        ],
     )
+
     school_year_id = fields.Many2one(
         "sis.school.year",
         string="School Year",
@@ -29,7 +45,6 @@ class SlideChannel(models.Model):
         index=True,
         readonly=True,
     )
-
 
     subject_code = fields.Char(
         string="Subject Code",
