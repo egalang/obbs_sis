@@ -81,6 +81,7 @@ class WebsiteJitsiController(http.Controller):
             "exp": time_now + 3600,
             "iat": time_now,
             "nbf": time_now,
+            "moderator": False,
             "context": {
                 "user": {
                     "name": user.name or "Anonymous",

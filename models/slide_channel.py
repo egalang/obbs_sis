@@ -186,6 +186,7 @@ class SlideChannel(models.Model):
             "exp": time_now + 3600,
             "iat": time_now,
             "nbf": time_now,
+            "moderator": True,
             "context": {
                 "user": {
                     "name": self.env.user.name or "Anonymous",
