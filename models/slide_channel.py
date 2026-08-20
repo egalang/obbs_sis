@@ -4,6 +4,7 @@ import jwt
 import time
 import logging
 import re
+import secrets
 
 _logger = logging.getLogger(__name__)
 
@@ -83,6 +84,14 @@ class SlideChannel(models.Model):
         tracking=True,
     )
 
+    jitsi_room_secret = fields.Char(
+        string="Jitsi Room Secret",
+        readonly=True,
+        copy=False,
+        help="Random token appended to the meeting room to keep it unguessable. "
+             "Only users issued an Odoo meeting link can join the room.",
+    )
+
     meeting_start_datetime = fields.Datetime(
         string="Meeting Start Time",
         help="Start time for Jitsi meeting access",
@@ -130,16 +139,16 @@ class SlideChannel(models.Model):
     def _compute_is_website_user_allowed(self):
         user = self.env.user
         for channel in self:
-            partner_id = user.partner_id.id
-            is_enrolled = (
-                partner_id in channel.channel_partner_ids.mapped("partner_id").ids
+            channel.is_website_user_allowed = channel._is_meeting_user_allowed(
+                user=user
             )
-            is_faculty = user.id == channel.user_id.id
-            channel.is_website_user_allowed = is_enrolled or is_faculty
 
     def _ensure_jitsi_room_name(self):
         """Set a deterministic and readable Jitsi room name based on the channel and section name."""
         for channel in self:
+            vals = {}
+            if not channel.jitsi_room_secret:
+                vals["jitsi_room_secret"] = secrets.token_hex(8)
             base_name = channel.name or f"channel_{channel.id}"
             section_name = channel.section_id.name if channel.section_id else ""
             room_name = (
@@ -147,7 +156,45 @@ class SlideChannel(models.Model):
                 if section_name
                 else base_name.strip()
             )
-            channel.sudo().write({"jitsi_room_name": room_name})
+            vals["jitsi_room_name"] = room_name
+            channel.sudo().write(vals)
+
+    def _get_meeting_room_slug(self):
+        """Return the unguessable meeting room slug used in Jitsi URLs and JWTs."""
+        self.ensure_one()
+        if not self.jitsi_room_secret:
+            self.sudo()._ensure_jitsi_room_name()
+        base = self._slugify_room_name(self.jitsi_room_name)
+        return f"{base}-{self.jitsi_room_secret}" if self.jitsi_room_secret else base
+
+    def _is_meeting_user_allowed(self, user=None):
+        """Check whether a user may join this channel's meeting.
+
+        Allowed users are the channel faculty, members of the channel
+        (synced attendees), or students with an accepted enrollment in the
+        channel's section for its school year.
+        """
+        user = user or self.env.user
+        for channel in self:
+            if user.id == channel.user_id.id:
+                return True
+            channel_sudo = channel.sudo()
+            partner_id = user.partner_id.id
+            member_ids = channel_sudo.channel_partner_ids.mapped("partner_id").ids
+            if partner_id in member_ids:
+                return True
+            if channel_sudo.section_id:
+                enrolled = self.env["sis.enrollment"].sudo().search_count(
+                    [
+                        ("user_id", "=", user.id),
+                        ("section_id", "=", channel_sudo.section_id.id),
+                        ("enrollment_status", "=", "accepted"),
+                    ],
+                    limit=1,
+                )
+                if enrolled:
+                    return True
+        return False
 
     @api.model
     def create(self, vals):
@@ -176,12 +223,13 @@ class SlideChannel(models.Model):
         self._ensure_jitsi_room_name()
 
         time_now = int(time.time())
-        room = self._slugify_room_name(self.jitsi_room_name)
+        room = self._get_meeting_room_slug()
+        user = self.env.user
 
         payload = {
             "aud": self.JWT_APP_ID,
             "iss": self.JWT_APP_ID,
-            "sub": "*",  # changed from domain to '*'
+            "sub": user.email or f"partner_{user.partner_id.id}",
             "room": room,
             "exp": time_now + 3600,
             "iat": time_now,
@@ -189,8 +237,8 @@ class SlideChannel(models.Model):
             "moderator": True,
             "context": {
                 "user": {
-                    "name": self.env.user.name or "Anonymous",
-                    "email": self.env.user.email or "",
+                    "name": user.name or "Anonymous",
+                    "email": user.email or "",
                 },
             },
         }

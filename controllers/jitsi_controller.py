@@ -31,12 +31,11 @@ class WebsiteJitsiController(http.Controller):
             f"[Jitsi][Join][Website] Channel found: {channel.name} (Faculty: {channel.user_id.name})"
         )
 
-        # Check enrollee status
+        # Check enrollee status (faculty of the channel is always allowed)
         try:
-            partner_ids = channel.channel_partner_ids.mapped("partner_id").ids
-            is_enrollee = user.partner_id.id in partner_ids
+            is_allowed = channel._is_meeting_user_allowed(user)
             _logger.info(
-                f"[Jitsi][Join][Website] Partner ID: {user.partner_id.id}, Enrolled Partner IDs: {partner_ids}"
+                f"[Jitsi][Join][Website] User {user.name} (Partner ID: {user.partner_id.id}) allowed: {is_allowed}"
             )
         except Exception as e:
             _logger.error(
@@ -45,7 +44,7 @@ class WebsiteJitsiController(http.Controller):
             )
             return self._render_access_denied("Error verifying enrollment.")
 
-        if not is_enrollee:
+        if not is_allowed:
             _logger.warning(
                 f"[Jitsi][Join][Website] Access denied: User {user.name} is not enrolled in channel {channel.name}"
             )
@@ -70,13 +69,13 @@ class WebsiteJitsiController(http.Controller):
             _logger.info(f"[Jitsi][Join][Website] No room name found, generating one.")
             channel.sudo()._ensure_jitsi_room_name()
 
-        room = self._slugify_room_name(channel.jitsi_room_name)
+        room = channel._get_meeting_room_slug()
         time_now = int(now_ts)
 
         payload = {
             "aud": self.JWT_APP_ID,
             "iss": self.JWT_APP_ID,
-            "sub": "*",
+            "sub": user.email or f"partner_{user.partner_id.id}",
             "room": room,
             "exp": time_now + 3600,
             "iat": time_now,
