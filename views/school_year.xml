@@ -10,6 +10,7 @@
                     <field name="date_start" />
                     <field name="date_end" />
                     <field name="state" />
+                    <field name="report_card_format" />
                     <field name="company_id" />
                     <field name="previous_school_year_id" optional="hide" />
                     <field name="section_count" optional="hide"/>
@@ -57,6 +58,7 @@
                                 <field name="date_start" />
                                 <field name="date_end" />
                                 <field name="state" />
+                                <field name="report_card_format" />
                             </group>
                         </group>
                     </sheet>

@@ -66,6 +66,12 @@
             <field name="model">sis.enrollment</field>
             <field name="arch" type="xml">
                 <form string="Student">
+                    <header>
+                        <button name="obbs_sis.action_print_report_card"
+                            string="Student Report Card"
+                            type="action"
+                            class="btn-primary" />
+                    </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                             <button class="oe_stat_button" type="object" name="action_open_history" icon="fa-history">
@@ -182,7 +188,15 @@
                                     <button name="action_generate_character_ratings" string="Generate/Refresh Behaviors"
                                         type="object" class="btn btn-secondary" icon="fa-refresh" />
                                 </group>
-                                <field name="character_rating_ids">
+                                <field name="grade1_narrative_ids" invisible="grade_level_id.report_card_type != 'grade1'">
+                                    <list editable="bottom" create="false">
+                                        <field name="period_id" readonly="1" />
+                                        <field name="group_name" readonly="1" />
+                                        <field name="description" readonly="1" />
+                                        <field name="rating" widget="text" />
+                                    </list>
+                                </field>
+                                <field name="character_rating_ids" invisible="grade_level_id.report_card_type == 'grade1'">
                                     <list editable="bottom">
                                         <field name="period_id" readonly="1" />
                                         <field name="group_name" readonly="1" />

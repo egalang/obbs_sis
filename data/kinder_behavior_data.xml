@@ -1,0 +1,466 @@
+<odoo>
+    <!-- DepEd Kindergarten Curriculum Guide competencies (SY 2026-2027).
+         Seeded as sis.character.behavior (behavior_type = 'kinder') so the
+         Character Building model is the single rating pipeline for all levels. -->
+    <!-- I. Sensory Perceptual and Motor Development -->
+    <record id="cb_kinder_1_1" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">I. Sensory Perceptual and Motor Development</field>
+        <field name="group_order">1</field>
+        <field name="sequence">1</field>
+        <field name="description">Identifies external body parts and their functions</field>
+    </record>
+    <record id="cb_kinder_1_2" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">I. Sensory Perceptual and Motor Development</field>
+        <field name="group_order">1</field>
+        <field name="sequence">2</field>
+        <field name="description">Identifies ways to care for and protects one's body</field>
+    </record>
+    <record id="cb_kinder_1_3" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">I. Sensory Perceptual and Motor Development</field>
+        <field name="group_order">1</field>
+        <field name="sequence">3</field>
+        <field name="description">Demonstrates gross motor skills (locomotor, non-locomotor)</field>
+    </record>
+    <record id="cb_kinder_1_4" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">I. Sensory Perceptual and Motor Development</field>
+        <field name="group_order">1</field>
+        <field name="sequence">4</field>
+        <field name="description">Moves body parts as directed</field>
+    </record>
+    <record id="cb_kinder_1_5" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">I. Sensory Perceptual and Motor Development</field>
+        <field name="group_order">1</field>
+        <field name="sequence">5</field>
+        <field name="description">Demonstrates fine motor skills (tearing, cutting, rolling, molding with playdough)</field>
+    </record>
+
+    <!-- II. Socio-emotional Development -->
+    <record id="cb_kinder_2_1" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">II. Socio-emotional Development</field>
+        <field name="group_order">2</field>
+        <field name="sequence">1</field>
+        <field name="description">Identifies and expresses feelings in appropriate ways</field>
+    </record>
+    <record id="cb_kinder_2_2" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">II. Socio-emotional Development</field>
+        <field name="group_order">2</field>
+        <field name="sequence">2</field>
+        <field name="description">Recognizes and respects feelings of others</field>
+    </record>
+    <record id="cb_kinder_2_3" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">II. Socio-emotional Development</field>
+        <field name="group_order">2</field>
+        <field name="sequence">3</field>
+        <field name="description">Expresses needs and preferences</field>
+    </record>
+    <record id="cb_kinder_2_4" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">II. Socio-emotional Development</field>
+        <field name="group_order">2</field>
+        <field name="sequence">4</field>
+        <field name="description">Behaves appropriately in different situations</field>
+    </record>
+    <record id="cb_kinder_2_5" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">II. Socio-emotional Development</field>
+        <field name="group_order">2</field>
+        <field name="sequence">5</field>
+        <field name="description">Participates in classroom routines and activities</field>
+    </record>
+    <record id="cb_kinder_2_6" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">II. Socio-emotional Development</field>
+        <field name="group_order">2</field>
+        <field name="sequence">6</field>
+        <field name="description">Follows classroom and school rules</field>
+    </record>
+    <record id="cb_kinder_2_7" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">II. Socio-emotional Development</field>
+        <field name="group_order">2</field>
+        <field name="sequence">7</field>
+        <field name="description">Fulfills classroom responsibilities</field>
+    </record>
+
+    <!-- III. Cognitive Development -->
+    <record id="cb_kinder_3_1" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">1</field>
+        <field name="description">Identifies attributes of objects (color, shape, size)</field>
+    </record>
+    <record id="cb_kinder_3_2" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">2</field>
+        <field name="description">Matches objects based on attributes</field>
+    </record>
+    <record id="cb_kinder_3_3" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">3</field>
+        <field name="description">Describes objects based on attributes (shape, color, taste, texture)</field>
+    </record>
+    <record id="cb_kinder_3_4" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">4</field>
+        <field name="description">Classifies objects by a single attribute (color, shape, size)</field>
+    </record>
+    <record id="cb_kinder_3_5" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">5</field>
+        <field name="description">Reclassifies objects according to multiple attributes</field>
+    </record>
+    <record id="cb_kinder_3_6" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">6</field>
+        <field name="description">Arranges objects according to specific attributes</field>
+    </record>
+    <record id="cb_kinder_3_7" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">7</field>
+        <field name="description">Recognizes, extends and creates patterns using concrete objects</field>
+    </record>
+    <record id="cb_kinder_3_8" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">8</field>
+        <field name="description">Measures size, length, capacity and mass of objects using non-standard measuring tools</field>
+    </record>
+    <record id="cb_kinder_3_9" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">9</field>
+        <field name="description">Identifies position of objects (in, on, over, under, top, bottom)</field>
+    </record>
+    <record id="cb_kinder_3_10" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">10</field>
+        <field name="description">Compares quantities of objects (more/less)</field>
+    </record>
+    <record id="cb_kinder_3_11" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">11</field>
+        <field name="description">Counts with one-to-one correspondence</field>
+    </record>
+    <record id="cb_kinder_3_12" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">12</field>
+        <field name="description">Recognizes numerals</field>
+    </record>
+    <record id="cb_kinder_3_13" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">13</field>
+        <field name="description">Matches numerals to objects</field>
+    </record>
+    <record id="cb_kinder_3_14" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">14</field>
+        <field name="description">Adds and subtracts using concrete objects</field>
+    </record>
+    <record id="cb_kinder_3_15" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">15</field>
+        <field name="description">Recognizes clock as measure of time (hours and minutes)</field>
+    </record>
+    <record id="cb_kinder_3_16" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">16</field>
+        <field name="description">Shows awareness and care for the natural and physical environment</field>
+    </record>
+    <record id="cb_kinder_3_17" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">17</field>
+        <field name="description">Talks about participation in cultural and religious activities</field>
+    </record>
+    <record id="cb_kinder_3_18" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">18</field>
+        <field name="description">Shows awareness of the importance of caring for the natural and physical environment through simple practices (e.g., sorting trash, helping to clean up)</field>
+    </record>
+    <record id="cb_kinder_3_19" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">19</field>
+        <field name="description">Predicts outcomes in familiar stories read aloud in class</field>
+    </record>
+    <record id="cb_kinder_3_20" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">III. Cognitive Development</field>
+        <field name="group_order">3</field>
+        <field name="sequence">20</field>
+        <field name="description">Suggests solutions to problems in class activities and stories read aloud in class</field>
+    </record>
+
+    <!-- IV. Language, Literacy, and Communication Development -->
+    <record id="cb_kinder_4_1" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">A. Listening and Viewing</field>
+        <field name="sequence">1</field>
+        <field name="description">Identifies familiar environmental sounds</field>
+    </record>
+    <record id="cb_kinder_4_2" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">A. Listening and Viewing</field>
+        <field name="sequence">2</field>
+        <field name="description">Recalls what happens first, middle and end in a story</field>
+    </record>
+    <record id="cb_kinder_4_3" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">A. Listening and Viewing</field>
+        <field name="sequence">3</field>
+        <field name="description">Retells story in sequence</field>
+    </record>
+    <record id="cb_kinder_4_4" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">A. Listening and Viewing</field>
+        <field name="sequence">4</field>
+        <field name="description">Follows 1-2 step instructions</field>
+    </record>
+
+    <record id="cb_kinder_4_5" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">B. Sight Word Recognition</field>
+        <field name="sequence">5</field>
+        <field name="description">Recognizes non-decodable words in and out of context automatically</field>
+    </record>
+    <record id="cb_kinder_4_6" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">B. Sight Word Recognition</field>
+        <field name="sequence">6</field>
+        <field name="description">Recognizes sight words</field>
+    </record>
+
+    <record id="cb_kinder_4_7" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">C. Speaking</field>
+        <field name="sequence">7</field>
+        <field name="description">Identifies first and last name</field>
+    </record>
+    <record id="cb_kinder_4_8" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">C. Speaking</field>
+        <field name="sequence">8</field>
+        <field name="description">Identifies classmates, teachers, family member</field>
+    </record>
+    <record id="cb_kinder_4_9" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">C. Speaking</field>
+        <field name="sequence">9</field>
+        <field name="description">Identifies familiar objects at home, in school and in the community</field>
+    </record>
+    <record id="cb_kinder_4_10" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">C. Speaking</field>
+        <field name="sequence">10</field>
+        <field name="description">Uses polite greetings and courteous expressions in varied situations</field>
+    </record>
+    <record id="cb_kinder_4_11" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">C. Speaking</field>
+        <field name="sequence">11</field>
+        <field name="description">Retells personal experiences to story events</field>
+    </record>
+    <record id="cb_kinder_4_12" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">C. Speaking</field>
+        <field name="sequence">12</field>
+        <field name="description">Expresses ideas and feelings using phrases and simple sentences</field>
+    </record>
+
+    <record id="cb_kinder_4_13" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">D. Reading</field>
+        <field name="sequence">13</field>
+        <field name="description">Orally segments sounds (syllable; onset and rime; phoneme by phoneme)</field>
+    </record>
+    <record id="cb_kinder_4_14" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">D. Reading</field>
+        <field name="sequence">14</field>
+        <field name="description">Identifies uppercase letters</field>
+    </record>
+    <record id="cb_kinder_4_15" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">D. Reading</field>
+        <field name="sequence">15</field>
+        <field name="description">Identifies lowercase letters</field>
+    </record>
+    <record id="cb_kinder_4_16" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">D. Reading</field>
+        <field name="sequence">16</field>
+        <field name="description">Matches upper and lowercase letters</field>
+    </record>
+    <record id="cb_kinder_4_17" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">D. Reading</field>
+        <field name="sequence">17</field>
+        <field name="description">Identifies letter sounds</field>
+    </record>
+    <record id="cb_kinder_4_18" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">D. Reading</field>
+        <field name="sequence">18</field>
+        <field name="description">Matches letters and their corresponding sounds</field>
+    </record>
+
+    <record id="cb_kinder_4_19" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">E. Comprehension</field>
+        <field name="sequence">19</field>
+        <field name="description">Uses a variety of strategies to gain meaning of leveled texts</field>
+    </record>
+    <record id="cb_kinder_4_20" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">E. Comprehension</field>
+        <field name="sequence">20</field>
+        <field name="description">Uses print and illustrations to make meaning</field>
+    </record>
+
+    <record id="cb_kinder_4_21" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">F. Concepts of Print</field>
+        <field name="sequence">21</field>
+        <field name="description">Demonstrates book handling skills</field>
+    </record>
+    <record id="cb_kinder_4_22" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">F. Concepts of Print</field>
+        <field name="sequence">22</field>
+        <field name="description">Distinguishes between letters, words, and sentences</field>
+    </record>
+    <record id="cb_kinder_4_23" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">F. Concepts of Print</field>
+        <field name="sequence">23</field>
+        <field name="description">Demonstrates awareness of print (left to right and top to bottom)</field>
+    </record>
+
+    <record id="cb_kinder_4_24" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">G. Writing</field>
+        <field name="sequence">24</field>
+        <field name="description">Traces/draws/copies shapes, designs, pictures</field>
+    </record>
+    <record id="cb_kinder_4_25" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">G. Writing</field>
+        <field name="sequence">25</field>
+        <field name="description">Traces/copies/writes name, words</field>
+    </record>
+    <record id="cb_kinder_4_26" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">G. Writing</field>
+        <field name="sequence">26</field>
+        <field name="description">Writes uppercase and lowercase letters</field>
+    </record>
+    <record id="cb_kinder_4_27" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">G. Writing</field>
+        <field name="sequence">27</field>
+        <field name="description">Spells sight words</field>
+    </record>
+    <record id="cb_kinder_4_28" model="sis.character.behavior">
+        <field name="behavior_type">kinder</field>
+        <field name="group_name">IV. Language, Literacy, and Communication Development</field>
+        <field name="group_order">4</field>
+        <field name="subgroup">G. Writing</field>
+        <field name="sequence">28</field>
+        <field name="description">Spells simple words phonetically</field>
+    </record>
+</odoo>

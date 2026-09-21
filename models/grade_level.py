@@ -28,6 +28,27 @@ class SisGradeLevel(models.Model):
         help="Used to determine the template for student ID card",
     )
 
+    report_card_type = fields.Selection(
+        [
+            ("deped", "DepEd (Learn'n Performance Report)"),
+            ("grade1", "DepEd Grade 1 (Progress Report)"),
+            ("kinder", "DepEd Kindergarten (Progress Report)"),
+            ("nursery", "Nursery Progress Report"),
+            ("preschool", "Preschool"),
+            ("legacy", "Legacy"),
+        ],
+        string="Report Card Type",
+        default="legacy",
+        help="Determines which report card template is used for this grade level.",
+    )
+
+    report_action_id = fields.Many2one(
+        "ir.actions.report",
+        string="Report Card Print Action",
+        help="Print action used by the 'Student Report Card' button. Falls back to "
+        "the generic action when unset.",
+    )
+
     next_grade_level_id = fields.Many2one(
         "sis.grade.level",
         string="Next Grade Level",

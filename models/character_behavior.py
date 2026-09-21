@@ -13,6 +13,9 @@ class CharacterBehavior(models.Model):
         [
             ("elementary", "Elementary / High School"),
             ("preschool", "Preschool"),
+            ("nursery", "Nursery"),
+            ("kinder", "Kindergarten"),
+            ("grade1", "Grade 1"),
         ],
         string="Applies To",
         required=True,
@@ -34,7 +37,13 @@ class CharacterBehavior(models.Model):
         help="Used to control display order of groupings (e.g. Maka‑Diyos first)",
     )  # ← NEW FIELD
 
-    description = fields.Text("Behavior Statement", required=True)
+    subgroup = fields.Char(
+        string="Subgroup",
+        help="Optional sub-section within a group, e.g. 'A. Listening and Viewing' "
+        "(primarily used by the Kindergarten progress report layout).",
+    )
+
+    description = fields.Text("Behavior / Competency", required=True)
     sequence = fields.Integer(default=10)
 
     display_name = fields.Char(

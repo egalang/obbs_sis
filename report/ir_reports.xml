@@ -18,9 +18,27 @@
             <field name="model">sis.enrollment</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">obbs_sis.report_card_template</field>
-            <field name="binding_model_id" ref="obbs_sis.model_sis_enrollment" />
+            <field name="binding_model_id" eval="False" />
             <field name="paperformat_id" ref="obbs_sis.paperformat_a4_landscape_custom" />
             <field name="print_report_name">'Report Card - %s' % (object.full_name or '')</field>
+        </record>
+
+        <record id="action_report_longbond_report_card" model="ir.actions.report">
+            <field name="name">Student Report Card - DepEd (Grade 1/Kindergarten)</field>
+            <field name="model">sis.enrollment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">obbs_sis.report_card_template_longbond_print</field>
+            <field name="paperformat_id" ref="obbs_sis.paperformat_long_bond_portrait_custom" />
+            <field name="print_report_name">'DepEd Report Card - %s' % (object.full_name or '')</field>
+        </record>
+
+        <record id="action_report_nursery_report_card" model="ir.actions.report">
+            <field name="name">Student Report Card - Nursery</field>
+            <field name="model">sis.enrollment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">obbs_sis.report_card_template_nursery_print</field>
+            <field name="paperformat_id" ref="obbs_sis.paperformat_a4_landscape_custom" />
+            <field name="print_report_name">'Nursery Report Card - %s' % (object.full_name or '')</field>
         </record>
 
     </data>

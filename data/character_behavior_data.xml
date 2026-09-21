@@ -249,5 +249,197 @@
             <field name="sequence">5</field>
             <field name="group_order">4</field>
         </record>
+
+        <!-- ============ Nursery (behavior_type = 'nursery') ============ -->
+        <record id="cb_nur_wsh_1" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Follows direction carefully</field>
+            <field name="sequence">1</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_nur_wsh_2" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Completes assigned task accurately and independently</field>
+            <field name="sequence">2</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_nur_wsh_3" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Works well alone</field>
+            <field name="sequence">3</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_nur_wsh_4" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">Demonstrates proper attitude towards work</field>
+            <field name="sequence">4</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_nur_wsh_5" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Work and Study Habits</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">5</field>
+            <field name="group_order">1</field>
+        </record>
+
+        <record id="cb_nur_ss_1" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Shows respect for property and rights of others</field>
+            <field name="sequence">1</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_nur_ss_2" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Shares talent and resources generously with others</field>
+            <field name="sequence">2</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_nur_ss_3" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Practices honesty</field>
+            <field name="sequence">3</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_nur_ss_4" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Demonstrates responsible obedience and courtesy</field>
+            <field name="sequence">4</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_nur_ss_5" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">Works and plays well with others</field>
+            <field name="sequence">5</field>
+            <field name="group_order">2</field>
+        </record>
+        <record id="cb_nur_ss_6" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Social Skills</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">6</field>
+            <field name="group_order">2</field>
+        </record>
+
+        <record id="cb_nur_ms_1" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Writes letters of the alphabet in manuscript form</field>
+            <field name="sequence">1</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_2" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Copies simple words, phrases and sentences</field>
+            <field name="sequence">2</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_3" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Colors within the lines</field>
+            <field name="sequence">3</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_4" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Handles art materials correctly and properly</field>
+            <field name="sequence">4</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_5" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Handles scissors well</field>
+            <field name="sequence">5</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_6" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Claps and marches in time with music</field>
+            <field name="sequence">6</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_7" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">Able to run, jump, hop and skip</field>
+            <field name="sequence">7</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_8" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">8</field>
+            <field name="group_order">3</field>
+        </record>
+
+        <record id="cb_nur_sp_1" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Able to sing praises to God</field>
+            <field name="sequence">1</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_nur_sp_2" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Says simple prayer</field>
+            <field name="sequence">2</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_nur_sp_3" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Recalls and understands some Bible stories</field>
+            <field name="sequence">3</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_nur_sp_4" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">Recites memory verses</field>
+            <field name="sequence">4</field>
+            <field name="group_order">4</field>
+        </record>
+        <record id="cb_nur_sp_5" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Spiritual Performance</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">5</field>
+            <field name="group_order">4</field>
+        </record>
+
+        <!-- ============ Grade 1 (behavior_type = 'grade1') ============ -->
+        <!-- Term narratives for the Learner's Progress Report Card. The teacher
+             types the narrative paragraph in the "Rating" column of the
+             Character Building tab. -->
+        <record id="cb_g1_narr_can_do" model="sis.character.behavior">
+            <field name="behavior_type">grade1</field>
+            <field name="group_name">Narratives</field>
+            <field name="description">What Your Child Can Do</field>
+            <field name="sequence">1</field>
+            <field name="group_order">1</field>
+        </record>
+        <record id="cb_g1_narr_to_improve" model="sis.character.behavior">
+            <field name="behavior_type">grade1</field>
+            <field name="group_name">Narratives</field>
+            <field name="description">What Your Child Is Learning To Improve</field>
+            <field name="sequence">2</field>
+            <field name="group_order">1</field>
+        </record>
     </data>
 </odoo>

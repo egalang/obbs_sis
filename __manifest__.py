@@ -11,7 +11,7 @@ Manage All your School's Needs Seamlessly with the Power of Utilizing Odoo's Cap
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     "category": "Education",
-    "version": "18.0.1.8",
+    "version": "18.0.1.14",
     # any module necessary for this one to work correctly
     "depends": ["base", "mail", "contacts", "website_sale", "website_slides", "portal"],
     # always loaded
@@ -22,7 +22,9 @@ Manage All your School's Needs Seamlessly with the Power of Utilizing Odoo's Cap
         "data/paper_format_data.xml",
         "data/transmutation_table_data.xml",
         "data/character_behavior_data.xml",
+        "data/kinder_behavior_data.xml",
         "data/ir_cron_data.xml",
+        "data/print_report_action_data.xml",
         "wizard/enrollment_to_student_wizard.xml",
         "wizard/initialize_school_year_wizard.xml",
         "views/account_move.xml",

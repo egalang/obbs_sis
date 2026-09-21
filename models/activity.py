@@ -107,7 +107,10 @@ class Activity(models.Model):
             return
 
         section = self.channel_id.section_id
-        domain = [("section_id", "=", section.id)]
+        domain = [
+            ("section_id", "=", section.id),
+            ("enrollment_status", "=", "accepted"),
+        ]
         if self.period_id and self.period_id.school_year_id:
             domain.append(("school_year_id", "=", self.period_id.school_year_id.id))
         enrollments = self.env["sis.enrollment"].search(domain)
@@ -127,7 +130,10 @@ class Activity(models.Model):
             channel = self.env["slide.channel"].browse(vals["channel_id"])
             section = channel.section_id
             if section:
-                domain = [("section_id", "=", section.id)]
+                domain = [
+                    ("section_id", "=", section.id),
+                    ("enrollment_status", "=", "accepted"),
+                ]
                 if activity.period_id and activity.period_id.school_year_id:
                     domain.append(("school_year_id", "=", activity.period_id.school_year_id.id))
                 enrollments = self.env["sis.enrollment"].search(domain)

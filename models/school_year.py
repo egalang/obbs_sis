@@ -23,6 +23,17 @@ class SisSchoolYear(models.Model):
         required=True,
         tracking=True,
     )
+    report_card_format = fields.Selection(
+        [
+            ("deped_2026", "DepEd 2026-2027"),
+            ("legacy", "Legacy"),
+        ],
+        string="Report Card Format",
+        default="legacy",
+        tracking=True,
+        help="Controls the report card template used for this school year. "
+        "Choose 'DepEd 2026-2027' for the new DepEd Learner's Performance Report format.",
+    )
     company_id = fields.Many2one(
         "res.company",
         required=True,

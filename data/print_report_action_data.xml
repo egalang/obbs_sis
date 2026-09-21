@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_print_report_card" model="ir.actions.server">
+            <field name="name">Print Student Report Card</field>
+            <field name="model_id" ref="obbs_sis.model_sis_enrollment" />
+            <field name="state">code</field>
+            <field name="code">records = records or env['sis.enrollment'].browse()
+report = records[:1].grade_level_id.report_action_id
+if not report:
+    report = env.ref('obbs_sis.action_report_student_report_card')
+action = report.report_action(records, data={})</field>
+        </record>
+    </data>
+</odoo>

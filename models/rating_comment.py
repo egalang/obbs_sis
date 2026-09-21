@@ -10,6 +10,8 @@ class RatingComment(models.Model):
     enrollment_id = fields.Many2one("sis.enrollment", required=True, ondelete="cascade")
     period_id = fields.Many2one("sis.period", required=True, ondelete="cascade")
     comment = fields.Text("Advisor Comment")
+    comment_can_do = fields.Text("What Your Child Can Do (Mga Nagagawa)")
+    comment_to_improve = fields.Text("What Your Child Is Learning To Improve (Dapat Linangin)")
 
     school_year_id = fields.Many2one(
         "sis.school.year",

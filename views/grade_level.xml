@@ -10,6 +10,7 @@
                     <field name="code" />
                     <field name="description" />
                     <field name="id_type" />
+                    <field name="report_card_type" />
                     <field name="next_grade_level_id"/>
                 </list>
             </field>
@@ -29,6 +30,8 @@
                             <group>
                                 <field name="code" />
                                 <field name="id_type" />
+                                <field name="report_card_type" />
+                                <field name="report_action_id" options="{'no_create': True}"/>
                             </group>
                         </group>
                         <group>

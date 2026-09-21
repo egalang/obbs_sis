@@ -210,6 +210,13 @@ class SisEnrollment(models.Model):
         "sis.character.rating", "enrollment_id", string="Character Ratings"
     )
 
+    grade1_narrative_ids = fields.One2many(
+        "sis.character.rating",
+        "enrollment_id",
+        string="Narratives",
+        domain=[("behavior_id.behavior_type", "=", "grade1")],
+    )
+
     attendance_summary_ids = fields.One2many(
         "sis.attendance.monthly_summary", "enrollment_id", string="Monthly Attendance"
     )
@@ -292,13 +299,9 @@ class SisEnrollment(models.Model):
         if self.school_year_id:
             vals["last_school_year_id"] = self.school_year_id.id
 
-        # === AUTO-SELECT FIRST AVAILABLE SECTION FOR NEXT GRADE ===
-        sections = self.env["sis.sections"].search([
-            ("school_year_id", "=", target_school_year.id),
-            ("grade_level_id", "=", next_grade_level.id),
-        ], order="name asc")
-
-        vals["section_id"] = sections[0].id if sections else False
+        # Sections are assigned only to accepted enrollments (e.g. the
+        # Add Enrollees wizard), never to pending re-enrollments.
+        vals["section_id"] = False
         # matching_section = self.env["sis.sections"].search([
         #     ("school_year_id", "=", target_school_year.id),
         #     ("grade_level_id", "=", self.grade_level_id.id),
@@ -412,7 +415,12 @@ class SisEnrollment(models.Model):
         Period = self.env["sis.period"]
 
         for enrollment in self:
-            btype = (
+            btype = {
+                "preschool": "preschool",
+                "nursery": "nursery",
+                "kinder": "kinder",
+                "grade1": "grade1",
+            }.get(enrollment.grade_level_id.report_card_type) or (
                 "preschool"
                 if enrollment.grade_level_id.id_type == "preschool"
                 else "elementary"
@@ -477,6 +485,14 @@ class SisEnrollment(models.Model):
             ):
                 raise ValidationError(
                     _("The selected section must belong to the selected school year.")
+                )
+
+    @api.constrains("enrollment_status", "section_id")
+    def _check_section_requires_accepted(self):
+        for record in self:
+            if record.section_id and record.enrollment_status != "accepted":
+                raise ValidationError(
+                    _("Section can only be assigned to accepted enrollments.")
                 )
 
     @api.constrains("tuition_id", "grade_level_id", "school_year_id")

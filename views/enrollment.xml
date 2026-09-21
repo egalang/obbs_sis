@@ -56,6 +56,11 @@
                             invisible="enrollment_status != 'reviewed'"
                             groups="obbs_sis.group_sis_registrar,obbs_sis.group_sis_admin" />
 
+                        <button name="obbs_sis.action_print_report_card"
+                            string="Student Report Card"
+                            type="action"
+                            class="btn-primary" />
+
                         <!-- <button name="action_reenroll_to_active_school_year"
                             type="object"
                             string="Re-Enroll"
@@ -221,6 +226,31 @@
                                 <field name="agreed" />
                             </group>
                         </group>
+
+                        <notebook>
+                            <page string="Character Building">
+                                <group>
+                                    <button name="action_generate_character_ratings" string="Generate/Refresh Behaviors"
+                                        type="object" class="btn btn-secondary" icon="fa-refresh" />
+                                </group>
+                                <field name="grade1_narrative_ids" invisible="grade_level_id.report_card_type != 'grade1'">
+                                    <list editable="bottom" create="false">
+                                        <field name="period_id" readonly="1" />
+                                        <field name="group_name" readonly="1" />
+                                        <field name="description" readonly="1" />
+                                        <field name="rating" widget="text" />
+                                    </list>
+                                </field>
+                                <field name="character_rating_ids" invisible="grade_level_id.report_card_type == 'grade1'">
+                                    <list editable="bottom">
+                                        <field name="period_id" readonly="1" />
+                                        <field name="group_name" readonly="1" />
+                                        <field name="description" readonly="1" />
+                                        <field name="rating" />
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                     <chatter />
                 </form>
