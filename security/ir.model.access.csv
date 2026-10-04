@@ -99,3 +99,6 @@ access_sis_attendance_summary_registrar,access.sis.attendance.summary.registrar,
 access_sis_attendance_summary_admin,access.sis.attendance.summary.admin,model_sis_attendance_monthly_summary,obbs_sis.group_sis_admin,1,1,1,1
 access_initialize_school_year_wizard_registrar,sis.initialize.school.year.wizard.registrar,model_sis_initialize_school_year_wizard,obbs_sis.group_sis_registrar,1,1,1,1
 access_initialize_school_year_wizard_admin,sis.initialize.school.year.wizard.admin,model_sis_initialize_school_year_wizard,obbs_sis.group_sis_admin,1,1,1,1
+access_ecr_report_wizard_faculty,access.ecr.report.wizard.faculty,model_sis_ecr_report_wizard,obbs_sis.group_sis_faculty,1,1,1,1
+access_ecr_report_wizard_registrar,access.ecr.report.wizard.registrar,model_sis_ecr_report_wizard,obbs_sis.group_sis_registrar,1,1,1,1
+access_ecr_report_wizard_admin,access.ecr.report.wizard.admin,model_sis_ecr_report_wizard,obbs_sis.group_sis_admin,1,1,1,1

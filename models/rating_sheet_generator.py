@@ -213,7 +213,7 @@ class ReportRatingSheetExport(models.AbstractModel):
         # Metadata
         sheet.merge_range(f"A7:{last_col_letter}7", "Rating Sheet", title)
         sheet.merge_range("A8:B8", "School Year", label)
-        sheet.merge_range(f"C8:{last_col_letter}8", school_year, bordered)
+        sheet.merge_range(f"C8:{last_col_letter}8", school_year_name, bordered)
         sheet.merge_range("A9:B9", "Grade & Section", label)
         sheet.merge_range(f"C9:{last_col_letter}9", section.display_name, bordered)
         sheet.merge_range("A10:B10", "Grading Period", label)
@@ -278,12 +278,11 @@ class ReportRatingSheetExport(models.AbstractModel):
 
                     qg = "-"
                     if gb:
-                        total_ws = sum(g.weighted_score for g in gb)
-                        ig = round_half_up(total_ws, 2)
-                        transmuted = self.env["sis.transmutation.table"].search(
-                            [("grade_range", "<=", ig)],
-                            limit=1,
-                            order="grade_range DESC",
+                        ig = self.env["sis.gradebook"].compute_initial_grade(
+                            activities, gb, school_year
+                        )
+                        transmuted = self.env["sis.transmutation.table"].transmute(
+                            ig, school_year
                         )
                         if transmuted:
                             qg = float(transmuted.transmuted_grade)

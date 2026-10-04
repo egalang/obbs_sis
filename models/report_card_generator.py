@@ -139,12 +139,15 @@ class ReportCardExport(models.AbstractModel):
             gbs = gradebooks.filtered(lambda g: g.activity_id.id in activities.ids)
             if not gbs:
                 return "-"
-            ig = sum(gbs.mapped("weighted_score") or [0])
-            ig = round_half_up(ig, 2)  # ensure 2 decimals before transmutation
+            ig = (
+                self.env["sis.gradebook"]
+                .sudo()
+                .compute_initial_grade(activities, gbs, enrollment.school_year_id)
+            )
             trans = (
                 self.env["sis.transmutation.table"]
                 .sudo()
-                .search([("grade_range", "<=", ig)], limit=1, order="grade_range DESC")
+                .transmute(ig, enrollment.school_year_id)
             )
             return float(trans.transmuted_grade) if trans else "-"
 

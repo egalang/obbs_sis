@@ -327,6 +327,134 @@ class SlideChannel(models.Model):
         action.pop("id", None)
         return action
 
+    def _ensure_exam_activities(self, period_ids=None, only_existing=False):
+        """Ensure the three DepEd EXs activities exist for this subject/term.
+
+        For DepEd 2026-format school years each subject/term must have exactly
+        one Summative Test 1, one Summative Test 2 and one Term Examination
+        with the fixed 30/30/40 split (DO 2026-015, item 6).  Existing
+        activities are adopted by best-effort name matching; wrongly-named
+        extras under the EXs type are removed.  Returns the number created.
+
+        When ``only_existing`` is True, terms that currently have no EXs
+        activity at all are left untouched (used by the data migration so it
+        does not force empty EXs activities onto subjects that never had any,
+        which would turn a blank report card cell into a 0 → transmuted 60).
+        """
+        self.ensure_one()
+        if (
+            not self.school_year_id
+            or self.school_year_id.report_card_format != "deped_2026"
+        ):
+            return 0
+        atype = self.activity_type_ids.filtered(
+            lambda at: at.name == "quarterly_exam"
+        )[:1]
+        if not atype:
+            return 0
+
+        Period = self.env["sis.period"]
+        if period_ids:
+            periods = Period.browse(period_ids).exists()
+        else:
+            periods = Period.search(
+                [("school_year_id", "=", self.school_year_id.id)],
+                order="start_date, id",
+            )
+
+        created = 0
+        for period in periods:
+            if only_existing and not self._has_exam_activity(period, atype):
+                continue
+            created += self._ensure_exam_activities_for_period(period, atype)
+        return created
+
+    def _has_exam_activity(self, period, atype):
+        return bool(
+            self.env["sis.activity"].search_count(
+                [
+                    ("channel_id", "=", self.id),
+                    ("period_id", "=", period.id),
+                    ("activity_type_id", "=", atype.id),
+                ]
+            )
+        )
+
+    def _ensure_exam_activities_for_period(self, period, atype):
+        Activity = self.env["sis.activity"]
+        existing = Activity.search(
+            [
+                ("channel_id", "=", self.id),
+                ("period_id", "=", period.id),
+                ("activity_type_id", "=", atype.id),
+            ],
+            order="id",
+        )
+
+        assigned = {}
+        extras = Activity
+        for activity in existing:
+            component = activity.exam_component or activity._match_exam_component(
+                activity.name
+            )
+            if component and component not in assigned:
+                assigned[component] = activity
+            else:
+                extras |= activity
+
+        # Drop duplicates / unmapped leftovers before (re)writing components so
+        # the uniqueness constraint cannot trip on a stale sibling.
+        if extras:
+            extras.unlink()
+
+        created = 0
+        for component, canonical_name, max_score in Activity.EXAM_COMPONENT_SPECS:
+            activity = assigned.get(component)
+            if activity:
+                vals = {}
+                if activity.exam_component != component:
+                    vals["exam_component"] = component
+                if (activity.name or "").strip() != canonical_name:
+                    vals["name"] = canonical_name
+                if vals:
+                    activity.write(vals)
+            else:
+                activity = Activity.with_context(
+                    sis_skip_exam_autoseed=True,
+                    sis_skip_gradebook_autopopulate=True,
+                ).create(
+                    {
+                        "name": canonical_name,
+                        "period_id": period.id,
+                        "activity_type_id": atype.id,
+                        "channel_id": self.id,
+                        "max_score": max_score,
+                        "exam_component": component,
+                    }
+                )
+                activity._bulk_create_gradebooks_for_enrollments(activity)
+                created += 1
+
+        return created
+
+    def action_ensure_exam_activities(self):
+        self.ensure_one()
+        created = self._ensure_exam_activities()
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Summative & Exam Activities"),
+                "message": _(
+                    "Ensured Summative Test 1, Summative Test 2 and Term "
+                    "Examination for every term (%d created)."
+                )
+                % created,
+                "type": "success" if created else "info",
+                "sticky": False,
+            },
+        }
+
     def action_open_activities(self):
         self.ensure_one()
         action = self.env.ref("obbs_sis.action_sis_activity").sudo().read()[0]

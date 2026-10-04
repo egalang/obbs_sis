@@ -49,6 +49,10 @@
 
                 <xpath expr="//notebook" position="inside">
                     <page string="Activity Types">
+                        <button name="action_ensure_exam_activities" type="object"
+                            string="Generate Summative &amp; Exam Activities"
+                            class="btn-secondary mb-2"
+                            help="Create the Summative Test 1, Summative Test 2 and Term Examination activities (30/30/40) for every term." />
                         <field name="activity_type_ids" context="{'default_channel_id': id}">
                             <list editable="bottom">
                                 <field name="name" />

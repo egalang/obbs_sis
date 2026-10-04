@@ -586,20 +586,21 @@ class SisEnrollment(models.Model):
     # === COMPUTE FULL NAME ===
     @api.depends("first_name", "middle_name", "last_name", "ext_name")
     def _compute_full_name(self):
+        def _norm(value):
+            # Strip and collapse internal whitespace (incl. non-breaking spaces)
+            return " ".join((value or "").split())
+
         for record in self:
             # Start with last name + comma
-            parts = [record.last_name + "," if record.last_name else ""]
-            # Add first name
-            if record.first_name:
-                parts.append(record.first_name)
-            # Add middle name
-            if record.middle_name:
-                parts.append(record.middle_name)
-            # Add ext name
-            if record.ext_name:
-                parts.append(record.ext_name)
+            last = _norm(record.last_name)
+            parts = [last + ","] if last else []
+            # Add first, middle and ext name
+            for value in (record.first_name, record.middle_name, record.ext_name):
+                value = _norm(value)
+                if value:
+                    parts.append(value)
             # Join everything with spaces
-            record.full_name = " ".join(filter(None, parts))
+            record.full_name = " ".join(parts)
 
     # === COMPUTE AGE FROM BIRTHDATE ===
     @api.depends("birth_date")
@@ -690,7 +691,7 @@ class SisEnrollment(models.Model):
             if not enrollment.tuition_id or not enrollment.tuition_id.tranche_ids:
                 continue
 
-            partner = enrollment.create_uid.partner_id
+            partner = enrollment.partner_id or enrollment.create_uid.partner_id
             if not partner:
                 raise UserError(
                     _(

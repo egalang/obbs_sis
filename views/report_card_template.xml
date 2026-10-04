@@ -2031,7 +2031,7 @@
         <t t-call="web.html_container">
             <meta charset="UTF-8"></meta>
             <!-- PAGE 1: header, learner info and the two-column competency checklist -->
-            <div class="page" style="font-size:9.5px; line-height:1.2; height:100%;">
+            <div class="page" style="font-size:11px; line-height:1.3; height:100%;">
                 <!-- Header -->
                 <table style="width:100%; border-collapse:collapse;">
                     <tbody>
@@ -2058,60 +2058,60 @@
                     </tbody>
                 </table>
                 <div style="text-align:center; margin-top:1px;">
-                    <div style="font-size:14px; font-weight:bold;"><t t-esc="data.get('school_name', 'School Name')"></t></div>
-                    <div style="font-size:15px; font-weight:bold;">KINDERGARTEN PROGRESS REPORT</div>
+                    <div style="font-size:17px; font-weight:bold;"><t t-esc="data.get('school_name', 'School Name')"></t></div>
+                    <div style="font-size:19px; font-weight:bold;">KINDERGARTEN PROGRESS REPORT</div>
                     <div>School Year <t t-esc="data.get('school_year', '')"></t></div>
                 </div>
                 <!-- Student info -->
                 <table style="width:100%; border-collapse:collapse; border:1px solid black; margin-top:2px;">
                     <tbody>
                         <tr>
-                            <td style="border:1px solid black; padding:2px 4px; width:72%;"><b>Name:</b> <t t-esc="data.get('student_name', '')"></t></td>
-                            <td style="border:1px solid black; padding:2px 4px; width:28%;"><b>LRN:</b> <t t-esc="data.get('lrn', '')"></t></td>
+                            <td style="border:1px solid black; padding:4px 6px; width:72%;"><b>Name:</b> <t t-esc="data.get('student_name', '')"></t></td>
+                            <td style="border:1px solid black; padding:4px 6px; width:28%;"><b>LRN:</b> <t t-esc="data.get('lrn', '')"></t></td>
                         </tr>
                         <tr>
-                            <td style="border:1px solid black; padding:2px 4px;"><b>Section:</b> <t t-esc="data.get('section_name', '')"></t></td>
-                            <td style="border:1px solid black; padding:2px 4px;"><b>Teacher:</b> <t t-esc="data.get('advisor', '')"></t></td>
-                            <td style="border:1px solid black; padding:2px 4px;"><b>Birthdate:</b> <t t-esc="data.get('birth_date', '')"></t></td>
+                            <td style="border:1px solid black; padding:4px 6px;"><b>Section:</b> <t t-esc="data.get('section_name', '')"></t></td>
+                            <td style="border:1px solid black; padding:4px 6px;"><b>Teacher:</b> <t t-esc="data.get('advisor', '')"></t></td>
+                            <td style="border:1px solid black; padding:4px 6px;"><b>Birthdate:</b> <t t-esc="data.get('birth_date', '')"></t></td>
                         </tr>
                         <tr>
-                            <td colspan="3" style="border:1px solid black; padding:2px 4px;"><b>Age of the Child (Beginning of SY):</b> <t t-esc="data.get('age_begin_sy_years', '')"></t> Years; <t t-esc="data.get('age_begin_sy_months', '')"></t> Months &#160;&#160;&#160; <b>(End of SY):</b> <t t-esc="data.get('age_end_sy_years', '')"></t> Years; <t t-esc="data.get('age_end_sy_months', '')"></t> Months</td>
+                            <td colspan="3" style="border:1px solid black; padding:4px 6px;"><b>Age of the Child (Beginning of SY):</b> <t t-esc="data.get('age_begin_sy_years', '')"></t> Years; <t t-esc="data.get('age_begin_sy_months', '')"></t> Months &#160;&#160;&#160; <b>(End of SY):</b> <t t-esc="data.get('age_end_sy_years', '')"></t> Years; <t t-esc="data.get('age_end_sy_months', '')"></t> Months</td>
                         </tr>
                     </tbody>
                 </table>
-                <p style="text-align:justify; margin:2px 0;">This progress report informs parents about their child's learning achievements based on the Kindergarten Curriculum Guide. It provides a summary of the child's performance and indicates their level of progress across different developmental domains every ten (10) weeks or each quarter. Each competency is marked as: BG &#8211; Beginning, DV &#8211; Developing, and CO &#8211; Consistent.</p>
+                <p style="text-align:justify; margin:4px 0; line-height:1.3;">This progress report informs parents about their child's learning achievements based on the Kindergarten Curriculum Guide. It provides a summary of the child's performance and indicates their level of progress across different developmental domains every ten (10) weeks or each quarter. Each competency is marked as: BG &#8211; Beginning, DV &#8211; Developing, and CO &#8211; Consistent.</p>
                 <!-- Two-column competency checklist -->
                 <table style="width:100%; border-collapse:collapse; margin-top:1px;">
                     <tr>
                         <t t-foreach="comp_columns" t-as="col">
                             <td t-att-style="'width:50%; vertical-align:top;' + (' padding-right:4px;' if col_index == 0 else '')">
-                                <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:9px; line-height:1.2;">
+                                <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:11px; line-height:1.35;">
                                     <tbody>
                                         <tr>
-                                            <td rowspan="2" style="border:1px solid black; font-weight:bold; text-align:center; padding:1px; width:76%;">Competency</td>
-                                            <td colspan="3" style="border:1px solid black; font-weight:bold; text-align:center; padding:1px;">Rating</td>
+                                            <td rowspan="2" style="border:1px solid black; font-weight:bold; text-align:center; padding:3px; width:76%;">Competency</td>
+                                            <td colspan="3" style="border:1px solid black; font-weight:bold; text-align:center; padding:3px;">Rating</td>
                                         </tr>
                                         <tr>
-                                            <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px; width:8%;">T1</td>
-                                            <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px; width:8%;">T2</td>
-                                            <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px; width:8%;">T3</td>
+                                            <td style="border:1px solid black; font-weight:bold; text-align:center; padding:3px; width:8%;">T1</td>
+                                            <td style="border:1px solid black; font-weight:bold; text-align:center; padding:3px; width:8%;">T2</td>
+                                            <td style="border:1px solid black; font-weight:bold; text-align:center; padding:3px; width:8%;">T3</td>
                                         </tr>
                                         <t t-foreach="col" t-as="row">
                                             <t t-if="row_index == 0 or col[row_index - 1]['domain'] != row['domain']">
                                                 <tr>
-                                                    <td colspan="4" style="border:1px solid black; font-weight:bold; background:#f2f2f2; padding:0px 2px;"><t t-esc="row['domain']"></t></td>
+                                                    <td colspan="4" style="border:1px solid black; font-weight:bold; background:#f2f2f2; padding:3px 5px;"><t t-esc="row['domain']"></t></td>
                                                 </tr>
                                             </t>
                                             <t t-if="row['subgroup'] and (row_index == 0 or col[row_index - 1]['subgroup'] != row['subgroup'])">
                                                 <tr>
-                                                    <td colspan="4" style="border:1px solid black; font-style:italic; padding:0px 2px;"><t t-esc="row['subgroup']"></t></td>
+                                                    <td colspan="4" style="border:1px solid black; font-style:italic; padding:2px 5px;"><t t-esc="row['subgroup']"></t></td>
                                                 </tr>
                                             </t>
                                             <tr>
-                                                <td style="border:1px solid black; padding:0px 2px;"><t t-esc="row['display_no']"></t>. <t t-esc="row['competency']"></t></td>
-                                                <td style="border:1px solid black; text-align:center; padding:0px;"><t t-esc="row['t1']"></t></td>
-                                                <td style="border:1px solid black; text-align:center; padding:0px;"><t t-esc="row['t2']"></t></td>
-                                                <td style="border:1px solid black; text-align:center; padding:0px;"><t t-esc="row['t3']"></t></td>
+                                                <td style="border:1px solid black; padding:3px 5px;"><t t-esc="row['display_no']"></t>. <t t-esc="row['competency']"></t></td>
+                                                <td style="border:1px solid black; text-align:center; padding:2px 0px;"><t t-esc="row['t1']"></t></td>
+                                                <td style="border:1px solid black; text-align:center; padding:2px 0px;"><t t-esc="row['t2']"></t></td>
+                                                <td style="border:1px solid black; text-align:center; padding:2px 0px;"><t t-esc="row['t3']"></t></td>
                                             </tr>
                                         </t>
                                     </tbody>
@@ -2122,103 +2122,113 @@
                 </table>
             </div>
             <!-- PAGE 2: teacher's comments (left) + attendance / note / certificate (right) -->
-            <div class="page" style="font-size:9px; height:100%;">
+            <div class="page" style="font-size:10.5px; line-height:1.3; height:100%;">
                 <table style="width:100%; border-collapse:collapse;">
                     <tr>
                         <td style="width:52%; vertical-align:top; padding-right:5px;">
-                            <div style="text-align:center; font-size:12px; font-weight:bold;">TEACHER'S COMMENTS/REMARKS</div>
-                            <div style="text-align:center; font-style:italic; font-size:8px; margin-bottom:3px;">(Provide specific observations, strengths, and suggested interventions.)</div>
+                            <div style="text-align:center; font-size:14px; font-weight:bold;">TEACHER'S COMMENTS/REMARKS</div>
+                            <div style="text-align:center; font-style:italic; font-size:9.5px; margin-bottom:6px;">(Provide specific observations, strengths, and suggested interventions.)</div>
                             <t t-foreach="period_ids" t-as="prd">
                                 <t t-set="tno" t-value="int(term_numbers.get(prd.id) or 0)"></t>
-                                <table style="width:100%; border-collapse:collapse; border:1px solid black; margin-bottom:3px;">
+                                <table style="width:100%; border-collapse:collapse; border:1px solid black; margin-bottom:8px;">
                                     <tbody>
                                         <tr>
-                                            <td style="border:1px solid black; text-align:center; font-weight:bold; padding:2px;">TERM <t t-esc="tno"></t> <t t-if="0 &lt; tno &lt; 4" t-esc="term_tag[tno] + ' TERMINO'"></t></td>
+                                            <td style="border:1px solid black; text-align:center; font-weight:bold; padding:4px;">TERM <t t-esc="tno"></t> <t t-if="0 &lt; tno &lt; 4" t-esc="term_tag[tno] + ' TERMINO'"></t></td>
                                         </tr>
                                         <tr>
-                                            <td style="border:1px solid black; padding:3px; height:118px; vertical-align:top;"><t t-esc="data.get('comments', {}).get(prd.id, '')"></t></td>
+                                            <td style="border:1px solid black; padding:5px; height:330px; vertical-align:top; overflow:hidden;">
+                                                <div><t t-esc="data.get('comments', {}).get(prd.id, '')"></t></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                                <div style="border-bottom:1px solid #999999; height:36px;"></div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div style="margin-bottom:4px;">Parent's/Guardian's Signature: ______________________________</div>
+                                <div style="margin-bottom:10px;">Parent's/Guardian's Signature: ______________________________</div>
                             </t>
                         </td>
                         <td style="width:48%; vertical-align:top;">
                             <!-- Attendance record -->
-                            <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:8px; margin-bottom:4px;">
+                            <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:10.5px; margin-bottom:6px;">
                                 <tbody>
                                     <tr>
-                                        <td colspan="5" style="border:1px solid black; text-align:center; font-weight:bold; padding:2px;">ATTENDANCE RECORD</td>
+                                        <td colspan="5" style="border:1px solid black; text-align:center; font-weight:bold; padding:8px;">ATTENDANCE RECORD</td>
                                     </tr>
                                     <tr>
-                                        <td style="border:1px solid black; font-weight:bold; padding:1px;">Term</td>
-                                        <td style="border:1px solid black; font-weight:bold; padding:1px;">Month</td>
-                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px;">No. of<br></br>Class Days</td>
-                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px;">No. of<br></br>Days Present</td>
-                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px;">No. of<br></br>Times Absent</td>
+                                        <td style="border:1px solid black; font-weight:bold; padding:13px 4px;">Term</td>
+                                        <td style="border:1px solid black; font-weight:bold; padding:13px 4px;">Month</td>
+                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:13px 4px;">No. of<br></br>Class Days</td>
+                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:13px 4px;">No. of<br></br>Days Present</td>
+                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:13px 4px;">No. of<br></br>Times Absent</td>
                                     </tr>
                                     <t t-foreach="monthly" t-as="m">
                                         <tr>
-                                            <td style="border:1px solid black; text-align:center; padding:1px;">
+                                            <td style="border:1px solid black; text-align:center; padding:13px 4px;">
                                                 <t t-if="m_index in (0, 4, 7)">
                                                     <t t-if="m_index &lt; 4">1</t>
                                                     <t t-elif="m_index &lt; 7">2</t>
                                                     <t t-else="">3</t>
                                                 </t>
                                             </td>
-                                            <td style="border:1px solid black; padding:1px;"><t t-esc="m['month']"></t></td>
-                                            <td style="border:1px solid black; text-align:center; padding:1px;"><t t-esc="m['expected']"></t></td>
-                                            <td style="border:1px solid black; text-align:center; padding:1px;"><t t-esc="m['present']"></t></td>
-                                            <td style="border:1px solid black; text-align:center; padding:1px;"><t t-esc="m['absent']"></t></td>
+                                            <td style="border:1px solid black; padding:13px 4px;"><t t-esc="m['month']"></t></td>
+                                            <td style="border:1px solid black; text-align:center; padding:13px 4px;"><t t-esc="m['expected']"></t></td>
+                                            <td style="border:1px solid black; text-align:center; padding:13px 4px;"><t t-esc="m['present']"></t></td>
+                                            <td style="border:1px solid black; text-align:center; padding:13px 4px;"><t t-esc="m['absent']"></t></td>
                                         </tr>
                                     </t>
                                     <tr>
-                                        <td colspan="2" style="border:1px solid black; font-weight:bold; text-align:center; padding:1px;">TOTAL</td>
-                                        <td style="border:1px solid black; text-align:center; padding:1px;"><t t-esc="totals.get('expected', 0)"></t></td>
-                                        <td style="border:1px solid black; text-align:center; padding:1px;"><t t-esc="totals.get('present', 0)"></t></td>
-                                        <td style="border:1px solid black; text-align:center; padding:1px;"><t t-esc="totals.get('absent', 0)"></t></td>
+                                        <td colspan="2" style="border:1px solid black; font-weight:bold; text-align:center; padding:13px 4px;">TOTAL</td>
+                                        <td style="border:1px solid black; text-align:center; padding:13px 4px;"><t t-esc="totals.get('expected', 0)"></t></td>
+                                        <td style="border:1px solid black; text-align:center; padding:13px 4px;"><t t-esc="totals.get('present', 0)"></t></td>
+                                        <td style="border:1px solid black; text-align:center; padding:13px 4px;"><t t-esc="totals.get('absent', 0)"></t></td>
                                     </tr>
                                 </tbody>
                             </table>
                             <!-- Important note + rating scale -->
-                            <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:8px; margin-bottom:4px;">
+                            <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:10.5px; margin-bottom:6px;">
                                 <tbody>
                                     <tr>
-                                        <td colspan="2" style="border:1px solid black; text-align:center; font-weight:bold; padding:2px;">IMPORTANT NOTE TO PARENTS/GUARDIANS</td>
+                                        <td colspan="2" style="border:1px solid black; text-align:center; font-weight:bold; padding:8px;">IMPORTANT NOTE TO PARENTS/GUARDIANS</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="border:1px solid black; padding:2px; text-align:justify;">This rating scale is used to record the learner's level of attainment for each competency across the developmental domains. It guides teachers in assigning ratings based on observed performance and assessment results for each term.</td>
+                                        <td colspan="2" style="border:1px solid black; padding:11px 4px; text-align:justify;">This rating scale is used to record the learner's level of attainment for each competency across the developmental domains. It guides teachers in assigning ratings based on observed performance and assessment results for each term.</td>
                                     </tr>
                                     <tr>
-                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px; width:28%;">Rating</td>
-                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:1px;">Indicators</td>
+                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:8px; width:28%;">Rating</td>
+                                        <td style="border:1px solid black; font-weight:bold; text-align:center; padding:8px;">Indicators</td>
                                     </tr>
                                     <tr>
-                                        <td style="border:1px solid black; padding:1px 2px; vertical-align:top;"><b>Consistent</b><br></br>(CO)</td>
-                                        <td style="border:1px solid black; padding:1px 2px;">&#8226; Always demonstrates the expected competency<br></br>&#8226; Always participates in the different activities, works independently<br></br>&#8226; Always performs tasks, advanced in some aspects</td>
+                                        <td style="border:1px solid black; padding:11px 4px; vertical-align:top;"><b>Consistent</b><br></br>(CO)</td>
+                                        <td style="border:1px solid black; padding:11px 4px;">&#8226; Always demonstrates the expected competency<br></br>&#8226; Always participates in the different activities, works independently<br></br>&#8226; Always performs tasks, advanced in some aspects</td>
                                     </tr>
                                     <tr>
-                                        <td style="border:1px solid black; padding:1px 2px; vertical-align:top;"><b>Developing</b><br></br>(DV)</td>
-                                        <td style="border:1px solid black; padding:1px 2px;">&#8226; Sometimes demonstrates the competency<br></br>&#8226; Sometimes participates, minimal supervision<br></br>&#8226; Progresses continuously in doing assigned tasks</td>
+                                        <td style="border:1px solid black; padding:11px 4px; vertical-align:top;"><b>Developing</b><br></br>(DV)</td>
+                                        <td style="border:1px solid black; padding:11px 4px;">&#8226; Sometimes demonstrates the competency<br></br>&#8226; Sometimes participates, minimal supervision<br></br>&#8226; Progresses continuously in doing assigned tasks</td>
                                     </tr>
                                     <tr>
-                                        <td style="border:1px solid black; padding:1px 2px; vertical-align:top;"><b>Beginning</b><br></br>(BG)</td>
-                                        <td style="border:1px solid black; padding:1px 2px;">&#8226; Rarely demonstrates the expected competency<br></br>&#8226; Rarely participates in class activities and/or initiates independent works<br></br>&#8226; Shows interest in doing tasks but needs close supervision</td>
+                                        <td style="border:1px solid black; padding:11px 4px; vertical-align:top;"><b>Beginning</b><br></br>(BG)</td>
+                                        <td style="border:1px solid black; padding:11px 4px;">&#8226; Rarely demonstrates the expected competency<br></br>&#8226; Rarely participates in class activities and/or initiates independent works<br></br>&#8226; Shows interest in doing tasks but needs close supervision</td>
                                     </tr>
                                 </tbody>
                             </table>
                             <!-- Certificate of transfer -->
-                            <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:8px;">
+                            <table style="width:100%; border-collapse:collapse; border:1px solid black; font-size:10px;">
                                 <tbody>
                                     <tr>
-                                        <td colspan="2" style="border:1px solid black; text-align:center; font-weight:bold; padding:2px;">CERTIFICATE OF TRANSFER</td>
+                                        <td colspan="2" style="border:1px solid black; text-align:center; font-weight:bold; padding:8px;">CERTIFICATE OF TRANSFER</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="border:1px solid black; padding:2px; text-align:justify;">This is to certify that <b><t t-esc="data.get('student_name', '')"></t></b> of <t t-esc="data.get('school_name', '')"></t> has developed the general competencies based on the Kindergarten Curriculum Guide.</td>
+                                        <td colspan="2" style="border:1px solid black; padding:11px 4px; text-align:justify;">This is to certify that <b><t t-esc="data.get('student_name', '')"></t></b> of <t t-esc="data.get('school_name', '')"></t> has developed the general competencies based on the Kindergarten Curriculum Guide.</td>
                                     </tr>
                                     <tr>
-                                        <td style="border:1px solid black; text-align:center; padding:2px; height:34px;">_______________________________<br></br><b>Adviser</b></td>
-                                        <td style="border:1px solid black; text-align:center; padding:2px; height:34px;">_______________________________<br></br><b>School Head</b></td>
+                                        <td style="border:1px solid black; text-align:center; padding:11px 4px; height:230px; vertical-align:bottom;">_______________________________<br></br><b>Adviser</b></td>
+                                        <td style="border:1px solid black; text-align:center; padding:11px 4px; height:230px; vertical-align:bottom;">_______________________________<br></br><b>School Head</b></td>
                                     </tr>
                                 </tbody>
                             </table>

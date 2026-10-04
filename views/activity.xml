@@ -8,6 +8,7 @@
                 <field name="name" />
                 <field name="period_id" />
                 <field name="activity_type_id" />
+                <field name="exam_component" optional="show" />
                 <field name="school_year_id" optional="show" />
                 <field name="channel_id" />
             </list>
@@ -32,6 +33,11 @@
                             <field name="period_id" string="Grading Period" />
                             <field name="activity_type_id" string="Activity Type"
                                 domain="[('channel_id', '=', channel_id)]" />
+                            <field name="exam_component"
+                                invisible="activity_type_id.name != 'quarterly_exam'"
+                                required="activity_type_id.name == 'quarterly_exam'" />
+                            <field name="component_weight" readonly="1"
+                                invisible="not exam_component" />
                         </group>
                         <group>
                             <field name="channel_id" string="Channel" readonly="1"

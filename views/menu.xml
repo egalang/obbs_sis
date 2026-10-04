@@ -229,6 +229,13 @@
       <field name="target">new</field>
     </record>
 
+    <record id="action_sis_generate_ecr" model="ir.actions.act_window">
+      <field name="name">Generate Official ECR</field>
+      <field name="res_model">sis.ecr.report.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
     <record id="action_sis_generate_rating_sheet" model="ir.actions.act_window">
       <field name="name">Generate Rating Sheet</field>
       <field name="res_model">sis.rating.sheet.wizard</field>
@@ -335,6 +342,13 @@
       parent="sis_menu_reports"
       action="action_sis_generate_progress_report"
       sequence="10"
+      groups="obbs_sis.group_sis_faculty,obbs_sis.group_sis_admin" />
+
+    <menuitem name="Official ECR (SY 2026-2027)"
+      id="sis_menu_ecr_report"
+      parent="sis_menu_reports"
+      action="action_sis_generate_ecr"
+      sequence="11"
       groups="obbs_sis.group_sis_faculty,obbs_sis.group_sis_admin" />
 
     <menuitem name="Rating Sheet"

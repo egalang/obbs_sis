@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="view_ecr_report_wizard" model="ir.ui.view">
+            <field name="name">ECR Report Wizard</field>
+            <field name="model">sis.ecr.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generate Official ECR">
+                    <group>
+                        <field name="school_year_id" />
+                        <field name="channel_id" />
+                    </group>
+                    <footer>
+                        <button name="generate_ecr" string="Generate Official ECR"
+                            type="object" class="btn-primary" />
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

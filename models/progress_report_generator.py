@@ -239,11 +239,13 @@ class ReportExport(models.AbstractModel):
                     col_idx += 1
                     total_ws += ws_sum
 
-                ig_value = round(total_ws, 2)
+                ig_value = self.env["sis.gradebook"].compute_initial_grade(
+                    activities, gb_entries, school_year
+                )
                 sheet.write(row, final_grade_col, ig_value, bordered_center_format)
 
-                transmuted = self.env["sis.transmutation.table"].search(
-                    [("grade_range", "<=", ig_value)], limit=1, order="grade_range DESC"
+                transmuted = self.env["sis.transmutation.table"].transmute(
+                    ig_value, school_year
                 )
                 qg = transmuted.transmuted_grade if transmuted else "-"
                 sheet.write(row, qg_col, qg, bordered_center_format)

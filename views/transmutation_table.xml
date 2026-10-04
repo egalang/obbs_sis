@@ -7,6 +7,7 @@
             <field name="model">sis.transmutation.table</field>
             <field name="arch" type="xml">
                 <list editable="bottom">
+                    <field name="school_year_id" />
                     <field name="grade_range" />
                     <field name="transmuted_grade" />
                 </list>
@@ -21,6 +22,7 @@
                 <form>
                     <sheet>
                         <group>
+                            <field name="school_year_id" />
                             <field name="grade_range" />
                             <field name="transmuted_grade" />
                         </group>

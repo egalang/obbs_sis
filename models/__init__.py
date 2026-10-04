@@ -19,6 +19,7 @@ from . import period
 from . import gradebook
 from . import attendance
 from . import progress_report_generator
+from . import ecr_report_generator
 from . import transmutation_table
 from . import rating_comment
 from . import rating_sheet_generator

@@ -382,8 +382,15 @@
         <record id="cb_nur_ms_8" model="sis.character.behavior">
             <field name="behavior_type">nursery</field>
             <field name="group_name">Motor Skills</field>
-            <field name="description">AVERAGE</field>
+            <field name="description">Able to throw and catch a ball</field>
             <field name="sequence">8</field>
+            <field name="group_order">3</field>
+        </record>
+        <record id="cb_nur_ms_9" model="sis.character.behavior">
+            <field name="behavior_type">nursery</field>
+            <field name="group_name">Motor Skills</field>
+            <field name="description">AVERAGE</field>
+            <field name="sequence">9</field>
             <field name="group_order">3</field>
         </record>
 

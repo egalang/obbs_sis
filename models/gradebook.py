@@ -143,13 +143,37 @@ class Gradebook(models.Model):
                 )
                 rec.weight = match[0].weight if match else 0
 
-    @api.depends("score", "total_max", "weight")
+    @api.depends(
+        "score",
+        "total_max",
+        "weight",
+        "activity_id.component_weight",
+        "activity_id.max_score",
+    )
     def _compute_weighted_score(self):
         for rec in self:
-            if not rec.score or not rec.total_max or not rec.weight:
+            activity = rec.activity_id
+            if not rec.score or not activity:
                 rec.weighted_score = 0.0
-            else:
+                continue
+            # EXs component (Summative Test 1 / Summative Test 2 / Term
+            # Examination): DepEd DO 2026-015 fixes the split at 30/30/40, so
+            # the activity contributes its percentage score x component share
+            # x the activity-type weight, independent of max score.
+            if (
+                activity.component_weight
+                and activity.max_score
+                and rec.weight
+            ):
+                rec.weighted_score = (
+                    (rec.score / activity.max_score)
+                    * (activity.component_weight / 100.0)
+                    * rec.weight
+                )
+            elif rec.total_max and rec.weight:
                 rec.weighted_score = (rec.score * rec.weight) / rec.total_max
+            else:
+                rec.weighted_score = 0.0
 
     @api.depends("score", "total_max")
     def _compute_percentage_score(self):
@@ -168,6 +192,63 @@ class Gradebook(models.Model):
         if school_year_id:
             domain.append(("school_year_id", "=", school_year_id))
         return domain
+
+    @api.model
+    def compute_initial_grade(self, activities, gradebooks, school_year=None):
+        """Initial Grade for a subject/period, matching the official ECR.
+
+        For DepEd 2026-format school years (DO 2026-015) each component is
+        rounded to 2 decimals before summing:
+          WW/PT: round(Σscore / Σmax × 100, 2) × type weight
+          EXs:   Σ round(score / max × component weight, 2) × type weight
+        Other school years keep the legacy behaviour (sum then round).
+        """
+        from odoo.addons.obbs_sis.models.report_card_generator import (
+            round_half_up,
+        )
+
+        if not (school_year and school_year.report_card_format == "deped_2026"):
+            return round_half_up(
+                sum(gradebooks.mapped("weighted_score") or [0]), 2
+            )
+
+        ig = 0.0
+        for type_name in ("written_works", "performance_tasks", "quarterly_exam"):
+            type_acts = activities.filtered(
+                lambda a: a.activity_type_id.name == type_name
+            )
+            if not type_acts:
+                continue
+            weight = type_acts[0].activity_type_id.weight or 0
+            type_gbs = gradebooks.filtered(
+                lambda g: g.activity_id.id in type_acts.ids
+            )
+            if type_name == "quarterly_exam":
+                ps = 0.0
+                for activity in type_acts:
+                    gb = type_gbs.filtered(
+                        lambda g: g.activity_id.id == activity.id
+                    )[:1]
+                    if gb and gb.score is not None and activity.max_score:
+                        ps += round_half_up(
+                            gb.score
+                            / activity.max_score
+                            * (activity.component_weight or 0),
+                            2,
+                        )
+                ig += round_half_up(ps * weight / 100.0, 2)
+            else:
+                max_sum = sum(a.max_score for a in type_acts)
+                score_sum = sum(
+                    g.score for g in type_gbs if g.score is not None
+                )
+                ps = (
+                    round_half_up(score_sum / max_sum * 100, 2)
+                    if max_sum
+                    else 0.0
+                )
+                ig += round_half_up(ps * weight / 100.0, 2)
+        return round_half_up(ig, 2)
 
     @api.constrains("enrollment_id", "activity_id")
     def _check_unique_enrollment_activity(self):
